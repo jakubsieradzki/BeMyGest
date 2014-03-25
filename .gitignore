@@ -17,3 +17,5 @@
 *.opensdf
 *.sdf
 ipch/
+Debug/
+Release/
