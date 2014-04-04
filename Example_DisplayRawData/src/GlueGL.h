@@ -1,5 +1,5 @@
-#ifndef GLUE_GL_
-#define GLUE_GL_
+#ifndef BMG_GLUE_GL_
+#define BMG_GLUE_GL_
 
 #include <functional>
 
