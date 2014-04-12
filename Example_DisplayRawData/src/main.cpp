@@ -15,25 +15,31 @@ int main(int argc, char* argv[]) {
     exit(1);
   });
   
-  xn::DepthGenerator depth_generator;  
-  status = depth_generator.Create(context);
+  xn::ImageGenerator image_generator;  
+  status = image_generator.Create(context);
   bmg::OnError(status, []{
-    std::cout << "Couldn't create depth generator!" << std::endl;
+    std::cout << "Couldn't create image generator!" << std::endl;
   });
   status = context.StartGeneratingAll();
   bmg::OnError(status, []{
     std::cout << "Couldn't generate all data!" << std::endl;
   });
+  xn::ImageMetaData image_metadata;
+  image_generator.GetMetaData(image_metadata);
 
   glue.BindDisplayFunc([&]{
     glue.BeginDraw();
 
     // here goes code for app main loop
-    XnStatus status = context.WaitOneUpdateAll(depth_generator);
+    XnStatus status = context.WaitOneUpdateAll(image_generator);
     bmg::OnError(status, []{
       std::cout << "Couldn't update and wait for new data!" << std::endl;
     });
-    const XnDepthPixel* p_depth_pixel = depth_generator.GetDepthMap();
+    const XnRGB24Pixel* image_pixels = image_metadata.RGB24Data();
+    glue.DrawOnTexture(
+      (void*)image_pixels, 
+      320, 240, 
+      image_metadata.XRes(), image_metadata.YRes());
 
     glue.EndDraw();
   });

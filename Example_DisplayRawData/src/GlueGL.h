@@ -20,6 +20,12 @@ public:
 
   void BeginDraw();
   void EndDraw();
+  void DrawOnTexture(    
+    void* pixels, 
+    unsigned tex_x, 
+    unsigned tex_y, 
+    unsigned data_x, 
+    unsigned data_y);
 
   void Run();
 

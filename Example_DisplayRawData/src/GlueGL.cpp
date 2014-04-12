@@ -74,4 +74,43 @@ void GlueGL::Run()
   glutMainLoop();
 }
 
+void GlueGL::DrawOnTexture(  
+  void* pixels, 
+  unsigned tex_x, 
+  unsigned tex_y, 
+  unsigned data_x, 
+  unsigned data_y)
+{
+  unsigned texture_id = 0;
+  glGenTextures(1, &texture_id);
+  glBindTexture(GL_TEXTURE_2D, texture_id);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, 
+    GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, 
+    GL_NEAREST);
+  glTexImage2D(
+    GL_TEXTURE_2D, 0, GL_RGB, tex_x, tex_y, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+
+  glEnable(GL_TEXTURE_2D);
+  glBegin(GL_QUADS);
+  // upper left
+  glTexCoord2f(0, 0);
+  glVertex2f(0, 0);
+  // upper right
+  glTexCoord2f((float)data_x/(float)tex_x, 0);
+  glVertex2f(screen_x_/2.0, 0);
+  // bottom right
+  glTexCoord2f((float)data_x/(float)tex_x, (float)data_y/(float)tex_y);
+  glVertex2f(screen_x_/2.0, screen_y_/2.0);
+  // bottom left
+  glTexCoord2f(0, (float)data_y/(float)tex_y);
+  glVertex2f(0, screen_y_/2.0);
+
+  glEnd();
+  glDisable(GL_TEXTURE_2D);
+}
+
 }
