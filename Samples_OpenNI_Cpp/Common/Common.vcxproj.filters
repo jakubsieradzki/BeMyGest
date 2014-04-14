@@ -15,18 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\src\GlueGL.cpp">
+    <ClCompile Include="src\GlueGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\src\GlueGL.h">
+    <ClInclude Include="src\GlueGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\src\OpenNiUtil.h">
+    <ClInclude Include="src\OpenNiUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
