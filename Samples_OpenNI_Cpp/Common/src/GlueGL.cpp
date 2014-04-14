@@ -38,8 +38,6 @@ void GlueGL::Init(
   glutCreateWindow(window_name);
   glutSetCursor(GLUT_CURSOR_NONE);
   glutIdleFunc(idleFunc);
-
-  glEnable(GL_TEXTURE_2D);
 }
 
 void GlueGL::BeginDraw()
@@ -91,6 +89,8 @@ void GlueGL::DrawOnTexture(
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex_x, tex_y, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 
+  glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+  glEnable(GL_TEXTURE_2D);
   glBegin(GL_QUADS);
   // upper left
   glTexCoord2f(0, 0);
@@ -103,9 +103,24 @@ void GlueGL::DrawOnTexture(
   glVertex2f(right_down_x, right_down_y);
   // bottom left
   glTexCoord2f(0, (float)data_y/(float)tex_y);
-  glVertex2f(left_up_x, right_down_y);
-
+  glVertex2f(left_up_x, right_down_y);  
   glEnd();  
+  glDisable(GL_TEXTURE_2D);
+}
+
+void GlueGL::DrawPointOverRegion(
+  unsigned point_x,
+  unsigned point_y,
+  unsigned left_up_x,
+  unsigned left_up_y, 
+  unsigned point_size /*= 8 */)
+{ 
+  glColor4f(0.0f, 1.0f, 0.0f, 1.0f); 
+  glPointSize(point_size); 
+  glBegin(GL_POINTS);
+  glVertex2f(point_x + left_up_x, point_y + left_up_y);
+  glEnd();
+  glFlush();
 }
 
 }

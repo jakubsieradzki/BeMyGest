@@ -30,6 +30,12 @@ public:
     unsigned left_up_y,
     unsigned right_down_x,
     unsigned right_down_y);
+  void DrawPointOverRegion(
+    unsigned point_x,
+    unsigned point_y,
+    unsigned left_up_x,
+    unsigned left_up_y,
+    unsigned point_size = 8);
 
   void Run();
 
