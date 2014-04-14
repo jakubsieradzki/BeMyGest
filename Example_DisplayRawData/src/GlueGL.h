@@ -25,7 +25,11 @@ public:
     unsigned tex_x, 
     unsigned tex_y, 
     unsigned data_x, 
-    unsigned data_y);
+    unsigned data_y,
+    unsigned left_up_x,
+    unsigned left_up_y,
+    unsigned right_down_x,
+    unsigned right_down_y);
 
   void Run();
 

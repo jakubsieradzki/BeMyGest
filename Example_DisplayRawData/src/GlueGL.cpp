@@ -81,7 +81,11 @@ void GlueGL::DrawOnTexture(
   unsigned tex_x, 
   unsigned tex_y, 
   unsigned data_x, 
-  unsigned data_y)
+  unsigned data_y,
+  unsigned left_up_x,
+  unsigned left_up_y,
+  unsigned right_down_x,
+  unsigned right_down_y)
 {
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, 
     GL_NEAREST);
@@ -93,16 +97,16 @@ void GlueGL::DrawOnTexture(
   glBegin(GL_QUADS);
   // upper left
   glTexCoord2f(0, 0);
-  glVertex2f(0, 0);
+  glVertex2f(left_up_x, left_up_y);
   // upper right
   glTexCoord2f((float)data_x/(float)tex_x, 0);
-  glVertex2f(screen_x_, 0);
+  glVertex2f(right_down_x, left_up_y);
   // bottom right
   glTexCoord2f((float)data_x/(float)tex_x, (float)data_y/(float)tex_y);
-  glVertex2f(screen_x_, screen_y_);
+  glVertex2f(right_down_x, right_down_y);
   // bottom left
   glTexCoord2f(0, (float)data_y/(float)tex_y);
-  glVertex2f(0, screen_y_);
+  glVertex2f(left_up_x, right_down_y);
 
   glEnd();  
 }
