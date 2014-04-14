@@ -13,6 +13,7 @@ xn::DepthGenerator depth_generator;
 xn::GestureGenerator gesture_generator;
 xn::HandsGenerator hands_generator;
 
+// Define hand & gesture recognition callbacks
 void XN_CALLBACK_TYPE Gesture_Recognized(
     xn::GestureGenerator& generator, 
     const XnChar* strGesture, 
@@ -87,7 +88,7 @@ int main(int argc, char* argv[]) {
   xn::ImageMetaData image_metadata;
   xn::DepthMetaData depth_metadata;  
 
-  // init gesture & hands generators
+  // Create gesture & hands generators
   status = gesture_generator.Create(context);
   bmg::OnError(status, []{
     std::cout << "Couldn't create gesture generator!" << std::endl;
@@ -104,7 +105,6 @@ int main(int argc, char* argv[]) {
   hands_generator
     .RegisterHandCallbacks(Hand_Create, Hand_Update, Hand_Destroy, NULL, h2);
 
-  XnBoundingBox3D* asd;
   status = context.StartGeneratingAll();
   bmg::OnError(status, []{
     std::cout << "Couldn't generate all data!" << std::endl;
@@ -150,6 +150,7 @@ int main(int argc, char* argv[]) {
     delete [] transformed_depth_map;
 
     if (hand_recognized) {
+      // Draw point over tracked hand
       glue.DrawPointOverRegion(projective_point.X, projective_point.Y, 0, 0);
       glue.DrawPointOverRegion(projective_point.X, projective_point.Y, 320, 0);
     }

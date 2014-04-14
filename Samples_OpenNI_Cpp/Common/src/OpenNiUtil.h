@@ -14,7 +14,7 @@ void OnError(XnStatus status, std::function<void()> func) {
 }
 
 /*
- *  Calculating depth using accumulative histogram
+ *  Calculating depth map for RGB pallet using accumulative histogram
  */
 void CalculateDepth(
   const XnDepthPixel* depth_pixels,
