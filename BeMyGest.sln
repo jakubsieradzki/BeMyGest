@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Samples_OpenNI_Cp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DisplayRawData", "Samples_OpenNI_Cpp\DisplayRawData\DisplayRawData.vcxproj", "{E44F2F8C-1A80-4E42-ADBA-493E1653B238}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrackHand", "Samples_OpenNI_Cpp\TrackHand\TrackHand.vcxproj", "{88F55C38-DBCF-48E9-9F31-4AC09B2897B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{E44F2F8C-1A80-4E42-ADBA-493E1653B238}.Debug|Win32.Build.0 = Debug|Win32
 		{E44F2F8C-1A80-4E42-ADBA-493E1653B238}.Release|Win32.ActiveCfg = Release|Win32
 		{E44F2F8C-1A80-4E42-ADBA-493E1653B238}.Release|Win32.Build.0 = Release|Win32
+		{88F55C38-DBCF-48E9-9F31-4AC09B2897B9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{88F55C38-DBCF-48E9-9F31-4AC09B2897B9}.Debug|Win32.Build.0 = Debug|Win32
+		{88F55C38-DBCF-48E9-9F31-4AC09B2897B9}.Release|Win32.ActiveCfg = Release|Win32
+		{88F55C38-DBCF-48E9-9F31-4AC09B2897B9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

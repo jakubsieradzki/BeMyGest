@@ -6,9 +6,8 @@
 const int MAX_DEPTH = 10000;
 
 int main(int argc, char* argv[]) {  
-  auto& glue = bmg::GlueGL::getInstance();
-  
-  glue.Init(argc, argv, 640, 240, "Example_DisplayRawData");  
+  auto& glue = bmg::GlueGL::getInstance();  
+  glue.Init(argc, argv, 640, 240, "DisplayRawData");  
   
   xn::Context context;
   XnStatus status = context.Init();
