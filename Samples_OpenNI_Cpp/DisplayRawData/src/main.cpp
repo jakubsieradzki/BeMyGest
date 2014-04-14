@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-const int max_depth = 10000;
+const int MAX_DEPTH = 10000;
 
 int main(int argc, char* argv[]) {  
   auto& glue = bmg::GlueGL::getInstance();
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 
     XnRGB24Pixel* transformed_depth_map = new XnRGB24Pixel[depthX * depthY];    
     bmg::CalculateDepth(
-      depth_generator.GetDepthMap(), depthX, depthY, max_depth, transformed_depth_map);
+      depth_generator.GetDepthMap(), depthX, depthY, MAX_DEPTH, transformed_depth_map);
 
     glue.DrawOnTexture(
       (void*)transformed_depth_map, 
