@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]) {  
   auto& glue = bmg::GlueGL::getInstance();
   
-  glue.Init(argc, argv, 1024, 768, "Example_DisplayRawData");  
+  glue.Init(argc, argv, 320, 240, "Example_DisplayRawData");  
   
   xn::Context context;
   XnStatus status = context.Init();
@@ -31,13 +31,14 @@ int main(int argc, char* argv[]) {
     glue.BeginDraw();
 
     // here goes code for app main loop
-    XnStatus status = context.WaitOneUpdateAll(image_generator);
+    XnStatus status = context.WaitAndUpdateAll();
     bmg::OnError(status, []{
       std::cout << "Couldn't update and wait for new data!" << std::endl;
-    });
-    const XnRGB24Pixel* image_pixels = image_metadata.RGB24Data();
+    });    
+    image_generator.GetMetaData(image_metadata);    
+    
     glue.DrawOnTexture(
-      (void*)image_pixels, 
+      (void*)image_metadata.RGB24Data(), 
       320, 240, 
       image_metadata.XRes(), image_metadata.YRes());
 
