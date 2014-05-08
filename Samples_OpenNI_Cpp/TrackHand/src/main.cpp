@@ -15,57 +15,57 @@ xn::HandsGenerator hands_generator;
 
 // Define hand & gesture recognition callbacks
 void XN_CALLBACK_TYPE Gesture_Recognized(
-    xn::GestureGenerator& generator, 
-    const XnChar* strGesture, 
-    const XnPoint3D* pIDPosition, 
-    const XnPoint3D* pEndPosition, 
-    void* pCookie) 
-{  
-  gesture_generator.RemoveGesture(strGesture); 
-  hands_generator.StartTracking(*pEndPosition);  
+    xn::GestureGenerator& generator,
+    const XnChar* strGesture,
+    const XnPoint3D* pIDPosition,
+    const XnPoint3D* pEndPosition,
+    void* pCookie)
+{
+  gesture_generator.RemoveGesture(strGesture);
+  hands_generator.StartTracking(*pEndPosition);
 }
 
 void XN_CALLBACK_TYPE Gesture_Process(
-    xn::GestureGenerator& generator, 
-    const XnChar* strGesture, 
-    const XnPoint3D* pPosition, 
-    XnFloat fProgress, 
-    void* pCookie) 
+    xn::GestureGenerator& generator,
+    const XnChar* strGesture,
+    const XnPoint3D* pPosition,
+    XnFloat fProgress,
+    void* pCookie)
 {
 }
 
 void XN_CALLBACK_TYPE Hand_Create(
-    xn::HandsGenerator& generator, 
-    XnUserID nId, 
-    const XnPoint3D* pPosition, 
-    XnFloat fTime, 
-    void* pCookie) 
-{   
+    xn::HandsGenerator& generator,
+    XnUserID nId,
+    const XnPoint3D* pPosition,
+    XnFloat fTime,
+    void* pCookie)
+{
   hand_recognized = true;
 }
 
 void XN_CALLBACK_TYPE Hand_Update(
-    xn::HandsGenerator& generator, 
-    XnUserID nId, 
-    const XnPoint3D* pPosition, 
-    XnFloat fTime, 
-    void* pCookie) 
+    xn::HandsGenerator& generator,
+    XnUserID nId,
+    const XnPoint3D* pPosition,
+    XnFloat fTime,
+    void* pCookie)
 {
   depth_generator.ConvertRealWorldToProjective(1, pPosition, &projective_point);
 }
 
 void XN_CALLBACK_TYPE Hand_Destroy(
-    xn::HandsGenerator& generator, 
-    XnUserID nId, 
-    XnFloat fTime, 
-    void* pCookie) 
-{  
+    xn::HandsGenerator& generator,
+    XnUserID nId,
+    XnFloat fTime,
+    void* pCookie)
+{
   gesture_generator.AddGesture(GESTURE, NULL);
   hand_recognized = false;
 }
 
-int main(int argc, char* argv[]) {    
-  glue.Init(argc, argv, 640, 240, "TrackHand");  
+int main(int argc, char* argv[]) {
+  glue.Init(argc, argv, 640, 240, "TrackHand");
 
   xn::Context context;
   XnStatus status = context.Init();
@@ -74,34 +74,34 @@ int main(int argc, char* argv[]) {
     exit(1);
   });
 
-  xn::ImageGenerator image_generator;  
+  xn::ImageGenerator image_generator;
   status = image_generator.Create(context);
   bmg::OnError(status, []{
     std::cout << "Couldn't create image generator!" << std::endl;
   });
-  
+
   status = depth_generator.Create(context);
   bmg::OnError(status, []{
     std::cout << "Couldn't create depth generator!" << std::endl;
   });
-    
+
   xn::ImageMetaData image_metadata;
-  xn::DepthMetaData depth_metadata;  
+  xn::DepthMetaData depth_metadata;
 
   // Create gesture & hands generators
   status = gesture_generator.Create(context);
   bmg::OnError(status, []{
     std::cout << "Couldn't create gesture generator!" << std::endl;
-  });  
+  });
   status = hands_generator.Create(context);
   bmg::OnError(status, []{
     std::cout << "Couldn't create hands generator!" << std::endl;
   });
 
-  // Register to callbacks 
-  XnCallbackHandle h1, h2; 
+  // Register to callbacks
+  XnCallbackHandle h1, h2;
   gesture_generator
-    .RegisterGestureCallbacks(Gesture_Recognized, Gesture_Process, NULL, h1); 
+    .RegisterGestureCallbacks(Gesture_Recognized, Gesture_Process, NULL, h1);
   hands_generator
     .RegisterHandCallbacks(Hand_Create, Hand_Update, Hand_Destroy, NULL, h2);
 
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
     unsigned imageY = image_metadata.YRes();
 
     glue.DrawOnTexture(
-      (void*)image_metadata.RGB24Data(), 
+      (void*)image_metadata.RGB24Data(),
       imageX, imageY,
       imageX, imageY,
       320, 0, 640, 240);
@@ -137,15 +137,15 @@ int main(int argc, char* argv[]) {
     unsigned depthX = depth_metadata.XRes();
     unsigned depthY = depth_metadata.YRes();
 
-    XnRGB24Pixel* transformed_depth_map = new XnRGB24Pixel[depthX * depthY];    
+    XnRGB24Pixel* transformed_depth_map = new XnRGB24Pixel[depthX * depthY];
     bmg::CalculateDepth(
       depth_generator.GetDepthMap(), depthX, depthY, MAX_DEPTH, transformed_depth_map);
 
     glue.DrawOnTexture(
-      (void*)transformed_depth_map, 
-      depthX, depthY, 
-      depthX, depthY, 
-      0, 0, 
+      (void*)transformed_depth_map,
+      depthX, depthY,
+      depthX, depthY,
+      0, 0,
       320, 240);
     delete [] transformed_depth_map;
 
