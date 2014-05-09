@@ -5,7 +5,7 @@
 #include "global.h"
 
 namespace Log
-{	
+{
   static void info(std::string msg) {
     std::cout << "[INFO]: " << msg << std::endl;
   }

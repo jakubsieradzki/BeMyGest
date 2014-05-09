@@ -1,8 +1,11 @@
 #ifndef MAP_H_
 #define MAP_H_
 
+#include <tuple>
+#include <utility>
+
 #include "global.h"
-#include "GfxLoader.h"
+#include "GFX.h"
 #include "Entity.h"
 
 class Map
@@ -10,7 +13,7 @@ class Map
 	public:    
 		Map(std::string file_path, int rows_, int cols_, int topOffset_ = 100);
 
-    Tile** LoadFromFile(std::string file_path);
+    static std::pair<Tile**, unsigned> LoadFromFile(std::string file_path);
 		void GridOn(bool gridOn) { this -> gridOn = gridOn; }
 		void setEntity(Entity* entity, int row, int col);
 

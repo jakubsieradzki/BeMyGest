@@ -1,9 +1,12 @@
 #include "Entity.h"
 
+#include <cassert>
+
 Entity::Entity(sf::Texture* texture) 
 	: remove(false)
-{
-	sprite = new sf::Sprite(*texture);
+{  
+  assert(texture != nullptr);
+	sprite = new sf::Sprite(*texture);  
 	collisionAura = new sf::CircleShape();
 	xSize = sprite -> getTexture()-> getSize().x;
 	ySize = sprite -> getTexture() -> getSize().y;

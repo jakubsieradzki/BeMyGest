@@ -2,8 +2,7 @@
 
 Player::Player(sf::Texture* texture)
 	: Entity(texture)
-{
-}
+{}
 
 void Player::setSmallerCollisionAura()
 {

@@ -69,7 +69,7 @@
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameMgr.cpp" />
-    <ClCompile Include="src\GfxLoader.cpp" />
+    <ClCompile Include="src\GFX.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Seashell.cpp" />
@@ -79,7 +79,7 @@
     <ClInclude Include="src\Enemy.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameMgr.h" />
-    <ClInclude Include="src\GfxLoader.h" />
+    <ClInclude Include="src\GFX.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Map.h" />

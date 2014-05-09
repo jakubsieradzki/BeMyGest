@@ -3,17 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Utils 
-{
-	enum LogType
-	{
-		MONITOR = 1,
-		FILE = 2,
-		MONITOR_AND_FILE = 3,
-		OTHER = 4
-	};
-}
-
 enum EnemyType
 {
 	PIRANIA = 1,

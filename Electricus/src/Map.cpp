@@ -1,10 +1,13 @@
 #include "Map.h"
 
 #include <fstream>
+#include "Log.h"
 
 using std::string;
 using std::ifstream;
 using std::vector;
+using std::pair;
+using std::make_pair;
 
 Map::Map(std::string file_path, int rows_, int cols_, int topOffset_)
 	: rows(rows_), cols(cols_), gridOn(false), counter(0), topOffset(topOffset_)
@@ -12,8 +15,8 @@ Map::Map(std::string file_path, int rows_, int cols_, int topOffset_)
 	rowSize = SCREEN_HEIGHT/(float)rows;
 	colSize = SCREEN_WIDTH/(float)cols;
 
-	sf::Texture* pozioma = Data::GfxLoader::getInstance().loadTexture("resource/pozioma.png");
-	sf::Texture* pionowa = Data::GfxLoader::getInstance().loadTexture("resource/pionowa.png");
+	sf::Texture pozioma = GFX::LoadTexture("resource/pozioma.png");
+	sf::Texture pionowa = GFX::LoadTexture("resource/pionowa.png");
 
 	rowSprites = new sf::Sprite*[rows];
 	colSprites = new sf::Sprite*[cols];
@@ -24,17 +27,19 @@ Map::Map(std::string file_path, int rows_, int cols_, int topOffset_)
 	// poziome
 	for(unsigned i = 0; i < rows; ++i)
 	{
-		rowSprites[i] = new sf::Sprite(*pozioma);
+		rowSprites[i] = new sf::Sprite(pozioma);
 		rowSprites[i] -> setPosition(0.0f, i * rowSize + topOffset);
 	}
 
 	// pionowa
 	for(unsigned j = 0; j < cols; ++j)
 	{
-		colSprites[j] = new sf::Sprite(*pionowa);
+		colSprites[j] = new sf::Sprite(pionowa);
 		colSprites[j] -> setPosition(j * colSize, topOffset);
 	}
-  tiles = LoadFromFile(file_path);
+  auto result = Map::LoadFromFile(file_path);
+  tiles = std::get<0>(result);
+  size = std::get<1>(result);
 }
 
 void Map::setEntity(Entity* entity, int row, int col)
@@ -47,7 +52,7 @@ void Map::setEntity(Entity* entity, int row, int col)
 	assets[counter++] = entity;
 }
 
-Tile** Map::LoadFromFile(string file_path)
+pair<Tile**, unsigned> Map::LoadFromFile(string file_path)
 {
   ifstream file(file_path);
 
@@ -75,14 +80,14 @@ Tile** Map::LoadFromFile(string file_path)
       }
       ++row;
     }
-    size = vec.size();
+    unsigned size = vec.size();
     auto tiles = new Tile*[size];
 
     for(int i = 0; i < size; ++i)
     {
       tiles[i] = vec[i];
     }
-    return tiles;
-  }  
-  return nullptr;
+    return make_pair(tiles, size);
+  }
+  return make_pair(nullptr, 0);
 }

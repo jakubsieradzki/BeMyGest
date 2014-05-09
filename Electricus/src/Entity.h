@@ -2,7 +2,7 @@
 #define ENTITY_H_
 
 #include <SFML/Graphics.hpp>
-#include "GfxLoader.h"
+#include "GFX.h"
 
 class Entity
 {
