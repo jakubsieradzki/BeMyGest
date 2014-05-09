@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrackHand", "Samples_OpenNI
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrackHuman", "Samples_OpenNI_Cpp\TrackHuman\TrackHuman.vcxproj", "{1676E998-091C-40F1-8683-DFDC2AB8363A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Electricus", "Electricus\Electricus.vcxproj", "{214DEEF2-4822-466E-BCCF-F1AF50A74226}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,10 @@ Global
 		{1676E998-091C-40F1-8683-DFDC2AB8363A}.Debug|Win32.Build.0 = Debug|Win32
 		{1676E998-091C-40F1-8683-DFDC2AB8363A}.Release|Win32.ActiveCfg = Release|Win32
 		{1676E998-091C-40F1-8683-DFDC2AB8363A}.Release|Win32.Build.0 = Release|Win32
+		{214DEEF2-4822-466E-BCCF-F1AF50A74226}.Debug|Win32.ActiveCfg = Debug|Win32
+		{214DEEF2-4822-466E-BCCF-F1AF50A74226}.Debug|Win32.Build.0 = Debug|Win32
+		{214DEEF2-4822-466E-BCCF-F1AF50A74226}.Release|Win32.ActiveCfg = Release|Win32
+		{214DEEF2-4822-466E-BCCF-F1AF50A74226}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
