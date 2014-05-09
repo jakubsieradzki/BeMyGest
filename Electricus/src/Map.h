@@ -7,12 +7,11 @@
 
 class Map
 {
-	public:
-		Map(int rows_, int cols_, int topOffset_ = 100);
+	public:    
+		Map(std::string file_path, int rows_, int cols_, int topOffset_ = 100);
 
-		void loadAssets(std::string fileName);
-		void setTopOffset(int offset);
-		void setGrid(bool gridOn) { this -> gridOn = gridOn; }
+    Tile** LoadFromFile(std::string file_path);
+		void GridOn(bool gridOn) { this -> gridOn = gridOn; }
 		void setEntity(Entity* entity, int row, int col);
 
 		sf::Sprite** rowSprites;
@@ -22,6 +21,8 @@ class Map
 		float rowSize, colSize;
 		bool gridOn;
 		int counter;
+    Tile** tiles;
+    int size;
 	private:
 		
 };

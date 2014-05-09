@@ -14,7 +14,6 @@
 #include "Starfish.h"
 #include "GfxLoader.h"
 #include "Map.h"
-#include "MapFile.h"
 #include "Player.h"
 
 int main()
@@ -25,9 +24,8 @@ int main()
 	sf::Font font;// = sf::Font();
 	bool stop = false;
 
-	Map map(10, 15, 50);
-	map.setGrid(true);
-	MapFile mapFile1("resource/map/1.txt");
+	Map map("resource/map/1.txt", 10, 15, 50);
+	map.GridOn(true);	
 
 	GameMgr::getInstance().loadSounds();
 	GameMgr::getInstance().setCellSize(map.rowSize, map.colSize);
@@ -44,9 +42,9 @@ int main()
 	sf::Texture* muszla2 = Data::GfxLoader::getInstance().loadTexture("resource/muszla2.png");
 
 	// umieszcamy assety na mapie nr 1
-	for(int i = 0; i < (mapFile1.size); ++i)
+	for(int i = 0; i < (map.size); ++i)
 	{
-		Tile* temp = mapFile1.tiles[i];
+		Tile* temp = map.tiles[i];
 		Entity* entity;
 
 		switch(temp -> sign)
