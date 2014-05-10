@@ -8,7 +8,7 @@ Player EntityFactory::CreatePlayer(
   float position_y,
   float scale)
 {
-  Player player(texture);  
+  Player player(texture);
   player.setPosition(position_x, position_y);
   player.setOrigin(135.0f, 24.5f);
   player.setScale(scale, scale);
@@ -52,6 +52,6 @@ Enemy* EntityFactory::CreateDynamicEnemy(
   //enemy->setType(type);
   enemy->setScore(points);
   enemy->SetXPositionOnMap(position_on_map_x);
-  enemy->setScale(scale, scale);  
+  enemy->setScale(scale, scale);
   return enemy;
 }

@@ -14,14 +14,14 @@ Map::Map(std::string file_path, int rows_, int cols_, int topOffset_)
 {
   grid_element_x = SCREEN_HEIGHT/(float)rows_num;
   grid_element_y = SCREEN_WIDTH/(float)cols_num;
-
-  assets = new Entity*[MAX_ASSETS_NUMBER];
-  for(int i = 0; i < MAX_ASSETS_NUMBER; ++i)
-    assets[i] = NULL;
   
   auto result = Map::LoadFromFile(file_path);
   tiles = std::get<0>(result);
   size = std::get<1>(result);
+
+  assets = new Entity*[MAX_ASSETS_NUMBER];
+  for(int i = 0; i < MAX_ASSETS_NUMBER; ++i)
+    assets[i] = NULL;
 }
 
 void Map::setEntity(Entity* entity, int row, int col)

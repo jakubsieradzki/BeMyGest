@@ -31,14 +31,16 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\paths.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\paths.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\Programowanie\Biblioteki\Tidy\boost_1_55_0_vc2010;D:\Programowanie\Biblioteki\Tidy\SFML-2.1_vc2010_x86\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Programowanie\Biblioteki\Tidy\boost_1_55_0_vc2010\lib32-msvc-10.0;D:\Programowanie\Biblioteki\Tidy\SFML-2.1_vc2010_x86\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(OPENNI)\Include;D:\Programowanie\Biblioteki\Tidy\boost_1_55_0_vc2010;D:\Programowanie\Biblioteki\Tidy\SFML-2.1_vc2010_x86\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(OPENNI)\Lib;D:\Programowanie\Biblioteki\Tidy\boost_1_55_0_vc2010\lib32-msvc-10.0;D:\Programowanie\Biblioteki\Tidy\SFML-2.1_vc2010_x86\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -61,7 +63,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-window.lib;sfml-system.lib;sfml-graphics.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>openNI.lib;sfml-window.lib;sfml-system.lib;sfml-graphics.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -88,6 +90,7 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Seashell.h" />
     <ClInclude Include="src\Starfish.h" />
+    <ClInclude Include="src\Xtion\OpenNiUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
