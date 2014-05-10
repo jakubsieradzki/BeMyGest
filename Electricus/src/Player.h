@@ -6,8 +6,7 @@
 class Player : public Entity
 {
 	public:
-		Player(sf::Texture* texture);
-		void setSmallerCollisionAura();
+		Player(sf::Texture* texture);		
 		virtual void refresh() override;
 };
 

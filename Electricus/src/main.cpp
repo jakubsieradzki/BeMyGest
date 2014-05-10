@@ -8,6 +8,7 @@
 #include "global.h"
 #include "GameMgr.h"
 #include "Entity.h"
+#include "EntityFactory.h"
 #include "Seashell.h"
 #include "Enemy.h"
 #include "Starfish.h"
@@ -44,68 +45,50 @@ int main()
   // umieszcamy assety na mapie nr 1
   for(int i = 0; i < (map.size); ++i)
   {
-  Tile* temp = map.tiles[i];
-  Entity* entity;
+    Tile* temp = map.tiles[i];
+    Entity* entity;
 
-  switch(temp -> sign)
-  {
+    switch(temp -> sign)
+    {
     case 'M': // muszla1
-    entity = new Seashell(&muszla1);
-    ((Seashell*)entity) -> setScore(5);
-    entity -> SetXPositionOnMap((temp -> col) * (map.grid_element_y));
-    entity -> setScale(0.2f, 0.2f);
-    map.setEntity(entity, temp -> row, temp -> col);
-    break;
+      entity = EntityFactory::
+        CreateDynamicSeashell(&muszla1, 5, (temp->col)*(map.grid_element_y), 0.2f);
+      map.setEntity(entity, temp -> row, temp -> col);
+      break;
     case 'N': // muszla2
-    entity = new Seashell(&muszla2);
-    ((Seashell*)entity) -> setScore(5);
-    entity -> SetXPositionOnMap((temp -> col) * (map.grid_element_y));
-    entity -> setScale(0.3f, 0.3f);
-    map.setEntity(entity, temp -> row, temp -> col);
-    break;
+      entity = EntityFactory::
+          CreateDynamicSeashell(&muszla2, 5, (temp->col)*(map.grid_element_y), 0.3f); 
+      map.setEntity(entity, temp -> row, temp -> col);
+      break;
     case 'B': // beczka
-    entity = new Enemy(&beczka);
-    ((Enemy*)entity) -> setScore(7);
-    entity -> SetXPositionOnMap((temp -> col) * (map.grid_element_y));
-    entity -> setScale(0.4f, 0.4f);
-    map.setEntity(entity, temp -> row, temp -> col);
-    ((Enemy*)entity) -> setType(BECZKA);
-    break;
+      entity = EntityFactory::
+        CreateDynamicEnemy(&beczka, BECZKA, 7, (temp->col)*(map.grid_element_y), 0.4f);
+      map.setEntity(entity, temp -> row, temp -> col);
+      ((Enemy*)entity) -> setType(BECZKA);
+      break;
     case 'R': // ryba
-    entity = new Enemy(&ryba);
-    ((Enemy*)entity) -> setScore(15);
-    entity -> SetXPositionOnMap((temp -> col) * (map.grid_element_y));
-    entity -> setScale(0.2f, 0.2f);
-    map.setEntity(entity, temp -> row, temp -> col);
-    ((Enemy*)entity) -> setType(PIRANIA);
-    break;
+      entity = EntityFactory::
+        CreateDynamicEnemy(&ryba, PIRANIA, 15, (temp -> col) * (map.grid_element_y), 0.2f);
+      map.setEntity(entity, temp -> row, temp -> col);
+      ((Enemy*)entity) -> setType(PIRANIA);
+      break;
     case 'S': // starfish
-    entity = new Starfish(&starfish);
-    //((Starfish*)entity) -> setScoreRatio(2);
-    ((Starfish*)entity) -> setScore(20);
-    entity -> SetXPositionOnMap((temp -> col) * (map.grid_element_y));
-    entity -> setScale(0.15f, 0.15f);
-    map.setEntity(entity, temp -> row, temp -> col);
-    break;
+      entity = EntityFactory::
+        CreateDynamicStarfish(&starfish, 20, (temp -> col) * (map.grid_element_y), 0.15f);
+      map.setEntity(entity, temp -> row, temp -> col);
+      break;
     case 'Z': // zdechla ryba
-    entity = new Enemy(&zdechla_ryba);
-    ((Enemy*)entity) -> setScore(5);
-    entity -> SetXPositionOnMap((temp -> col) * (map.grid_element_y));
-    entity -> setScale(0.2f, 0.2f);
-    map.setEntity(entity, temp -> row, temp -> col);
-    ((Enemy*)entity) -> setType(ZDECHLA);
-    break;
+      entity = EntityFactory::
+        CreateDynamicEnemy(&zdechla_ryba, ZDECHLA, 5, (temp->col)*(map.grid_element_y), 0.2f);
+      map.setEntity(entity, temp -> row, temp -> col);
+      ((Enemy*)entity) -> setType(ZDECHLA);
+      break;
     default:
-    break;
-  }
+      break;
+    }
   }
 
-  Player fish(&fish1);
-  fish.setScale(0.8f, 0.8f);
-  fish.sprite().setPosition(SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f);
-  fish.setOrigin(135.0f, 24.5f);
-  fish.setSmallerCollisionAura();
-  fish.refresh();
+  auto fish = EntityFactory::CreatePlayer(&fish1, SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f, 0.8);
   
   sf::Texture waves = GFX::LoadTexture("resource/fale.png");
   sf::Sprite waves1 = sf::Sprite(waves);

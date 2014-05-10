@@ -65,6 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\EntityFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Entity.cpp" />
@@ -78,6 +79,7 @@
   <ItemGroup>
     <ClInclude Include="src\Enemy.h" />
     <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\EntityFactory.h" />
     <ClInclude Include="src\GameMgr.h" />
     <ClInclude Include="src\GFX.h" />
     <ClInclude Include="src\global.h" />

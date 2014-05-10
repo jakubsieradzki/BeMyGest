@@ -2,12 +2,9 @@
 
 Player::Player(sf::Texture* texture)
 	: Entity(texture)
-{}
-
-void Player::setSmallerCollisionAura()
 {
-	collisionAuraRadius = 10.0f;
-	collisionAura().setRadius(collisionAuraRadius);
+  collisionAuraRadius = 10.0f;
+  collisionAura().setRadius(collisionAuraRadius);
 }
 
 void Player::refresh()
