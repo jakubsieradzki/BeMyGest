@@ -10,33 +10,15 @@ using std::pair;
 using std::make_pair;
 
 Map::Map(std::string file_path, int rows_, int cols_, int topOffset_)
-	: rows(rows_), cols(cols_), gridOn(false), counter(0), topOffset(topOffset_)
+  : rows_num(rows_), cols_num(cols_), counter(0), topOffset(topOffset_)
 {
-	rowSize = SCREEN_HEIGHT/(float)rows;
-	colSize = SCREEN_WIDTH/(float)cols;
+  grid_element_x = SCREEN_HEIGHT/(float)rows_num;
+  grid_element_y = SCREEN_WIDTH/(float)cols_num;
 
-	sf::Texture pozioma = GFX::LoadTexture("resource/pozioma.png");
-	sf::Texture pionowa = GFX::LoadTexture("resource/pionowa.png");
-
-	rowSprites = new sf::Sprite*[rows];
-	colSprites = new sf::Sprite*[cols];
-	assets = new Entity*[MAX_ASSETS_NUMBER];
-	for(int i = 0; i < MAX_ASSETS_NUMBER; ++i)
-		assets[i] = NULL;
-
-	// poziome
-	for(unsigned i = 0; i < rows; ++i)
-	{
-		rowSprites[i] = new sf::Sprite(pozioma);
-		rowSprites[i] -> setPosition(0.0f, i * rowSize + topOffset);
-	}
-
-	// pionowa
-	for(unsigned j = 0; j < cols; ++j)
-	{
-		colSprites[j] = new sf::Sprite(pionowa);
-		colSprites[j] -> setPosition(j * colSize, topOffset);
-	}
+  assets = new Entity*[MAX_ASSETS_NUMBER];
+  for(int i = 0; i < MAX_ASSETS_NUMBER; ++i)
+    assets[i] = NULL;
+  
   auto result = Map::LoadFromFile(file_path);
   tiles = std::get<0>(result);
   size = std::get<1>(result);
@@ -44,12 +26,12 @@ Map::Map(std::string file_path, int rows_, int cols_, int topOffset_)
 
 void Map::setEntity(Entity* entity, int row, int col)
 {
-	float rowPos = row * rowSize;
-	float colPos = col * colSize;
+  float rowPos = row * grid_element_x;
+  float colPos = col * grid_element_y;
 
-	entity -> setPosition(colPos, rowPos + topOffset);
-	entity -> setCellPosition(row, col);
-	assets[counter++] = entity;
+  entity -> setPosition(colPos, rowPos + topOffset);
+  entity -> setCellPosition(row, col);
+  assets[counter++] = entity;
 }
 
 pair<Tile**, unsigned> Map::LoadFromFile(string file_path)
