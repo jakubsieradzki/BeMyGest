@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BF3FF6D3-2A01-49B8-927F-0E7B5D01984E}</ProjectGuid>
+    <RootNamespace>SoundBoard</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\paths.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\paths.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(OPENNI)\Include;D:\Programowanie\Projekty\BeMyGest\SoundBoard\dep\stksrc;D:\Programowanie\Projekty\BeMyGest\SoundBoard\dep\stksrc\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(OPENNI)\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>__OS_WINDOWS__;__WINDOWS_DS__;__LITTLE_ENDIAN__;__WINDOWS_MM__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;dsound.lib;winmm.lib;Wsock32.lib;openNI.lib;glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="dep\GlueGL.cpp" />
+    <ClCompile Include="dep\stksrc\ADSR.cpp" />
+    <ClCompile Include="dep\stksrc\Asymp.cpp" />
+    <ClCompile Include="dep\stksrc\BandedWG.cpp" />
+    <ClCompile Include="dep\stksrc\BeeThree.cpp" />
+    <ClCompile Include="dep\stksrc\BiQuad.cpp" />
+    <ClCompile Include="dep\stksrc\Blit.cpp" />
+    <ClCompile Include="dep\stksrc\BlitSaw.cpp" />
+    <ClCompile Include="dep\stksrc\BlitSquare.cpp" />
+    <ClCompile Include="dep\stksrc\BlowBotl.cpp" />
+    <ClCompile Include="dep\stksrc\BlowHole.cpp" />
+    <ClCompile Include="dep\stksrc\Bowed.cpp" />
+    <ClCompile Include="dep\stksrc\Brass.cpp" />
+    <ClCompile Include="dep\stksrc\Chorus.cpp" />
+    <ClCompile Include="dep\stksrc\Clarinet.cpp" />
+    <ClCompile Include="dep\stksrc\Delay.cpp" />
+    <ClCompile Include="dep\stksrc\DelayA.cpp" />
+    <ClCompile Include="dep\stksrc\DelayL.cpp" />
+    <ClCompile Include="dep\stksrc\Drummer.cpp" />
+    <ClCompile Include="dep\stksrc\Echo.cpp" />
+    <ClCompile Include="dep\stksrc\Envelope.cpp" />
+    <ClCompile Include="dep\stksrc\FileLoop.cpp" />
+    <ClCompile Include="dep\stksrc\FileRead.cpp" />
+    <ClCompile Include="dep\stksrc\FileWrite.cpp" />
+    <ClCompile Include="dep\stksrc\FileWvIn.cpp" />
+    <ClCompile Include="dep\stksrc\FileWvOut.cpp" />
+    <ClCompile Include="dep\stksrc\Fir.cpp" />
+    <ClCompile Include="dep\stksrc\Flute.cpp" />
+    <ClCompile Include="dep\stksrc\FM.cpp" />
+    <ClCompile Include="dep\stksrc\FMVoices.cpp" />
+    <ClCompile Include="dep\stksrc\FormSwep.cpp" />
+    <ClCompile Include="dep\stksrc\FreeVerb.cpp" />
+    <ClCompile Include="dep\stksrc\Granulate.cpp" />
+    <ClCompile Include="dep\stksrc\Guitar.cpp" />
+    <ClCompile Include="dep\stksrc\HevyMetl.cpp" />
+    <ClCompile Include="dep\stksrc\Iir.cpp" />
+    <ClCompile Include="dep\stksrc\InetWvIn.cpp" />
+    <ClCompile Include="dep\stksrc\InetWvOut.cpp" />
+    <ClCompile Include="dep\stksrc\JCRev.cpp" />
+    <ClCompile Include="dep\stksrc\LentPitShift.cpp" />
+    <ClCompile Include="dep\stksrc\Mandolin.cpp" />
+    <ClCompile Include="dep\stksrc\Mesh2D.cpp" />
+    <ClCompile Include="dep\stksrc\Messager.cpp" />
+    <ClCompile Include="dep\stksrc\MidiFileIn.cpp" />
+    <ClCompile Include="dep\stksrc\Modal.cpp" />
+    <ClCompile Include="dep\stksrc\ModalBar.cpp" />
+    <ClCompile Include="dep\stksrc\Modulate.cpp" />
+    <ClCompile Include="dep\stksrc\Moog.cpp" />
+    <ClCompile Include="dep\stksrc\Mutex.cpp" />
+    <ClCompile Include="dep\stksrc\Noise.cpp" />
+    <ClCompile Include="dep\stksrc\NRev.cpp" />
+    <ClCompile Include="dep\stksrc\OnePole.cpp" />
+    <ClCompile Include="dep\stksrc\OneZero.cpp" />
+    <ClCompile Include="dep\stksrc\PercFlut.cpp" />
+    <ClCompile Include="dep\stksrc\Phonemes.cpp" />
+    <ClCompile Include="dep\stksrc\PitShift.cpp" />
+    <ClCompile Include="dep\stksrc\Plucked.cpp" />
+    <ClCompile Include="dep\stksrc\PoleZero.cpp" />
+    <ClCompile Include="dep\stksrc\PRCRev.cpp" />
+    <ClCompile Include="dep\stksrc\Resonate.cpp" />
+    <ClCompile Include="dep\stksrc\Rhodey.cpp" />
+    <ClCompile Include="dep\stksrc\RtAudio.cpp" />
+    <ClCompile Include="dep\stksrc\RtMidi.cpp" />
+    <ClCompile Include="dep\stksrc\RtWvIn.cpp" />
+    <ClCompile Include="dep\stksrc\RtWvOut.cpp" />
+    <ClCompile Include="dep\stksrc\Sampler.cpp" />
+    <ClCompile Include="dep\stksrc\Saxofony.cpp" />
+    <ClCompile Include="dep\stksrc\Shakers.cpp" />
+    <ClCompile Include="dep\stksrc\Simple.cpp" />
+    <ClCompile Include="dep\stksrc\SineWave.cpp" />
+    <ClCompile Include="dep\stksrc\SingWave.cpp" />
+    <ClCompile Include="dep\stksrc\Sitar.cpp" />
+    <ClCompile Include="dep\stksrc\Skini.cpp" />
+    <ClCompile Include="dep\stksrc\Socket.cpp" />
+    <ClCompile Include="dep\stksrc\Sphere.cpp" />
+    <ClCompile Include="dep\stksrc\StifKarp.cpp" />
+    <ClCompile Include="dep\stksrc\Stk.cpp" />
+    <ClCompile Include="dep\stksrc\TapDelay.cpp" />
+    <ClCompile Include="dep\stksrc\TcpClient.cpp" />
+    <ClCompile Include="dep\stksrc\TcpServer.cpp" />
+    <ClCompile Include="dep\stksrc\Thread.cpp" />
+    <ClCompile Include="dep\stksrc\TubeBell.cpp" />
+    <ClCompile Include="dep\stksrc\Twang.cpp" />
+    <ClCompile Include="dep\stksrc\TwoPole.cpp" />
+    <ClCompile Include="dep\stksrc\TwoZero.cpp" />
+    <ClCompile Include="dep\stksrc\UdpSocket.cpp" />
+    <ClCompile Include="dep\stksrc\Voicer.cpp" />
+    <ClCompile Include="dep\stksrc\VoicForm.cpp" />
+    <ClCompile Include="dep\stksrc\Whistle.cpp" />
+    <ClCompile Include="dep\stksrc\Wurley.cpp" />
+    <ClCompile Include="src\AbstractArea.cpp" />
+    <ClCompile Include="src\AreaManager.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\SimpleArea.cpp" />
+    <ClCompile Include="src\SoundArea.cpp" />
+    <ClCompile Include="src\SoundMaker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dep\GlueGL.h" />
+    <ClInclude Include="dep\OpenNiUtil.h" />
+    <ClInclude Include="dep\stksrc\ADSR.h" />
+    <ClInclude Include="dep\stksrc\Asymp.h" />
+    <ClInclude Include="dep\stksrc\BandedWG.h" />
+    <ClInclude Include="dep\stksrc\BeeThree.h" />
+    <ClInclude Include="dep\stksrc\BiQuad.h" />
+    <ClInclude Include="dep\stksrc\Blit.h" />
+    <ClInclude Include="dep\stksrc\BlitSaw.h" />
+    <ClInclude Include="dep\stksrc\BlitSquare.h" />
+    <ClInclude Include="dep\stksrc\BlowBotl.h" />
+    <ClInclude Include="dep\stksrc\BlowHole.h" />
+    <ClInclude Include="dep\stksrc\Bowed.h" />
+    <ClInclude Include="dep\stksrc\BowTable.h" />
+    <ClInclude Include="dep\stksrc\Brass.h" />
+    <ClInclude Include="dep\stksrc\Chorus.h" />
+    <ClInclude Include="dep\stksrc\Clarinet.h" />
+    <ClInclude Include="dep\stksrc\Cubic.h" />
+    <ClInclude Include="dep\stksrc\Delay.h" />
+    <ClInclude Include="dep\stksrc\DelayA.h" />
+    <ClInclude Include="dep\stksrc\DelayL.h" />
+    <ClInclude Include="dep\stksrc\Drummer.h" />
+    <ClInclude Include="dep\stksrc\Echo.h" />
+    <ClInclude Include="dep\stksrc\Effect.h" />
+    <ClInclude Include="dep\stksrc\Envelope.h" />
+    <ClInclude Include="dep\stksrc\FileLoop.h" />
+    <ClInclude Include="dep\stksrc\FileRead.h" />
+    <ClInclude Include="dep\stksrc\FileWrite.h" />
+    <ClInclude Include="dep\stksrc\FileWvIn.h" />
+    <ClInclude Include="dep\stksrc\FileWvOut.h" />
+    <ClInclude Include="dep\stksrc\Filter.h" />
+    <ClInclude Include="dep\stksrc\Fir.h" />
+    <ClInclude Include="dep\stksrc\Flute.h" />
+    <ClInclude Include="dep\stksrc\FM.h" />
+    <ClInclude Include="dep\stksrc\FMVoices.h" />
+    <ClInclude Include="dep\stksrc\FormSwep.h" />
+    <ClInclude Include="dep\stksrc\FreeVerb.h" />
+    <ClInclude Include="dep\stksrc\Function.h" />
+    <ClInclude Include="dep\stksrc\Generator.h" />
+    <ClInclude Include="dep\stksrc\Granulate.h" />
+    <ClInclude Include="dep\stksrc\Guitar.h" />
+    <ClInclude Include="dep\stksrc\HevyMetl.h" />
+    <ClInclude Include="dep\stksrc\Iir.h" />
+    <ClInclude Include="dep\stksrc\include\asio.h" />
+    <ClInclude Include="dep\stksrc\include\asiodrivers.h" />
+    <ClInclude Include="dep\stksrc\include\asiodrvr.h" />
+    <ClInclude Include="dep\stksrc\include\asiolist.h" />
+    <ClInclude Include="dep\stksrc\include\asiosys.h" />
+    <ClInclude Include="dep\stksrc\include\dsound.h" />
+    <ClInclude Include="dep\stksrc\include\FunctionDiscoveryKeys_devpkey.h" />
+    <ClInclude Include="dep\stksrc\include\ginclude.h" />
+    <ClInclude Include="dep\stksrc\include\iasiodrv.h" />
+    <ClInclude Include="dep\stksrc\include\iasiothiscallresolver.h" />
+    <ClInclude Include="dep\stksrc\include\soundcard.h" />
+    <ClInclude Include="dep\stksrc\InetWvIn.h" />
+    <ClInclude Include="dep\stksrc\InetWvOut.h" />
+    <ClInclude Include="dep\stksrc\Instrmnt.h" />
+    <ClInclude Include="dep\stksrc\JCRev.h" />
+    <ClInclude Include="dep\stksrc\JetTable.h" />
+    <ClInclude Include="dep\stksrc\LentPitShift.h" />
+    <ClInclude Include="dep\stksrc\Mandolin.h" />
+    <ClInclude Include="dep\stksrc\Mesh2D.h" />
+    <ClInclude Include="dep\stksrc\Messager.h" />
+    <ClInclude Include="dep\stksrc\MidiFileIn.h" />
+    <ClInclude Include="dep\stksrc\Modal.h" />
+    <ClInclude Include="dep\stksrc\ModalBar.h" />
+    <ClInclude Include="dep\stksrc\Modulate.h" />
+    <ClInclude Include="dep\stksrc\Moog.h" />
+    <ClInclude Include="dep\stksrc\Mutex.h" />
+    <ClInclude Include="dep\stksrc\Noise.h" />
+    <ClInclude Include="dep\stksrc\NRev.h" />
+    <ClInclude Include="dep\stksrc\OnePole.h" />
+    <ClInclude Include="dep\stksrc\OneZero.h" />
+    <ClInclude Include="dep\stksrc\PercFlut.h" />
+    <ClInclude Include="dep\stksrc\Phonemes.h" />
+    <ClInclude Include="dep\stksrc\PitShift.h" />
+    <ClInclude Include="dep\stksrc\Plucked.h" />
+    <ClInclude Include="dep\stksrc\PoleZero.h" />
+    <ClInclude Include="dep\stksrc\PRCRev.h" />
+    <ClInclude Include="dep\stksrc\ReedTable.h" />
+    <ClInclude Include="dep\stksrc\Resonate.h" />
+    <ClInclude Include="dep\stksrc\Rhodey.h" />
+    <ClInclude Include="dep\stksrc\RtAudio.h" />
+    <ClInclude Include="dep\stksrc\RtMidi.h" />
+    <ClInclude Include="dep\stksrc\RtWvIn.h" />
+    <ClInclude Include="dep\stksrc\RtWvOut.h" />
+    <ClInclude Include="dep\stksrc\Sampler.h" />
+    <ClInclude Include="dep\stksrc\Saxofony.h" />
+    <ClInclude Include="dep\stksrc\Shakers.h" />
+    <ClInclude Include="dep\stksrc\Simple.h" />
+    <ClInclude Include="dep\stksrc\SineWave.h" />
+    <ClInclude Include="dep\stksrc\SingWave.h" />
+    <ClInclude Include="dep\stksrc\Sitar.h" />
+    <ClInclude Include="dep\stksrc\Skini.h" />
+    <ClInclude Include="dep\stksrc\Socket.h" />
+    <ClInclude Include="dep\stksrc\Sphere.h" />
+    <ClInclude Include="dep\stksrc\StifKarp.h" />
+    <ClInclude Include="dep\stksrc\Stk.h" />
+    <ClInclude Include="dep\stksrc\TapDelay.h" />
+    <ClInclude Include="dep\stksrc\TcpClient.h" />
+    <ClInclude Include="dep\stksrc\TcpServer.h" />
+    <ClInclude Include="dep\stksrc\Thread.h" />
+    <ClInclude Include="dep\stksrc\TubeBell.h" />
+    <ClInclude Include="dep\stksrc\Twang.h" />
+    <ClInclude Include="dep\stksrc\TwoPole.h" />
+    <ClInclude Include="dep\stksrc\TwoZero.h" />
+    <ClInclude Include="dep\stksrc\UdpSocket.h" />
+    <ClInclude Include="dep\stksrc\Vector3D.h" />
+    <ClInclude Include="dep\stksrc\Voicer.h" />
+    <ClInclude Include="dep\stksrc\VoicForm.h" />
+    <ClInclude Include="dep\stksrc\Whistle.h" />
+    <ClInclude Include="dep\stksrc\Wurley.h" />
+    <ClInclude Include="dep\stksrc\WvIn.h" />
+    <ClInclude Include="dep\stksrc\WvOut.h" />
+    <ClInclude Include="src\AbstractArea.h" />
+    <ClInclude Include="src\AreaManager.h" />
+    <ClInclude Include="src\SoundMaker.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
