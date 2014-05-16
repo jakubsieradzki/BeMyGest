@@ -3,12 +3,22 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <OPENNI>C:\Program Files (x86)\OpenNI</OPENNI>
+    <SFML>D:\Programowanie\Biblioteki\Tidy\SFML-2.1_vc2010_x86</SFML>
+    <BOOST>D:\Programowanie\Biblioteki\Tidy\boost_1_55_0_vc2010</BOOST>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
   <ItemGroup>
     <BuildMacro Include="OPENNI">
       <Value>$(OPENNI)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SFML">
+      <Value>$(SFML)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="BOOST">
+      <Value>$(BOOST)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>

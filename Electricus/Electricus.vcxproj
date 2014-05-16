@@ -39,8 +39,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(OPENNI)\Include;D:\Programowanie\Biblioteki\Tidy\boost_1_55_0_vc2010;D:\Programowanie\Biblioteki\Tidy\SFML-2.1_vc2010_x86\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(OPENNI)\Lib;D:\Programowanie\Biblioteki\Tidy\boost_1_55_0_vc2010\lib32-msvc-10.0;D:\Programowanie\Biblioteki\Tidy\SFML-2.1_vc2010_x86\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(BOOST);$(OPENNI)\Include;$(SFML)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(OPENNI)\Lib;$(SFML)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
