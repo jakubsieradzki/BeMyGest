@@ -14,7 +14,7 @@ void AreaManager::draw()
 	std::vector<AbstractArea*>::iterator it;
 	for (it = areas_.begin(); it != areas_.end(); ++it)
 	{				
-		(*it)->draw(glue_);		
+		(*it)->draw(render_window_);		
 	}
 }
 

@@ -1,17 +1,8 @@
 #ifndef ABSTRACT_AREA_
 #define ABSTRACT_AREA_
 
-#include "../dep/GlueGL.h"
+#include <SFML/Graphics.hpp>
 #include "SoundMaker.h"
-
-struct AreaColor
-{
-	float r,g,b,alpha;
-
-	AreaColor() : r(1.0), g(1.0), b(1.0), alpha(1.0) {}
-	AreaColor(float _r, float _g, float _b, float _alpha)
-		: r(_r), g(_g), b(_b), alpha(_alpha) {}
-};
 
 class AbstractArea
 {
@@ -20,12 +11,12 @@ private:
 
 protected:
 	unsigned x_, y_, width_, height_;
-	AreaColor color_;
+	sf::Color color_;
 
 public:
 	AbstractArea(unsigned x, unsigned y, unsigned width, unsigned height) 
 		: x_(x), y_(y), width_(width), height_(height) {}
-	AbstractArea(unsigned x, unsigned y, unsigned width, unsigned height, AreaColor color) 
+	AbstractArea(unsigned x, unsigned y, unsigned width, unsigned height, sf::Color color) 
 		: x_(x), y_(y), width_(width), height_(height), color_(color) {}
 	virtual ~AbstractArea();
 
@@ -33,9 +24,9 @@ public:
 	unsigned y() { return y_; }
 	unsigned width() { return width_; }
 	unsigned height() { return height_; }
-	void setColor(AreaColor color) { color_ = color; }
+	void setColor(sf::Color color) { color_ = color; }
 	void update(unsigned int x, unsigned int y);
-	virtual void draw(bmg::GlueGL *glue);
+	virtual void draw(sf::RenderWindow* render_window);
 	// events
 	virtual void onHover(unsigned int x, unsigned int y) = 0;
 	virtual void onLeave(unsigned int x, unsigned int y) = 0;
@@ -47,11 +38,11 @@ public:
 class SimpleArea : public AbstractArea
 {
 private:
-	AreaColor initializeColor_;
-	AreaColor changeColor_;
+	sf::Color initializeColor_;
+	sf::Color changeColor_;
 
 public:
-	SimpleArea(unsigned x, unsigned y, unsigned width, unsigned height, AreaColor color, AreaColor changeColor) 
+	SimpleArea(unsigned x, unsigned y, unsigned width, unsigned height, sf::Color color, sf::Color changeColor) 
 		: AbstractArea(x, y, width, height, color), initializeColor_(color), changeColor_(changeColor) {}
 	
 	virtual void onHover(unsigned int x, unsigned int y);
@@ -73,7 +64,7 @@ public:
 		unsigned y,
 		unsigned width,
 		unsigned height,
-		AreaColor color,
+		sf::Color color,
 		Instrmnt *instrument,
 		StkFloat baseFreq);
 	~SoundArea() { soundMaker_.closeStream(); }

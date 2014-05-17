@@ -1,19 +1,19 @@
 #ifndef AREA_MANAGER_
 #define AREA_MANAGER
 
-#include "../dep/GlueGL.h"
+#include <SFML/Graphics.hpp>
 #include "AbstractArea.h"
 #include <vector>
 
 class AreaManager
 {
 private:
-	bmg::GlueGL *glue_;
+  sf::RenderWindow* render_window_;	
 	std::vector<AbstractArea*> areas_;
 
 	bool isWithinArea(AbstractArea *area, unsigned x, unsigned y); 
 public:
-	AreaManager(bmg::GlueGL *glue) : glue_(glue) {}
+	AreaManager(sf::RenderWindow* render_window) : render_window_(render_window) {}
 	~AreaManager();
 	void addArea(AbstractArea * area) { areas_.push_back(area); }
 	void draw();

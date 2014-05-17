@@ -1,5 +1,6 @@
-#include "../dep/GlueGL.h"
 #include "../dep/OpenNiUtil.h"
+
+#include <SFML/Graphics.hpp>
 
 #include "BeeThree.h"
 #include "Flute.h"
@@ -19,7 +20,6 @@ const char* GESTURE = "Wave";
 bool hand_recognized = false;
 XnPoint3D projective_point;
 
-auto& glue = bmg::GlueGL::getInstance();
 xn::GestureGenerator gesture_generator;
 xn::HandsGenerator hands_generator;
 xn::DepthGenerator depth_generator;
@@ -88,8 +88,7 @@ void XN_CALLBACK_TYPE Hand_Destroy(
 // MAIN
 int main(int argc, char* argv[])
 {
-	auto& glue = bmg::GlueGL::getInstance();  
-	glue.Init(argc, argv, WINDOW_W, WINDOW_H, "SoundBoard"); 
+  sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "SoundBoard");	
 	xn::Context context;
 	
 	// Stk initialization
@@ -101,7 +100,7 @@ int main(int argc, char* argv[])
 	context.SetGlobalMirror(true);
 
 	// create AreaManager & add areas
-	AreaManager areaManager(&glue);
+	AreaManager areaManager(&window);
 	StkFloat notes[9] = {
 		329.63, 349.23, 392.00,
 		440.0, 493.88, 523.25,
@@ -112,52 +111,63 @@ int main(int argc, char* argv[])
 	{
 		int m = i % 3;
 		int n = i / 3;
-    areaManager.addArea(new SoundArea(200 + (delta*m), 150 + (delta*n), 100, 100, AreaColor(0.1, 0.1, 1.0, 0.5), new Flute(300.0), notes[i]));
+    areaManager.addArea(new SoundArea(200 + (delta*m), 150 + (delta*n), 100, 100, sf::Color(0.0f, 0.0f, 255.0f, 125.0f), new Flute(300.0), notes[i]));
 	}
 
 	xn::ImageMetaData image_metadata;
-	// display function
-	glue.BindDisplayFunc([&]{
-		glue.BeginDraw();
 
-		// here goes code for app main loop
-		XnStatus status = context.WaitAndUpdateAll();
-		bmg::OnError(status, []{
-		  std::cout << "Couldn't update and wait for new data!" << std::endl;
-		});
-		
-		image_generator.GetMetaData(image_metadata);
-		unsigned imageX = image_metadata.XRes();
-		unsigned imageY = image_metadata.YRes();
+  while (window.isOpen()) 
+  {
+    // handle events
+    sf::Event event;
+    while (window.pollEvent(event)) 
+    {
+      if (event.type == sf::Event::Closed 
+            || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        window.close();      
+    }
+    // draw
+    window.clear();
+    XnStatus status = context.WaitAndUpdateAll();
+    bmg::OnError(status, []{
+      std::cout << "Couldn't update and wait for new data!" << std::endl;
+    });
 
-		glue.DrawOnTexture(
-		  (void*)image_metadata.RGB24Data(), 
-		  imageX, imageY,
-		  imageX, imageY,
-		  0, 0, WINDOW_W, WINDOW_H);		
-		
-		// draw hand point
-		if (hand_recognized) {
-			// Draw point over tracked hand
-			glue.DrawPointOverRegion(projective_point.X, projective_point.Y, 0, 0);	
-			areaManager.update(projective_point.X, projective_point.Y);
-		}
-		// AreaManager draw
-		areaManager.draw();
+    image_generator.GetMetaData(image_metadata);
+    unsigned imageX = image_metadata.XRes();
+    unsigned imageY = image_metadata.YRes();
 
-		glue.EndDraw();
-	});
+    sf::Image raw_image;
+    raw_image.create(imageY, imageX);
 
-	glue.BindKeyboardFunc([](unsigned char key, int x, int y){
-		switch(key) {
-		case 27:
-			exit(1);
-		}
-	});
+    auto image = image_metadata.RGB24Data();
+    for (int i = 0; i < imageX*imageY; ++i) {
+      auto current_px = image[i];
+      raw_image.setPixel(i/imageX, i%imageX, 
+        sf::Color(current_px.nRed, current_px.nGreen, current_px.nRed));      
+    }
+    sf::Texture raw_texture;   
+    raw_texture.loadFromImage(raw_image);
+    sf::Sprite raw_sprite(raw_texture);
+    raw_sprite.setRotation(90.0f);
+    raw_sprite.setPosition(WINDOW_W, 0);
+    raw_sprite.setScale(WINDOW_W/(float)imageX, WINDOW_H/(float)imageY);
+ 
+    window.draw(raw_sprite);   
 
-	glue.Run();
-	context.Release();
-	
+    // draw hand point
+    if (hand_recognized) {
+      // Draw point over tracked hand
+      sf::CircleShape hand_position(5.0f);
+      hand_position.setPosition(WINDOW_W-projective_point.X, projective_point.Y);
+      window.draw(hand_position);
+      areaManager.update(projective_point.X, projective_point.Y);
+    }
+    // AreaManager draw
+    areaManager.draw();
+    window.display();
+  }	
+	context.Release();	
 	return 0;	
 }
 
