@@ -28,9 +28,6 @@
     <Filter Include="Header Files\kinect">
       <UniqueIdentifier>{392d53b9-2325-4e88-98ca-bf1751befabb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\kinect">
-      <UniqueIdentifier>{dc6ca6b7-d84c-4f7e-94dc-37db8ad92371}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AbstractArea.cpp">
@@ -317,9 +314,6 @@
     </ClCompile>
     <ClCompile Include="dep\stksrc\Wurley.cpp">
       <Filter>Source Files\stk</Filter>
-    </ClCompile>
-    <ClCompile Include="dep\GlueGL.cpp">
-      <Filter>Source Files\kinect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -667,9 +661,6 @@
     </ClInclude>
     <ClInclude Include="dep\stksrc\WvOut.h">
       <Filter>Header Files\stk\dep</Filter>
-    </ClInclude>
-    <ClInclude Include="dep\GlueGL.h">
-      <Filter>Header Files\kinect</Filter>
     </ClInclude>
     <ClInclude Include="dep\OpenNiUtil.h">
       <Filter>Header Files\kinect</Filter>

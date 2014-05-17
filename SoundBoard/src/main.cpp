@@ -141,7 +141,7 @@ int main(int argc, char* argv[])
     raw_image.create(imageY, imageX);
 
     auto image = image_metadata.RGB24Data();
-    for (int i = 0; i < imageX*imageY; ++i) {
+    for (unsigned i = 0; i < imageX*imageY; ++i) {
       auto current_px = image[i];
       raw_image.setPixel(i/imageX, i%imageX, 
         sf::Color(current_px.nRed, current_px.nGreen, current_px.nRed));      
