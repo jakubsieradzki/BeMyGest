@@ -23,6 +23,7 @@ void Button::onHover(unsigned x, unsigned y)
 void Button::onLeave(unsigned x, unsigned y)
 {
 	inside_ = false;
+	progress_ = 0.0f;
 }
 
 void Button::draw(sf::RenderWindow *render_window)
