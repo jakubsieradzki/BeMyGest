@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "SoundMaker.h"
+#include <functional>
 
 class AbstractArea
 {
@@ -70,6 +71,27 @@ public:
 	~SoundArea() { soundMaker_.closeStream(); }
 	virtual void onHover(unsigned int x, unsigned int y);
 	virtual void onLeave(unsigned int x, unsigned int y);
+};
+
+////////////
+// BUTTON //
+////////////
+class Button : public AbstractArea
+{
+private:
+	bool inside_, enabled_;
+	clock_t enterTime_;	
+	float progress_, MAX_TIME;
+	std::function<void()> action_;
+public:
+	// change to texture
+	Button(unsigned x, unsigned y, unsigned width, unsigned height, sf::Color color)
+		: AbstractArea(x, y, width, height, color), inside_(false), enabled_(true), enterTime_(0L), progress_(0.0f), MAX_TIME(1.0f) {}
+	~Button() {}
+	void setAction(std::function<void()> action) { action_ = action; }
+	virtual void onHover(unsigned int x, unsigned int y);
+	virtual void onLeave(unsigned int x, unsigned int y);
+	virtual void draw(sf::RenderWindow* render_window);
 };
 
 #endif

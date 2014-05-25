@@ -162,6 +162,7 @@
     <ClCompile Include="src\SimpleArea.cpp" />
     <ClCompile Include="src\SoundArea.cpp" />
     <ClCompile Include="src\SoundMaker.cpp" />
+    <ClCompile Include="src\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dep\OpenNiUtil.h" />

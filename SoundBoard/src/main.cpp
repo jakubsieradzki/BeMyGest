@@ -90,6 +90,7 @@ int main(int argc, char* argv[])
 {
   sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "SoundBoard");	
 	xn::Context context;
+	AreaManager* current_area_manager;
 	
 	// Stk initialization
 	Stk::setSampleRate( 44100.0 );
@@ -97,10 +98,13 @@ int main(int argc, char* argv[])
 
 	// init context
 	initContext(&context);
-	context.SetGlobalMirror(true);
+	context.SetGlobalMirror(false);
 
-	// create AreaManager & add areas
-	AreaManager areaManager(&window);
+	// create areas
+	AreaManager *sound_area = new AreaManager(&window);	
+	AreaManager *menu_area = new AreaManager(&window);
+
+	// define sound area
 	StkFloat notes[9] = {
 		329.63, 349.23, 392.00,
 		440.0, 493.88, 523.25,
@@ -110,12 +114,18 @@ int main(int argc, char* argv[])
 	for (unsigned int i = 0; i < (sizeof(notes)/sizeof(*notes)); ++i)
 	{
 		int m = i % 3;
-		int n = i / 3;
-    areaManager.addArea(new SoundArea(200 + (delta*m), 150 + (delta*n), 100, 100, sf::Color(0.0f, 0.0f, 255.0f, 125.0f), new Flute(300.0), notes[i]));
+		int n = i / 3;		
+		sound_area->addArea(new SoundArea(200 + (delta*m), 150 + (delta*n), 100, 100, sf::Color(0.0f, 0.0f, 255.0f, 125.0f), new Flute(300.0), notes[i]));
 	}
+	// define menu area
+	Button *btn = new Button(200, 50, 200, 100, sf::Color(0.0f, 0.0f, 255.0f, 200.0f));
+	btn->setAction([&current_area_manager, &sound_area] {		
+		current_area_manager = sound_area;
+	});
+	menu_area->addArea(btn);
+	current_area_manager = menu_area;
 
 	xn::ImageMetaData image_metadata;
-
   while (window.isOpen()) 
   {
     // handle events
@@ -161,13 +171,17 @@ int main(int argc, char* argv[])
       sf::CircleShape hand_position(5.0f);
       hand_position.setPosition(WINDOW_W-projective_point.X, projective_point.Y);
       window.draw(hand_position);
-      areaManager.update(projective_point.X, projective_point.Y);
+      current_area_manager->update(WINDOW_W-projective_point.X, projective_point.Y);
     }
     // AreaManager draw
-    areaManager.draw();
+    current_area_manager->draw();
     window.display();
   }	
-	context.Release();	
+
+	// clean up
+	context.Release();
+	delete menu_area;
+	delete sound_area;
 	return 0;	
 }
 

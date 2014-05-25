@@ -315,6 +315,9 @@
     <ClCompile Include="dep\stksrc\Wurley.cpp">
       <Filter>Source Files\stk</Filter>
     </ClCompile>
+    <ClCompile Include="src\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AbstractArea.h">
