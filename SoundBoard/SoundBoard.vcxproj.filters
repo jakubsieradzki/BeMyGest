@@ -327,6 +327,12 @@
     <ClCompile Include="src\FreePlayingGame.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="src\MenuScreen.h">
+      <Filter>Header Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MenuScreen.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AbstractArea.h">
@@ -681,6 +687,12 @@
       <Filter>Header Files\game</Filter>
     </ClInclude>
     <ClInclude Include="src\FreePlayingGame.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreenMgr.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreenID.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,7 +8,9 @@
 #include "AreaManager.h"
 #include "AbstractArea.h"
 #include "FreePlayingGame.h"
+#include "MenuScreen.h"
 #include "GameScreen.h"
+#include "GameScreenMgr.h"
 #include <iostream>
 
 using namespace stk;
@@ -100,17 +102,9 @@ int main(int argc, char* argv[])
 	initContext(&context);
 	context.SetGlobalMirror(false);
 
-	// define menu area
-	//Button *btn = new Button(200, 50, 200, 100, sf::Color(0.0f, 0.0f, 255.0f, 200.0f));
-	//btn->setAction([&current_area_manager, &sound_area] {		
-	//	current_area_manager = sound_area;
-	//});
-	//menu_area->addArea(btn);
-	//current_area_manager = menu_area;
-
 	xn::ImageMetaData image_metadata;
-  GameScreen* current_game = new FreePlayingGame(&window);
-  current_game->setup();
+  GameScreenMgr::instance().Add(FREE_PLAYING, new FreePlayingGame(&window));
+  GameScreenMgr::instance().Add(MAIN_MENU, new MenuScreen(&window));    
 
   while (window.isOpen()) 
   {
@@ -157,9 +151,10 @@ int main(int argc, char* argv[])
       sf::CircleShape hand_position(5.0f);
       hand_position.setPosition(WINDOW_W-projective_point.X, projective_point.Y);
       window.draw(hand_position);           
-      current_game->update(WINDOW_W-projective_point.X, projective_point.Y);
+      GameScreenMgr::instance().GetActive()
+        ->update(WINDOW_W-projective_point.X, projective_point.Y);
     }    
-    current_game->draw();
+    GameScreenMgr::instance().GetActive()->draw();
     window.display();
   }	
 
