@@ -7,6 +7,8 @@
 #include "SoundMaker.h"
 #include "AreaManager.h"
 #include "AbstractArea.h"
+#include "FreePlayingGame.h"
+#include "GameScreen.h"
 #include <iostream>
 
 using namespace stk;
@@ -85,12 +87,10 @@ void XN_CALLBACK_TYPE Hand_Destroy(
   hand_recognized = false;
 }
 
-// MAIN
 int main(int argc, char* argv[])
 {
-  sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "SoundBoard");	
+  sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "SoundBoard");	  
 	xn::Context context;
-	AreaManager* current_area_manager;
 	
 	// Stk initialization
 	Stk::setSampleRate( 44100.0 );
@@ -100,32 +100,18 @@ int main(int argc, char* argv[])
 	initContext(&context);
 	context.SetGlobalMirror(false);
 
-	// create areas
-	AreaManager *sound_area = new AreaManager(&window);	
-	AreaManager *menu_area = new AreaManager(&window);
-
-	// define sound area
-	StkFloat notes[9] = {
-		329.63, 349.23, 392.00,
-		440.0, 493.88, 523.25,
-		587.33, 659.25, 698.46
-	};
-	int delta = 150;
-	for (unsigned int i = 0; i < (sizeof(notes)/sizeof(*notes)); ++i)
-	{
-		int m = i % 3;
-		int n = i / 3;		
-		sound_area->addArea(new SoundArea(200 + (delta*m), 150 + (delta*n), 100, 100, sf::Color(0.0f, 0.0f, 255.0f, 125.0f), new Flute(300.0), notes[i]));
-	}
 	// define menu area
-	Button *btn = new Button(200, 50, 200, 100, sf::Color(0.0f, 0.0f, 255.0f, 200.0f));
-	btn->setAction([&current_area_manager, &sound_area] {		
-		current_area_manager = sound_area;
-	});
-	menu_area->addArea(btn);
-	current_area_manager = menu_area;
+	//Button *btn = new Button(200, 50, 200, 100, sf::Color(0.0f, 0.0f, 255.0f, 200.0f));
+	//btn->setAction([&current_area_manager, &sound_area] {		
+	//	current_area_manager = sound_area;
+	//});
+	//menu_area->addArea(btn);
+	//current_area_manager = menu_area;
 
 	xn::ImageMetaData image_metadata;
+  GameScreen* current_game = new FreePlayingGame(&window);
+  current_game->setup();
+
   while (window.isOpen()) 
   {
     // handle events
@@ -134,7 +120,7 @@ int main(int argc, char* argv[])
     {
       if (event.type == sf::Event::Closed 
             || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        window.close();      
+        window.close();
     }
     // draw
     window.clear();
@@ -154,9 +140,9 @@ int main(int argc, char* argv[])
     for (unsigned i = 0; i < imageX*imageY; ++i) {
       auto current_px = image[i];
       raw_image.setPixel(i/imageX, i%imageX, 
-        sf::Color(current_px.nRed, current_px.nGreen, current_px.nRed));      
+        sf::Color(current_px.nRed, current_px.nGreen, current_px.nRed));
     }
-    sf::Texture raw_texture;   
+    sf::Texture raw_texture;
     raw_texture.loadFromImage(raw_image);
     sf::Sprite raw_sprite(raw_texture);
     raw_sprite.setRotation(90.0f);
@@ -170,18 +156,15 @@ int main(int argc, char* argv[])
       // Draw point over tracked hand
       sf::CircleShape hand_position(5.0f);
       hand_position.setPosition(WINDOW_W-projective_point.X, projective_point.Y);
-      window.draw(hand_position);
-      current_area_manager->update(WINDOW_W-projective_point.X, projective_point.Y);
-    }
-    // AreaManager draw
-    current_area_manager->draw();
+      window.draw(hand_position);           
+      current_game->update(WINDOW_W-projective_point.X, projective_point.Y);
+    }    
+    current_game->draw();
     window.display();
   }	
 
 	// clean up
-	context.Release();
-	delete menu_area;
-	delete sound_area;
+	context.Release();	
 	return 0;	
 }
 

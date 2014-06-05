@@ -28,6 +28,12 @@
     <Filter Include="Header Files\kinect">
       <UniqueIdentifier>{392d53b9-2325-4e88-98ca-bf1751befabb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{7c054086-b6db-4f7f-a4ff-e89d84e2699d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{b773586a-6462-4ea9-8f24-c933c6fa1038}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AbstractArea.cpp">
@@ -317,6 +323,9 @@
     </ClCompile>
     <ClCompile Include="src\Button.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FreePlayingGame.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -667,6 +676,12 @@
     </ClInclude>
     <ClInclude Include="dep\OpenNiUtil.h">
       <Filter>Header Files\kinect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreen.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FreePlayingGame.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

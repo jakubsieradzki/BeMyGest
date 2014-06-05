@@ -158,6 +158,7 @@
     <ClCompile Include="dep\stksrc\Wurley.cpp" />
     <ClCompile Include="src\AbstractArea.cpp" />
     <ClCompile Include="src\AreaManager.cpp" />
+    <ClCompile Include="src\FreePlayingGame.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\SimpleArea.cpp" />
     <ClCompile Include="src\SoundArea.cpp" />
@@ -280,6 +281,8 @@
     <ClInclude Include="dep\stksrc\WvOut.h" />
     <ClInclude Include="src\AbstractArea.h" />
     <ClInclude Include="src\AreaManager.h" />
+    <ClInclude Include="src\FreePlayingGame.h" />
+    <ClInclude Include="src\GameScreen.h" />
     <ClInclude Include="src\SoundMaker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

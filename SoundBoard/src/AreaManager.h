@@ -1,5 +1,4 @@
-#ifndef AREA_MANAGER_
-#define AREA_MANAGER
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include "AbstractArea.h"
@@ -19,5 +18,3 @@ public:
 	void draw();
 	void update(unsigned int x, unsigned int y);
 };
-
-#endif 
