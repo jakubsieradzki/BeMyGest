@@ -158,10 +158,11 @@
     <ClCompile Include="dep\stksrc\Wurley.cpp" />
     <ClCompile Include="src\AbstractArea.cpp" />
     <ClCompile Include="src\AreaManager.cpp" />
+    <ClCompile Include="src\FallingBlockGame.cpp" />
     <ClCompile Include="src\FreePlayingGame.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuScreen.cpp" />
-    <ClCompile Include="src\MenuScreen.h" />
+    <ClCompile Include="src\MovingArea.cpp" />
     <ClCompile Include="src\SimpleArea.cpp" />
     <ClCompile Include="src\SoundArea.cpp" />
     <ClCompile Include="src\SoundMaker.cpp" />
@@ -283,10 +284,12 @@
     <ClInclude Include="dep\stksrc\WvOut.h" />
     <ClInclude Include="src\AbstractArea.h" />
     <ClInclude Include="src\AreaManager.h" />
+    <ClInclude Include="src\FallingBlocksGame.h" />
     <ClInclude Include="src\FreePlayingGame.h" />
     <ClInclude Include="src\GameScreen.h" />
     <ClInclude Include="src\GameScreenID.h" />
     <ClInclude Include="src\GameScreenMgr.h" />
+    <ClInclude Include="src\MenuScreen.h" />
     <ClInclude Include="src\SoundMaker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

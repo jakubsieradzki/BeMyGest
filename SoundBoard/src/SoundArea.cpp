@@ -1,6 +1,6 @@
 #include "AbstractArea.h"
 
-SoundArea::SoundArea(unsigned x, unsigned y, unsigned width, unsigned height, sf::Color color, Instrmnt *instrument, StkFloat baseFreq)
+SoundArea::SoundArea(float x, float y, float width, float height, sf::Color color, Instrmnt *instrument, StkFloat baseFreq)
 	: AbstractArea(x, y, width, height, color), baseFreq_(baseFreq)
 {
 	soundMaker_.setInstrument(instrument);

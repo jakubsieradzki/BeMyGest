@@ -2,5 +2,6 @@
 
 enum GameScreenID {
   MAIN_MENU,
-  FREE_PLAYING
+  FREE_PLAYING,
+	FALLING_GAME
 };

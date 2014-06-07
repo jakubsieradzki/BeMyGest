@@ -4,16 +4,21 @@
 
 MenuScreen::MenuScreen(sf::RenderWindow* render_window)
   : GameScreen(render_window)
-
 {
   setup();
 }
 
 void MenuScreen::setup()
 {
-  Button *btn = new Button(200, 50, 200, 100, sf::Color(0.0f, 0.0f, 255.0f, 200.0f));  
-  btn->setAction([]{
+  Button *free_playing_btn = new Button(200, 50, 200, 100, sf::Color(0, 0, 255, 200));  
+  free_playing_btn->setAction([]{
     GameScreenMgr::instance().SetActive(FREE_PLAYING);
   });
-  area_mgr_->addArea(btn);
+  area_mgr_->addArea(free_playing_btn);
+
+	Button *falling_blocks_btn = new Button(200, 300, 200, 100, sf::Color(0, 0, 255, 200));  
+  falling_blocks_btn->setAction([]{
+    GameScreenMgr::instance().SetActive(FALLING_GAME);
+  });
+  area_mgr_->addArea(falling_blocks_btn);
 }

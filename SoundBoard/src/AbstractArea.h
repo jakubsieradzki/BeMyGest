@@ -1,5 +1,4 @@
-#ifndef ABSTRACT_AREA_
-#define ABSTRACT_AREA_
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include "SoundMaker.h"
@@ -11,20 +10,21 @@ private:
 	bool isWithinArea(unsigned x, unsigned y);
 
 protected:
-	unsigned x_, y_, width_, height_;
+	float x_, y_;
+	float width_, height_;
 	sf::Color color_;
 
 public:
-	AbstractArea(unsigned x, unsigned y, unsigned width, unsigned height) 
+	AbstractArea(float x, float y, float width, float height) 
 		: x_(x), y_(y), width_(width), height_(height) {}
-	AbstractArea(unsigned x, unsigned y, unsigned width, unsigned height, sf::Color color) 
+	AbstractArea(float x, float y, float width, float height, sf::Color color) 
 		: x_(x), y_(y), width_(width), height_(height), color_(color) {}
 	virtual ~AbstractArea();
 
-	unsigned x() { return x_; }
-	unsigned y() { return y_; }
-	unsigned width() { return width_; }
-	unsigned height() { return height_; }
+	float x() { return x_; }
+	float y() { return y_; }
+	float width() { return width_; }
+	float height() { return height_; }
 	void setColor(sf::Color color) { color_ = color; }
 	void update(unsigned int x, unsigned int y);
 	virtual void draw(sf::RenderWindow* render_window);
@@ -43,7 +43,7 @@ private:
 	sf::Color changeColor_;
 
 public:
-	SimpleArea(unsigned x, unsigned y, unsigned width, unsigned height, sf::Color color, sf::Color changeColor) 
+	SimpleArea(float x, float y, float width, float height, sf::Color color, sf::Color changeColor) 
 		: AbstractArea(x, y, width, height, color), initializeColor_(color), changeColor_(changeColor) {}
 	
 	virtual void onHover(unsigned int x, unsigned int y);
@@ -61,10 +61,10 @@ private:
 
 public:
 	SoundArea(
-		unsigned x, 
-		unsigned y,
-		unsigned width,
-		unsigned height,
+		float x, 
+		float y,
+		float width,
+		float height,
 		sf::Color color,
 		Instrmnt *instrument,
 		StkFloat baseFreq);
@@ -85,7 +85,7 @@ private:
 	std::function<void()> action_;
 public:
 	// change to texture
-	Button(unsigned x, unsigned y, unsigned width, unsigned height, sf::Color color)
+	Button(float x, float y, float width, float height, sf::Color color)
 		: AbstractArea(x, y, width, height, color), inside_(false), enabled_(true), enterTime_(0L), progress_(0.0f), MAX_TIME(1.0f) {}
 	~Button() {}
 	void setAction(std::function<void()> action) { action_ = action; }
@@ -94,4 +94,21 @@ public:
 	virtual void draw(sf::RenderWindow* render_window);
 };
 
-#endif
+/////////////////
+// MOVING AREA //
+/////////////////
+class MovingArea : public AbstractArea
+{
+private:
+	float time_delay_, update_time_, speed_;
+	int position_delta_;
+	bool action_performed;
+	sf::Clock clock_;
+public:
+	MovingArea(sf::Rect<float> rect, float time_delay, int position_delta);
+	void setClock(sf::Clock clock) { clock_ = clock; }
+
+	virtual void onHover(unsigned int x, unsigned int y);
+	virtual void onLeave(unsigned int x, unsigned int y);
+	virtual void draw(sf::RenderWindow* render_window);
+};

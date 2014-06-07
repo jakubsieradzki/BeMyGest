@@ -8,6 +8,7 @@
 #include "AreaManager.h"
 #include "AbstractArea.h"
 #include "FreePlayingGame.h"
+#include "FallingBlocksGame.h"
 #include "MenuScreen.h"
 #include "GameScreen.h"
 #include "GameScreenMgr.h"
@@ -104,7 +105,8 @@ int main(int argc, char* argv[])
 
 	xn::ImageMetaData image_metadata;
   GameScreenMgr::instance().Add(FREE_PLAYING, new FreePlayingGame(&window));
-  GameScreenMgr::instance().Add(MAIN_MENU, new MenuScreen(&window));    
+  GameScreenMgr::instance().Add(MAIN_MENU, new MenuScreen(&window)); 
+  GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window)); 
 
   while (window.isOpen()) 
   {
