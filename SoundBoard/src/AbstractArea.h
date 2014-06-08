@@ -100,13 +100,14 @@ public:
 class MovingArea : public AbstractArea
 {
 private:
-	float time_delay_, update_time_, speed_;
+	float time_target_, speed_;
+	float position_delay_;
 	int position_delta_;
 	bool action_performed;
-	sf::Clock clock_;
+	sf::Clock *clock_;
 public:
 	MovingArea(sf::Rect<float> rect, float time_delay, int position_delta);
-	void setClock(sf::Clock clock) { clock_ = clock; }
+	void setClock(sf::Clock *clock) { clock_ = clock; }
 
 	virtual void onHover(unsigned int x, unsigned int y);
 	virtual void onLeave(unsigned int x, unsigned int y);
