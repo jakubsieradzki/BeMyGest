@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Electricus", "Electricus\El
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoundBoard", "SoundBoard\SoundBoard.vcxproj", "{BF3FF6D3-2A01-49B8-927F-0E7B5D01984E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DrumMachine", "DrumMachine\DrumMachine.vcxproj", "{F719ACF8-5348-4900-A9D7-D50F92093E0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +45,10 @@ Global
 		{BF3FF6D3-2A01-49B8-927F-0E7B5D01984E}.Debug|Win32.Build.0 = Debug|Win32
 		{BF3FF6D3-2A01-49B8-927F-0E7B5D01984E}.Release|Win32.ActiveCfg = Release|Win32
 		{BF3FF6D3-2A01-49B8-927F-0E7B5D01984E}.Release|Win32.Build.0 = Release|Win32
+		{F719ACF8-5348-4900-A9D7-D50F92093E0D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F719ACF8-5348-4900-A9D7-D50F92093E0D}.Debug|Win32.Build.0 = Debug|Win32
+		{F719ACF8-5348-4900-A9D7-D50F92093E0D}.Release|Win32.ActiveCfg = Release|Win32
+		{F719ACF8-5348-4900-A9D7-D50F92093E0D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
