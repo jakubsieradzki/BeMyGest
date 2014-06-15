@@ -17,6 +17,7 @@ protected:
 
 public:
   HumanTracker(XnSkeletonProfile skeleton_profile, xn::UserGenerator& user_generator);
+  virtual ~HumanTracker();
 
   bool IsAnyHumanTracked() { return !tracked_human_ids_.empty(); }
   XnUserID GetFirstTrackedHumanId();

@@ -12,6 +12,10 @@ HumanTracker::HumanTracker(XnSkeletonProfile skeleton_profile, UserGenerator& us
   user_generator_.GetSkeletonCap().SetSkeletonProfile(skeleton_profile);
 }
 
+HumanTracker::~HumanTracker()
+{
+}
+
 void XN_CALLBACK_TYPE HumanTracker::User_NewUser(UserGenerator& generator, XnUserID nId, void* pCookie)
 {
   HumanTracker* human_tracker = reinterpret_cast<HumanTracker*>(pCookie);
