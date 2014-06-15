@@ -130,31 +130,32 @@ int main(int argc, char* argv[])
     unsigned imageY = image_metadata.YRes();
 
     sf::Image raw_image;
-    raw_image.create(imageY, imageX);
+    raw_image.create(imageX, imageY);
 
-    auto image = image_metadata.RGB24Data();
-    for (unsigned i = 0; i < imageX*imageY; ++i) {
-      auto current_px = image[i];
-      raw_image.setPixel(i/imageX, i%imageX, 
-        sf::Color(current_px.nRed, current_px.nGreen, current_px.nRed));
+    const XnRGB24Pixel* pixel;
+    const XnRGB24Pixel* image_row = image_metadata.RGB24Data();
+    for (int y = 0; y < imageY; ++y) {
+      pixel = image_row;
+      for (int x = 0; x < imageX; ++x, ++pixel) {
+        raw_image.setPixel(x, y, 
+          sf::Color(pixel->nRed, pixel->nGreen, pixel->nBlue));
+      }
+      image_row += imageX;
     }
     sf::Texture raw_texture;
     raw_texture.loadFromImage(raw_image);
     sf::Sprite raw_sprite(raw_texture);
-    raw_sprite.setRotation(90.0f);
-    raw_sprite.setPosition(WINDOW_W, 0);
     raw_sprite.setScale(WINDOW_W/(float)imageX, WINDOW_H/(float)imageY);
- 
     window.draw(raw_sprite);   
 
     // draw hand point
     if (hand_recognized) {
       // Draw point over tracked hand
       sf::CircleShape hand_position(5.0f);
-      hand_position.setPosition(WINDOW_W-projective_point.X, projective_point.Y);
+      hand_position.setPosition(projective_point.X, projective_point.Y);
       window.draw(hand_position);           
       GameScreenMgr::instance().GetActive()
-        ->update(WINDOW_W-projective_point.X, projective_point.Y);
+        ->update(projective_point.X, projective_point.Y);
     }    
     GameScreenMgr::instance().GetActive()->draw();
     window.display();
