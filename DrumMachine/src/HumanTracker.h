@@ -26,7 +26,7 @@ public:
   void RegisterAllCallbacks();
   void TrackAllUsersParts();
 
-  virtual void TrakckUsers() { TrackAllUsersParts(); }
+  virtual void TrackUsers() { TrackAllUsersParts(); }
   virtual void RegisterCallbacks() { RegisterAllCallbacks(); }
   virtual void OnNewUser(xn::UserGenerator& generator, XnUserID nId);
   virtual void OnLostUser(xn::UserGenerator& generator, XnUserID nId);
