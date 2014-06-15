@@ -34,6 +34,12 @@
     <Filter Include="Source Files\game">
       <UniqueIdentifier>{b773586a-6462-4ea9-8f24-c933c6fa1038}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\music">
+      <UniqueIdentifier>{f6407b96-4d06-4056-af93-f6050057a9dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\music">
+      <UniqueIdentifier>{77550982-30d7-4a6b-b39c-1b852fdb8487}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AbstractArea.cpp">
@@ -335,6 +341,27 @@
     </ClCompile>
     <ClCompile Include="src\FallingBlockGame.cpp">
       <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MusicNote.cpp">
+      <Filter>Source Files\music</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundMovingArea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MusicFileConfig.cpp">
+      <Filter>Source Files\music</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileParser.cpp">
+      <Filter>Source Files\music</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SimpleFileParser.cpp">
+      <Filter>Source Files\music</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FallingMusicBlockFactory.cpp">
+      <Filter>Source Files\music</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MusicBlocksProvider.cpp">
+      <Filter>Source Files\music</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -703,6 +730,27 @@
     </ClInclude>
     <ClInclude Include="src\FallingBlocksGame.h">
       <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MusicNote.h">
+      <Filter>Header Files\music</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MusicFileConfig.h">
+      <Filter>Header Files\music</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FileParser.h">
+      <Filter>Header Files\music</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SimpleFileParser.h">
+      <Filter>Header Files\music</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MusicBlockFactory.h">
+      <Filter>Header Files\music</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FallingMusicBlockFactory.h">
+      <Filter>Header Files\music</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MusicBlocksProvider.h">
+      <Filter>Header Files\music</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

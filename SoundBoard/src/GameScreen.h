@@ -10,6 +10,7 @@ public:
     : render_window_(render_window),
       area_mgr_(new AreaManager(render_window)) {        
   }
+	virtual ~GameScreen() { delete area_mgr_; }
   virtual void setup() = 0;
   void draw() {
     area_mgr_->draw();

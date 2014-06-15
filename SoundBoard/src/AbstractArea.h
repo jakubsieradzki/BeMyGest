@@ -13,18 +13,24 @@ protected:
 	float x_, y_;
 	float width_, height_;
 	sf::Color color_;
+	bool removable_;
 
 public:
 	AbstractArea(float x, float y, float width, float height) 
-		: x_(x), y_(y), width_(width), height_(height) {}
+		: x_(x), y_(y), width_(width), height_(height), removable_(false) {}
 	AbstractArea(float x, float y, float width, float height, sf::Color color) 
-		: x_(x), y_(y), width_(width), height_(height), color_(color) {}
+		: x_(x), y_(y), width_(width), height_(height), color_(color), removable_(false) {}
 	virtual ~AbstractArea();
 
 	float x() { return x_; }
 	float y() { return y_; }
 	float width() { return width_; }
 	float height() { return height_; }
+	void setX(float x) { x_ = x; }
+	void setY(float y) { y_ = y; }
+	void setW(float w) { width_ = w; }
+	void setH(float h) { height_ = h; }
+	bool removable() { return removable_; }
 	void setColor(sf::Color color) { color_ = color; }
 	void update(unsigned int x, unsigned int y);
 	virtual void draw(sf::RenderWindow* render_window);
@@ -94,22 +100,50 @@ public:
 	virtual void draw(sf::RenderWindow* render_window);
 };
 
-/////////////////
-// MOVING AREA //
-/////////////////
+///////////////////////////
+//(ABSTRACT) MOVING AREA //
+///////////////////////////
 class MovingArea : public AbstractArea
 {
 private:
-	float time_target_, speed_;
+	float time_target_;
 	float position_delay_;
 	int position_delta_;
 	bool action_performed;
 	sf::Clock *clock_;
+protected:
+	float speed_, time_correction_;
 public:
-	MovingArea(sf::Rect<float> rect, float time_delay, int position_delta);
+	MovingArea(sf::Rect<float> rect, float current_time, float time_delay, int position_delta);
+	MovingArea::MovingArea(sf::Rect<float> rect);
+	virtual ~MovingArea() {}
 	void setClock(sf::Clock *clock) { clock_ = clock; }
+	void setSpeed(float speed) { speed_ = speed; }
+	void setPostionTarget(float target) { position_delta_ = target; }
+	
+	virtual void draw(sf::RenderWindow* render_window);	
+};
 
+///////////////////////
+// SOUND MOVING AREA //
+///////////////////////
+class SoundMovingArea : public MovingArea
+{
+private:	
+	StkFloat baseFreq_;
+	SoundMaker soundMaker_;
+	sf::Color hover_color_;
+	sf::Color idle_color_;
+
+public:
+	SoundMovingArea(sf::Rect<float> rect, float current_time, float time_delay, int position_delta);
+	SoundMovingArea(sf::Rect<float> rect) : MovingArea(rect) {}
+	~SoundMovingArea();
+	void setInsrument(Instrmnt *instrument) { soundMaker_.setInstrument(instrument);}
+	void setFrequency(StkFloat freq) { baseFreq_ = freq; }
+	void openStream();
+		
 	virtual void onHover(unsigned int x, unsigned int y);
 	virtual void onLeave(unsigned int x, unsigned int y);
-	virtual void draw(sf::RenderWindow* render_window);
+
 };

@@ -159,14 +159,21 @@
     <ClCompile Include="src\AbstractArea.cpp" />
     <ClCompile Include="src\AreaManager.cpp" />
     <ClCompile Include="src\FallingBlockGame.cpp" />
+    <ClCompile Include="src\FileParser.cpp" />
     <ClCompile Include="src\FreePlayingGame.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuScreen.cpp" />
     <ClCompile Include="src\MovingArea.cpp" />
+    <ClCompile Include="src\MusicBlocksProvider.cpp" />
+    <ClCompile Include="src\MusicFileConfig.cpp" />
+    <ClCompile Include="src\MusicNote.cpp" />
     <ClCompile Include="src\SimpleArea.cpp" />
+    <ClCompile Include="src\SimpleFileParser.cpp" />
+    <ClCompile Include="src\FallingMusicBlockFactory.cpp" />
     <ClCompile Include="src\SoundArea.cpp" />
     <ClCompile Include="src\SoundMaker.cpp" />
     <ClCompile Include="src\Button.cpp" />
+    <ClCompile Include="src\SoundMovingArea.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dep\OpenNiUtil.h" />
@@ -285,11 +292,18 @@
     <ClInclude Include="src\AbstractArea.h" />
     <ClInclude Include="src\AreaManager.h" />
     <ClInclude Include="src\FallingBlocksGame.h" />
+    <ClInclude Include="src\FileParser.h" />
     <ClInclude Include="src\FreePlayingGame.h" />
     <ClInclude Include="src\GameScreen.h" />
     <ClInclude Include="src\GameScreenID.h" />
     <ClInclude Include="src\GameScreenMgr.h" />
     <ClInclude Include="src\MenuScreen.h" />
+    <ClInclude Include="src\MusicBlockFactory.h" />
+    <ClInclude Include="src\MusicBlocksProvider.h" />
+    <ClInclude Include="src\MusicFileConfig.h" />
+    <ClInclude Include="src\MusicNote.h" />
+    <ClInclude Include="src\SimpleFileParser.h" />
+    <ClInclude Include="src\FallingMusicBlockFactory.h" />
     <ClInclude Include="src\SoundMaker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

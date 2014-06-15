@@ -7,6 +7,7 @@ AreaManager::~AreaManager()
 	{		
 		delete (*it);
 	}
+	areas_.clear();
 }
 
 void AreaManager::draw()
@@ -21,8 +22,18 @@ void AreaManager::draw()
 void AreaManager::update(unsigned int x, unsigned int y)
 {	
 	std::vector<AbstractArea*>::iterator it;
-	for (it = areas_.begin(); it != areas_.end(); ++it)
+	for (it = areas_.begin(); it != areas_.end();)
 	{				
 		(*it)->update(x, y);
+		if ((*it)->removable())
+		{
+			// thread-safe remove (?)
+			delete (*it);
+			it = areas_.erase(it);
+		}
+		else 
+		{
+			++it;
+		}
 	}
 }
