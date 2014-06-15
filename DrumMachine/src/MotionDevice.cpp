@@ -1,54 +1,51 @@
 #include "MotionDevice.h"
 
 using sf::Image;
-using sf::Sprite;
 using sf::Texture;
 
-MotionDevice::MotionDevice(bool capture_image)
-  : capture_image_(capture_image)
+MotionDevice::MotionDevice()
 {
   XnStatus status = motion_context_.Init();
-  if (status != XN_STATUS_OK) {
-    // couldn't init openi :(
-  }
-  if (capture_image_) {
-    status = image_generator_.Create(motion_context_);
-    if (status != XN_STATUS_OK) {
-      // couldn't create image generator
-    }
-  }  
-  motion_context_.StartGeneratingAll();
+    PRINT_ON_ERROR(status, "Motion context failed");
+  status = image_generator_.Create(motion_context_);
+    PRINT_ON_ERROR(status, "Image generator failed");
+  status = depth_generator_.Create(motion_context_);
+    PRINT_ON_ERROR(status, "Depth generator failed");
+  status = user_generator_.Create(motion_context_);
+    PRINT_ON_ERROR(status, "User generator failed");
+
+  status = motion_context_.StartGeneratingAll();
+    PRINT_ON_ERROR(status, "Generating all failed");
 }
 
 Texture MotionDevice::CaptureImage()
 {
-  if (capture_image_) 
-  {
-    image_generator_.GetMetaData(image_metadata_);
-    unsigned image_width = image_metadata_.XRes();
-    unsigned image_height = image_metadata_.YRes();
+  image_generator_.GetMetaData(image_metadata_);
+  unsigned image_width = image_metadata_.XRes();
+  unsigned image_height = image_metadata_.YRes();
 
-    Image raw_image;
-    raw_image.create(image_width, image_height);
+  Image raw_image;
+  raw_image.create(image_width, image_height);
 
-    const XnRGB24Pixel* pixel;
-    const XnRGB24Pixel* image_row = image_metadata_.RGB24Data();
+  const XnRGB24Pixel* pixel;
+  const XnRGB24Pixel* image_row = image_metadata_.RGB24Data();
 
-    for (int y = 0; y < image_height; ++y) {
-      pixel = image_row;
+  for (int y = 0; y < image_height; ++y) {
+    pixel = image_row;
 
-      for (int x = 0; x < image_width; ++x, ++pixel) {
-        raw_image.setPixel(x, y, 
-          sf::Color(pixel->nRed, pixel->nGreen, pixel->nRed));
-      }
-      image_row += image_width;
+    for (int x = 0; x < image_width; ++x, ++pixel) {
+      raw_image.setPixel(x, y, 
+        sf::Color(pixel->nRed, pixel->nGreen, pixel->nBlue));
     }
-    sf::Texture raw_texture;
-    raw_texture.loadFromImage(raw_image);   
-    return raw_texture;
+    image_row += image_width;
   }
-  else
-  {
-    return Texture();
-  }
+  sf::Texture raw_texture;
+  raw_texture.loadFromImage(raw_image);
+  return raw_texture;
+}
+
+void MotionDevice::Update()
+{
+  XnStatus status = motion_context_.WaitAndUpdateAll();
+  PRINT_ON_ERROR(status, "Update all failed");
 }
