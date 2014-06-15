@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
+#include "MotionDevice.h"
 
 const int WINDOW_W = 800;
 const int WINDOW_H = 600;
@@ -9,6 +10,7 @@ const std::string WINDOW_NAME = "DrumMachine";
 int main()
 {
   sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), WINDOW_NAME);
+  MotionDevice motion_device(true);
 
   while (window.isOpen())
   {
@@ -20,6 +22,12 @@ int main()
         window.close();
     }
     window.clear();
+    // <<<<
+
+    sf::Sprite captured_image(motion_device.CaptureImage());
+    window.draw(captured_image);
+
+    // >>>>
     window.display();
   }
 }
