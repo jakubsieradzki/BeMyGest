@@ -23,6 +23,7 @@ public:
   XnUserID GetFirstTrackedHumanId();
   std::vector<XnUserID>& tracked_human_ids() { return tracked_human_ids_; }
   XnSkeletonJointPosition GetHumanPartPosition(XnUserID user_id, XnSkeletonJoint part_type);
+  std::vector<XnSkeletonJointPosition>& GetHumanAllPartPosition(XnUserID user_id);
 
   void RegisterAllCallbacks();
   void TrackAllUsersParts();

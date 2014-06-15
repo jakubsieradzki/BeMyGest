@@ -1,10 +1,9 @@
 #include "HumanTracker.h"
 
-#include <iostream>
-
 using xn::UserGenerator;
 using xn::PoseDetectionCapability;
 using xn::SkeletonCapability;
+using std::vector;
 
 HumanTracker::HumanTracker(XnSkeletonProfile skeleton_profile, UserGenerator& user_generator)
   : user_generator_(user_generator) 
@@ -119,4 +118,14 @@ XnSkeletonJointPosition HumanTracker::GetHumanPartPosition(XnUserID user_id, XnS
 XnUserID HumanTracker::GetFirstTrackedHumanId()
 {
   return IsAnyHumanTracked() ? tracked_human_ids_[0] : -1;
+}
+
+std::vector<XnSkeletonJointPosition>& HumanTracker::GetHumanAllPartPosition(XnUserID user_id)
+{
+  vector<XnSkeletonJointPosition> all_part_positions;
+  for (int part_id = 1; part_id <= 24; ++part_id)
+  {
+    all_part_positions.push_back(GetHumanPartPosition(user_id, static_cast<XnSkeletonJoint>(part_id)));
+  }
+  return all_part_positions;
 }
