@@ -24,8 +24,7 @@ int main()
     window.clear();
     // <<<<
 
-    sf::Sprite captured_image(motion_device.CaptureImage());
-    window.draw(captured_image);
+    window.draw(sf::Sprite(motion_device.CaptureImage()));
 
     // >>>>
     window.display();
