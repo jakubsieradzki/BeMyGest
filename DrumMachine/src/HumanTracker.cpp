@@ -104,7 +104,7 @@ void HumanTracker::TrackAllUsersParts()
         XnSkeletonJoint body_part = static_cast<XnSkeletonJoint>(part_id);
         user_generator_.GetSkeletonCap()
           .GetSkeletonJointPosition(current_user_id, body_part, part_position);
-        humans_parts_positions[current_user_id][part_id] = part_position;
+        humans_parts_positions_[current_user_id][part_id] = part_position;
       }
     }
   }
@@ -112,7 +112,7 @@ void HumanTracker::TrackAllUsersParts()
 
 XnSkeletonJointPosition HumanTracker::GetHumanPartPosition(XnUserID user_id, XnSkeletonJoint part_type)
 {
-  return humans_parts_positions[user_id][static_cast<unsigned>(part_type)];
+  return humans_parts_positions_[user_id][static_cast<unsigned>(part_type)];
 }
 
 XnUserID HumanTracker::GetFirstTrackedHumanId()

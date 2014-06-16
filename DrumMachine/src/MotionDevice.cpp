@@ -47,5 +47,5 @@ Texture MotionDevice::CaptureImage()
 void MotionDevice::Update()
 {
   XnStatus status = motion_context_.WaitAndUpdateAll();
-  PRINT_ON_ERROR(status, "Update all failed");
+    PRINT_ON_ERROR(status, "Update all failed");
 }

@@ -12,7 +12,7 @@ private:
 
 protected:
   xn::UserGenerator& user_generator_;
-  XnSkeletonJointPosition humans_parts_positions[MAX_USER_TRACK][25];
+  XnSkeletonJointPosition humans_parts_positions_[MAX_USER_TRACK][25];
   std::vector<XnUserID> tracked_human_ids_;
 
 public:

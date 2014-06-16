@@ -31,26 +31,28 @@ int main()
     drummer.TrackUsers();
 
     sf::Texture captured_texture = motion_device.CaptureImage();
-    float scale_ratio_x = WINDOW_W/(float)captured_texture.getSize().x;
-    float scale_ratio_y = WINDOW_H/(float)captured_texture.getSize().y;
+    sf::Vector2f scale_ratio(
+      WINDOW_W/(float)captured_texture.getSize().x, 
+      WINDOW_H/(float)captured_texture.getSize().y);
 
     sf::Sprite captured_image(captured_texture);
-    captured_image.setScale(scale_ratio_x, scale_ratio_y);
+    captured_image.setScale(scale_ratio);
     window.draw(captured_image);
 
     std::vector<sf::Vector2f> skeleton_screen_points;
     Util::ConvertSkeletonMarkersToScreenPoints(
       motion_device.depth_generator(), 
       drummer.GetHumanAllPartPosition(drummer.GetFirstTrackedHumanId()), 
-      &skeleton_screen_points);
+      skeleton_screen_points);
+    Util::SetScaleToScreenPoints(skeleton_screen_points, scale_ratio);
 
     // draw marker points for whole skeleton
     for (unsigned i = 0; i < skeleton_screen_points.size(); ++i)
     {
       sf::CircleShape skeleton_marker(5.0f);
       skeleton_marker.setPosition(
-        skeleton_screen_points[i].x * scale_ratio_x, 
-        skeleton_screen_points[i].y * scale_ratio_y);
+        skeleton_screen_points[i].x, 
+        skeleton_screen_points[i].y);
       window.draw(skeleton_marker);
     }
 
