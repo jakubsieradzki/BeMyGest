@@ -30,10 +30,10 @@ Texture MotionDevice::CaptureImage()
   const XnRGB24Pixel* pixel;
   const XnRGB24Pixel* image_row = image_metadata_.RGB24Data();
 
-  for (int y = 0; y < image_height; ++y) {
+  for (unsigned y = 0; y < image_height; ++y) {
     pixel = image_row;
 
-    for (int x = 0; x < image_width; ++x, ++pixel) {
+    for (unsigned x = 0; x < image_width; ++x, ++pixel) {
       raw_image.setPixel(x, y, 
         sf::Color(pixel->nRed, pixel->nGreen, pixel->nBlue));
     }
