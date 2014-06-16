@@ -120,7 +120,7 @@ XnUserID HumanTracker::GetFirstTrackedHumanId()
   return IsAnyHumanTracked() ? tracked_human_ids_[0] : -1;
 }
 
-std::vector<XnSkeletonJointPosition>& HumanTracker::GetHumanAllPartPosition(XnUserID user_id)
+std::vector<XnSkeletonJointPosition> HumanTracker::GetHumanAllPartPosition(XnUserID user_id)
 {
   vector<XnSkeletonJointPosition> all_part_positions;
   for (int part_id = 1; part_id <= 24; ++part_id)
