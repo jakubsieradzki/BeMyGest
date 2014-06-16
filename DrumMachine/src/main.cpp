@@ -16,6 +16,8 @@ int main()
   HumanTracker drummer(XN_SKEL_PROFILE_ALL, motion_device.user_generator());
   drummer.RegisterCallbacks();
 
+  cv::namedWindow("Video");
+
   while (window.isOpen())
   {
     sf::Event event;
@@ -34,6 +36,27 @@ int main()
     sf::Vector2f scale_ratio(
       WINDOW_W/(float)captured_texture.getSize().x, 
       WINDOW_H/(float)captured_texture.getSize().y);
+
+    // <<<< OpenCV <<<<
+    cv::Mat captured_mat(captured_texture.getSize().y, captured_texture.getSize().x, CV_8UC3);
+    sf::Image captured_img = captured_texture.copyToImage();
+    for (unsigned x = 0; x < captured_texture.getSize().x; ++x) {
+      for (unsigned y = 0; y < captured_texture.getSize().y; ++y) {
+        captured_mat.at<cv::Vec3b>(y, x)[0] = captured_img.getPixel(x, y).b;
+        captured_mat.at<cv::Vec3b>(y, x)[1] = captured_img.getPixel(x, y).g;
+        captured_mat.at<cv::Vec3b>(y, x)[2] = captured_img.getPixel(x, y).r;
+      }
+    }
+    captured_mat = Util::GetThresholdedImage(&captured_mat, 110, 140);
+    cv::Moments moments = cv::moments(captured_mat);
+
+    double moment10 = moments.m10;
+    double moment01 = moments.m01;
+    double area = moments.m00;
+
+    float posX = (float)moment10/area;
+    float posY = (float)moment01/area;
+    // >>>> OpenCV >>>>
 
     sf::Sprite captured_image(captured_texture);
     captured_image.setScale(scale_ratio);
@@ -55,8 +78,13 @@ int main()
         skeleton_screen_points[i].y);
       window.draw(skeleton_marker);
     }
+    sf::CircleShape drumstick(5.0f);
+    drumstick.setPosition(posX * scale_ratio.x, posY * scale_ratio.y);
+    window.draw(drumstick);
 
     // >>>>
     window.display();
+
+    cv::imshow("Video", captured_mat);
   }
 }
