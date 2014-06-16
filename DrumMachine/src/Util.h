@@ -1,5 +1,6 @@
 #pragma once
 
+#include <opencv2/opencv.hpp>
 #include <SFML/Graphics.hpp>
 #include <XnCppWrapper.h>
 #include <vector>
@@ -26,6 +27,16 @@ namespace Util
       it->x = it->x*scale.x;
       it->y = it->y*scale.y;
     }
+  }
+
+  cv::Mat GetThresholdedImage(cv::Mat* image, int hue_min, int hue_max) 
+  {
+    cv::Mat imageHSV;
+    cv::Mat imageThreshed;
+
+    cv::cvtColor(*image, imageHSV, cv::COLOR_RGB2HSV);
+    cv::inRange(imageHSV, cv::Scalar(hue_min, 100, 100), cv::Scalar(hue_max, 255, 255), imageThreshed);
+    return imageThreshed;
   }
 
 }
