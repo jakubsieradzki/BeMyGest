@@ -5,6 +5,7 @@
     <OPENNI>C:\Program Files (x86)\OpenNI</OPENNI>
     <SFML>D:\Programowanie\Biblioteki\Tidy\SFML-2.1_vc2010_x86</SFML>
     <BOOST>D:\Programowanie\Biblioteki\Tidy\boost_1_55_0_vc2010</BOOST>
+    <OPENCV>D:\Programowanie\Biblioteki\Tidy\opencv\build</OPENCV>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
@@ -19,6 +20,10 @@
     </BuildMacro>
     <BuildMacro Include="BOOST">
       <Value>$(BOOST)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="OPENCV">
+      <Value>$(OPENCV)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>
