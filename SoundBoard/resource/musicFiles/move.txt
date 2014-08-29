@@ -1,0 +1,2 @@
+# x y width height note
+40 200 50 90 390.37
