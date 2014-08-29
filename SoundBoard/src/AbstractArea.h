@@ -10,24 +10,27 @@ private:
 	bool isWithinArea(unsigned x, unsigned y);
 
 protected:
+	sf::Shape* shape_;
 	float x_, y_;
 	float width_, height_;
 	sf::Color color_;
 	bool removable_;
 
 public:
+	AbstractArea() : removable_(false) { shape_ = NULL; }
 	AbstractArea(float x, float y, float width, float height) 
 		: x_(x), y_(y), width_(width), height_(height), removable_(false) {}
 	AbstractArea(float x, float y, float width, float height, sf::Color color) 
-		: x_(x), y_(y), width_(width), height_(height), color_(color), removable_(false) {}
+		: x_(x), y_(y), width_(width), height_(height), color_(color), removable_(false) {}	
+	AbstractArea(sf::Shape* shape) : shape_(shape), removable_(false) {}
 	virtual ~AbstractArea();
 
-	float x() { return x_; }
-	float y() { return y_; }
+	float x() { return shape_->getPosition().x; }
+	float y() { return shape_->getPosition().y; }
 	float width() { return width_; }
 	float height() { return height_; }
-	void setX(float x) { x_ = x; }
-	void setY(float y) { y_ = y; }
+	void setX(float x) { shape_->setPosition(x, y()); }
+	void setY(float y) { shape_->setPosition(x(), y); }
 	void setW(float w) { width_ = w; }
 	void setH(float h) { height_ = h; }
 	bool removable() { return removable_; }
@@ -74,6 +77,7 @@ public:
 		sf::Color color,
 		Instrmnt *instrument,
 		StkFloat baseFreq);
+	SoundArea(sf::Shape* shape, Instrmnt *instrument, StkFloat baseFreq);
 	~SoundArea() { soundMaker_.closeStream(); }
 	virtual void onHover(unsigned int x, unsigned int y);
 	virtual void onLeave(unsigned int x, unsigned int y);
@@ -88,12 +92,19 @@ private:
 	bool inside_, enabled_;
 	clock_t enterTime_;	
 	float progress_, MAX_TIME;
+	sf::RectangleShape* progress_shape_;
 	std::function<void()> action_;
+	sf::Sprite btn_sprite_;	
+	sf::Text btn_text_;
+
+	void setProgress(float percentage);
 public:
 	// change to texture
+	Button(sf::Shape* shape);
+	Button(sf::Vector2f position, sf::Vector2f size);
 	Button(float x, float y, float width, float height, sf::Color color)
 		: AbstractArea(x, y, width, height, color), inside_(false), enabled_(true), enterTime_(0L), progress_(0.0f), MAX_TIME(1.0f) {}
-	~Button() {}
+	~Button() { delete progress_shape_; }
 	void setAction(std::function<void()> action) { action_ = action; }
 	virtual void onHover(unsigned int x, unsigned int y);
 	virtual void onLeave(unsigned int x, unsigned int y);

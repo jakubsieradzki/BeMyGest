@@ -15,4 +15,6 @@ public:
 	void setBoundryLine(float boundry_line) { falling_boundry_line_ = boundry_line; }
 
 	virtual AbstractArea* create(MusicNote music_note);
+	virtual AbstractArea* create(MusicBlock music_block);
 };
+

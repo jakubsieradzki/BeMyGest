@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
 	xn::ImageMetaData image_metadata;
   GameScreenMgr::instance().Add(FREE_PLAYING, new FreePlayingGame(&window));
   GameScreenMgr::instance().Add(MAIN_MENU, new MenuScreen(&window)); 
-  GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window)); 
+  //GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window)); 
 
   while (window.isOpen()) 
   {
@@ -154,8 +154,7 @@ int main(int argc, char* argv[])
       sf::CircleShape hand_position(5.0f);
       hand_position.setPosition(projective_point.X, projective_point.Y);
       window.draw(hand_position);           
-      GameScreenMgr::instance().GetActive()
-        ->update(projective_point.X, projective_point.Y);
+      GameScreenMgr::instance().GetActive()->update(projective_point.X, projective_point.Y);
     }    
     GameScreenMgr::instance().GetActive()->draw();
     window.display();

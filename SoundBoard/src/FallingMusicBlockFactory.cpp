@@ -16,3 +16,8 @@ AbstractArea* FallingMusicBlockFactory::create(MusicNote music_note)
 
 	return area;
 }
+
+AbstractArea* FallingMusicBlockFactory::create(MusicBlock music_block)
+{
+	return NULL;
+}
