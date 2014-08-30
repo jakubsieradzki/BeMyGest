@@ -8,7 +8,7 @@ AbstractArea::~AbstractArea()
 	}
 }
 
-void AbstractArea::update(unsigned int x, unsigned int y)
+void AbstractArea::update(unsigned int x, unsigned int y, sf::Clock clock)
 {
 	if (isWithinArea(x, y))
 	{

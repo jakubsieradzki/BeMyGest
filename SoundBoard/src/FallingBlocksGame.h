@@ -14,7 +14,7 @@ public:
 	virtual void onActivation();
 
 private:
-  sf::Clock game_clock_;
+  //sf::Clock game_clock_;
 	sf::RectangleShape boundry_line_;	
 	AbstractProvider blocks_provider_;
 	// --- refacor ---

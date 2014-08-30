@@ -35,7 +35,7 @@ public:
 	void setH(float h) { height_ = h; }
 	bool removable() { return removable_; }
 	void setColor(sf::Color color) { color_ = color; }
-	virtual void update(unsigned int x, unsigned int y);
+	virtual void update(unsigned int x, unsigned int y, sf::Clock);
 	virtual void draw(sf::RenderWindow* render_window);
 	// events
 	virtual void onHover(unsigned int x, unsigned int y) = 0;
@@ -171,11 +171,13 @@ public:
 	float endTime() { return end_t_; }
 	sf::Shape* shape() { return shape_; }
 
-	virtual void update(unsigned int x, unsigned int y);
+	virtual void update(unsigned int x, unsigned int y, sf::Clock);
 	virtual void draw(sf::RenderWindow* render_window);
 private:
 	sf::Vector2f initial_pos_, final_position_;
 	sf::Vector2f velocity_;
 	sf::RectangleShape *track_shape_;
 	float start_t_, end_t_;
+
+	void updateBlock(sf::Clock clock);
 };

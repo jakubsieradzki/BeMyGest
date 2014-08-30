@@ -16,5 +16,5 @@ public:
 	~AreaManager();
 	void addArea(AbstractArea * area) { areas_.push_back(area); }
 	void draw();
-	void update(unsigned int x, unsigned int y);
+	void update(unsigned int x, unsigned int y, sf::Clock clock);
 };

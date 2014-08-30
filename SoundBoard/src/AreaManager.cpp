@@ -19,12 +19,12 @@ void AreaManager::draw()
 	}
 }
 
-void AreaManager::update(unsigned int x, unsigned int y)
+void AreaManager::update(unsigned int x, unsigned int y, sf::Clock clock)
 {	
 	std::vector<AbstractArea*>::iterator it;
 	for (it = areas_.begin(); it != areas_.end();)
 	{				
-		(*it)->update(x, y);
+		(*it)->update(x, y, clock);
 		if ((*it)->removable())
 		{
 			// thread-safe remove (?)

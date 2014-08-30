@@ -21,14 +21,25 @@ SoundMovingAreav2::~SoundMovingAreav2()
 {
 }
 
-void SoundMovingAreav2::update(unsigned int x, unsigned int y)
+void SoundMovingAreav2::update(unsigned int x, unsigned int y, sf::Clock clock)
 {
-	AbstractArea::update(x, y);
-	//shape_->move(velocity_.x, velocity_.y);
+	AbstractArea::update(x, y, clock);	
+	updateBlock(clock);
+
 	if (this->x() >= final_position_.x)
 	{
 		removable_ = true;
 	}
+}
+
+void SoundMovingAreav2::updateBlock(sf::Clock clock)
+{
+	float cur_time = clock.getElapsedTime().asSeconds();		
+	float current_position = this->x() - initialPosition().x;
+	float target_position = finalPosition().x - initialPosition().x;
+	float dx = (cur_time * target_position) / endTime();
+	dx -= current_position;
+	shape()->move(dx, 0);
 }
 
 void SoundMovingAreav2::draw(sf::RenderWindow* render_window)

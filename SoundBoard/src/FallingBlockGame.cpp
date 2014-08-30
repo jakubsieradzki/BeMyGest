@@ -80,6 +80,7 @@ void FallingBlockGame::customDrawing()
 void FallingBlockGame::customUpdate()
 {
 	//blocks_provider_.updateAreas(area_mgr_);	
+	/*
 	std::vector<SoundMovingAreav2*>::iterator it;
 	float cur_time = game_clock_.getElapsedTime().asSeconds();	
 	for (it = games_areas_.begin(); it != games_areas_.end(); ++it)
@@ -92,6 +93,7 @@ void FallingBlockGame::customUpdate()
 		dx -= current_position;
 		area->shape()->move(dx, 0);
 	}
+	*/
 }
 
 void FallingBlockGame::onActivation()
