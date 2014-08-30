@@ -177,7 +177,11 @@ private:
 	sf::Vector2f initial_pos_, final_position_;
 	sf::Vector2f velocity_;
 	sf::RectangleShape *track_shape_;
+	sf::RectangleShape *outline_shape_;
 	float start_t_, end_t_;
+	static const float PREPARE_TIME;
+	static const float INITIAL_SCALE;
 
 	void updateBlock(sf::Clock clock);
+	void updateOutline(sf::Clock clock);
 };

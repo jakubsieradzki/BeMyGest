@@ -34,7 +34,7 @@ AbstractArea* FallingMusicBlockFactory::create(MusicBlock music_block)
 		.withInstrument(new Flute(300.0))
 		.withFreq(music_block.note())
 		.withFinalPosition(final_postition)
-		.withStartTime(0.0)
+		.withStartTime(3.0)
 		.withDuration(duration);
 
 	return builder_.build();
