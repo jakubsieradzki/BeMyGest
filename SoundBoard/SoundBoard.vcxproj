@@ -42,13 +42,20 @@
     <IncludePath>$(SFML)\include;$(OPENNI)\Include;D:\Programowanie\Projekty\BeMyGest\SoundBoard\dep\stksrc;D:\Programowanie\Projekty\BeMyGest\SoundBoard\dep\stksrc\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SFML)\lib;$(OPENNI)\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SFML)\include;$(OPENNI)\include;D:\projects\BeMyGest\stk-4.5.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SFML)\lib;$(OPEN_NI_LIB);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>__OS_WINDOWS__;__LITTLE_ENDIAN__;__WINDOWS_DS__;__WINDOWS_MM__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>openNI.lib;dsound.lib;winmm.lib;Wsock32.lib;sfml-audio-d.lib;sfml-audio-s-d.lib;sfml-audio-s.lib;sfml-audio.lib;sfml-graphics-d.lib;sfml-graphics-s-d.lib;sfml-graphics-s.lib;sfml-graphics.lib;sfml-main-d.lib;sfml-main.lib;sfml-network-d.lib;sfml-network-s-d.lib;sfml-network-s.lib;sfml-network.lib;sfml-system-d.lib;sfml-system-s-d.lib;sfml-system-s.lib;sfml-system.lib;sfml-window-d.lib;sfml-window-s-d.lib;sfml-window-s.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,6 +164,7 @@
     <ClCompile Include="dep\stksrc\Whistle.cpp" />
     <ClCompile Include="dep\stksrc\Wurley.cpp" />
     <ClCompile Include="src\AbstractArea.cpp" />
+    <ClCompile Include="src\AbstractProvider.cpp" />
     <ClCompile Include="src\AreaManager.cpp" />
     <ClCompile Include="src\FallingBlockGame.cpp" />
     <ClCompile Include="src\FileParser.cpp" />
@@ -164,16 +172,22 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuScreen.cpp" />
     <ClCompile Include="src\MovingArea.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\SimpleMusicBlockParser.cpp" />
     <ClCompile Include="src\MusicBlocksProvider.cpp" />
     <ClCompile Include="src\MusicFileConfig.cpp" />
     <ClCompile Include="src\MusicNote.cpp" />
     <ClCompile Include="src\SimpleArea.cpp" />
     <ClCompile Include="src\SimpleFileParser.cpp" />
     <ClCompile Include="src\FallingMusicBlockFactory.cpp" />
+    <ClCompile Include="src\SimpleMusicBlockFactory.cpp" />
     <ClCompile Include="src\SoundArea.cpp" />
     <ClCompile Include="src\SoundMaker.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\SoundMovingArea.cpp" />
+    <ClCompile Include="src\SoundMovingAreaBuilder.cpp" />
+    <ClCompile Include="src\SoundMovingAreav2.cpp" />
+    <ClCompile Include="src\XMLMusicBlockParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dep\OpenNiUtil.h" />
@@ -290,7 +304,10 @@
     <ClInclude Include="dep\stksrc\WvIn.h" />
     <ClInclude Include="dep\stksrc\WvOut.h" />
     <ClInclude Include="src\AbstractArea.h" />
+    <ClInclude Include="src\AbstractProvider.h" />
+    <ClInclude Include="src\AreaBuilder.h" />
     <ClInclude Include="src\AreaManager.h" />
+    <ClInclude Include="src\ColorMap.h" />
     <ClInclude Include="src\FallingBlocksGame.h" />
     <ClInclude Include="src\FileParser.h" />
     <ClInclude Include="src\FreePlayingGame.h" />
@@ -298,13 +315,31 @@
     <ClInclude Include="src\GameScreenID.h" />
     <ClInclude Include="src\GameScreenMgr.h" />
     <ClInclude Include="src\MenuScreen.h" />
+    <ClInclude Include="src\MusicBlock.h" />
     <ClInclude Include="src\MusicBlockFactory.h" />
+    <ClInclude Include="src\MusicBlockParser.h" />
     <ClInclude Include="src\MusicBlocksProvider.h" />
     <ClInclude Include="src\MusicFileConfig.h" />
     <ClInclude Include="src\MusicNote.h" />
+    <ClInclude Include="src\rapidxml.hpp" />
+    <ClInclude Include="src\rapidxml_iterators.hpp" />
+    <ClInclude Include="src\rapidxml_print.hpp" />
+    <ClInclude Include="src\rapidxml_utils.hpp" />
+    <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\SimpleFileParser.h" />
     <ClInclude Include="src\FallingMusicBlockFactory.h" />
+    <ClInclude Include="src\SimpleMusicBlockFactory.h" />
+    <ClInclude Include="src\SimpleMusicBlockParser.h" />
     <ClInclude Include="src\SoundMaker.h" />
+    <ClInclude Include="src\SoundMovingAreaBuilder.h" />
+    <ClInclude Include="src\XMLMusicBlockParser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

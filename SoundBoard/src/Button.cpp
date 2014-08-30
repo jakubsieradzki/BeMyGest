@@ -9,7 +9,7 @@ Button::Button(sf::Shape* shape)
 	progress_shape_->setFillColor(sf::Color(0.0f, 255.0f, 0.0f, 200.0f));
 }
 
-Button::Button(sf::Vector2f position, sf::Vector2f size)
+Button::Button(sf::Vector2f position, sf::Vector2f size, std::string text)
 	: inside_(false), enabled_(true), enterTime_(0L), progress_(0.0f), MAX_TIME(1.0f)
 {	
 	sf::RectangleShape *button_shape = new sf::RectangleShape(size);
@@ -31,7 +31,7 @@ Button::Button(sf::Vector2f position, sf::Vector2f size)
 	btn_sprite_.setScale(x_scale, y_scale);	
 
 	btn_text_.setFont(ResourceManager::instance().getFont("sansation.ttf"));
-	btn_text_.setString("PLAY");
+	btn_text_.setString(text);
 	btn_text_.setColor(sf::Color::White);
 	btn_text_.setCharacterSize(btn_sprite_.getTextureRect().height*y_scale / 2);
 	btn_text_.setPosition(position.x + (btn_sprite_.getTextureRect().width*x_scale - btn_text_.getGlobalBounds().width) / 2,
@@ -79,8 +79,7 @@ void Button::draw(sf::RenderWindow *render_window)
 	}
 
 	//float current_width = (progress_ * progress_shape_->getSize().x) / MAX_TIME;
-	setProgress(progress_);
-	std::cout << progress_ << std::endl;
+	setProgress(progress_);	
   //sf::RectangleShape rect(sf::Vector2f(current_width, shape_->getScale().y));
 	//rect.setPosition(shape_->getPosition());
   //rect.setFillColor(sf::Color(0.0f, 255.0f, 0.0f, 200.0f));    

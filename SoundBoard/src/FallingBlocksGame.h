@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameScreen.h"
-#include "MusicBlocksProvider.h"
+#include "AbstractProvider.h"
 
 class FallingBlockGame : public GameScreen
 {
@@ -16,7 +16,9 @@ public:
 private:
   sf::Clock game_clock_;
 	sf::RectangleShape boundry_line_;	
-	MusicBlocksProvider blocks_provider_;
+	AbstractProvider blocks_provider_;
+	// --- refacor ---
+	std::vector<SoundMovingAreav2*> games_areas_;
 
 	sf::Font font;
 	sf::Text text;

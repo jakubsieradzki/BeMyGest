@@ -22,3 +22,6 @@ Release/
 
 # Ignore SFML dlls
 Electricus/*.dll
+
+*.props
+paths.props

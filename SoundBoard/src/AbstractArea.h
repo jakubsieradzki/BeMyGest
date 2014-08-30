@@ -35,7 +35,7 @@ public:
 	void setH(float h) { height_ = h; }
 	bool removable() { return removable_; }
 	void setColor(sf::Color color) { color_ = color; }
-	void update(unsigned int x, unsigned int y);
+	virtual void update(unsigned int x, unsigned int y);
 	virtual void draw(sf::RenderWindow* render_window);
 	// events
 	virtual void onHover(unsigned int x, unsigned int y) = 0;
@@ -101,7 +101,7 @@ private:
 public:
 	// change to texture
 	Button(sf::Shape* shape);
-	Button(sf::Vector2f position, sf::Vector2f size);
+	Button(sf::Vector2f position, sf::Vector2f size, std::string text);
 	Button(float x, float y, float width, float height, sf::Color color)
 		: AbstractArea(x, y, width, height, color), inside_(false), enabled_(true), enterTime_(0L), progress_(0.0f), MAX_TIME(1.0f) {}
 	~Button() { delete progress_shape_; }
@@ -157,4 +157,25 @@ public:
 	virtual void onHover(unsigned int x, unsigned int y);
 	virtual void onLeave(unsigned int x, unsigned int y);
 
+};
+
+class SoundMovingAreav2 : public SoundArea
+{
+public:
+	SoundMovingAreav2(sf::Shape* shape, Instrmnt *instrument, StkFloat baseFreq, sf::Vector2f final_position, float strat_t, float duration, sf::Vector2f velocity);
+	~SoundMovingAreav2();
+
+	sf::Vector2f initialPosition() { return initial_pos_; }
+	sf::Vector2f finalPosition() { return final_position_; }
+	float startTime() { return start_t_; }
+	float endTime() { return end_t_; }
+	sf::Shape* shape() { return shape_; }
+
+	virtual void update(unsigned int x, unsigned int y);
+	virtual void draw(sf::RenderWindow* render_window);
+private:
+	sf::Vector2f initial_pos_, final_position_;
+	sf::Vector2f velocity_;
+	sf::RectangleShape *track_shape_;
+	float start_t_, end_t_;
 };
