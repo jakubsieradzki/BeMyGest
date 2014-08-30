@@ -27,15 +27,13 @@ AbstractArea* FallingMusicBlockFactory::create(MusicBlock music_block)
 	rect->setOutlineColor(sf::Color::Black);
   rect->setOutlineThickness(1.0f);
 
-	sf::Vector2f final_postition(music_block.x() + 200, music_block.y());
-	float duration = 4.0;
 	builder_
 		.withShape(rect)
 		.withInstrument(new Flute(300.0))
 		.withFreq(music_block.note())
-		.withFinalPosition(final_postition)
-		.withStartTime(3.0)
-		.withDuration(duration);
+		.withFinalPosition(music_block.finalPosition())
+		.withStartTime(music_block.startTime())
+		.withDuration(music_block.duration());
 
 	return builder_.build();
 }

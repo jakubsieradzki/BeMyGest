@@ -1,2 +1,4 @@
-# x y width height note
-200 200 40 60 390.37
+# x y width height note start_time duration final_position_x final_position_y
+200 200 60 60 390.37 3.0 2.0 400 200
+460 200 60 60 413.59 5.0 2.0 460 400
+460 460 60 60 438.18 7.0 2.0 260 460

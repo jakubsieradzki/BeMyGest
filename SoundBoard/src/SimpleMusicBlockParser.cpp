@@ -31,12 +31,22 @@ std::vector<MusicBlock> SimpleMusicBlockParser::parse()
 			std::cout << "ERROR parsing file: " << file_path_ <<  std::endl;
 			break;
 		}
+
+		float start_time, duration, final_x, final_y;
+		if (!(iss >> start_time >> duration >> final_x >> final_y))
+		{
+			std::cout << "INFO no data for moving blocks: " << file_path_ <<  std::endl;
+			break;
+		}
 		MusicBlock block;
 		block.setX(x);
 		block.setY(y);
 		block.setWidth(width);
 		block.setHeight(height);
 		block.setNote(note);
+		block.setStartTime(start_time);
+		block.setDuration(duration);
+		block.setFinalPosition(sf::Vector2f(final_x, final_y));
 
 		blocks.push_back(block);	
 	}		

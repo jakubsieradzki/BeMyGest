@@ -839,5 +839,8 @@
     <ClInclude Include="src\AreaBuilder.h">
       <Filter>Header Files\music\factory</Filter>
     </ClInclude>
+    <ClInclude Include="src\MovingMusicBlock.h">
+      <Filter>Header Files\music\model</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

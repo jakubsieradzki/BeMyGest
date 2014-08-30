@@ -315,6 +315,7 @@
     <ClInclude Include="src\GameScreenID.h" />
     <ClInclude Include="src\GameScreenMgr.h" />
     <ClInclude Include="src\MenuScreen.h" />
+    <ClInclude Include="src\MovingMusicBlock.h" />
     <ClInclude Include="src\MusicBlock.h" />
     <ClInclude Include="src\MusicBlockFactory.h" />
     <ClInclude Include="src\MusicBlockParser.h" />

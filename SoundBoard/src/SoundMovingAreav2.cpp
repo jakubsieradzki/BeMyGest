@@ -37,13 +37,19 @@ SoundMovingAreav2::~SoundMovingAreav2()
 	delete outline_shape_;
 }
 
+bool closeToZero(float value)
+{
+	return (abs(1 - abs(value)) < 3);
+}
+
 void SoundMovingAreav2::update(unsigned int x, unsigned int y, sf::Clock clock)
 {
 	AbstractArea::update(x, y, clock);
 	updateOutline(clock);
 	updateBlock(clock);
 
-	if (this->x() >= final_position_.x)
+	sf::Vector2f check = shape()->getPosition() - finalPosition();
+	if (closeToZero(check.x) && closeToZero(check.y))
 	{
 		removable_ = true;
 	}
@@ -72,11 +78,13 @@ void SoundMovingAreav2::updateBlock(sf::Clock clock)
 		return;
 	}
 	cur_time -= startTime();
-	float current_position = this->x() - initialPosition().x;
-	float target_position = finalPosition().x - initialPosition().x;
-	float dx = (cur_time * target_position) / (endTime() - startTime());
-	dx -= current_position;
-	shape()->move(dx, 0);
+	sf::Vector2f current_position = shape()->getPosition() - initialPosition();
+	sf::Vector2f target_position = finalPosition() - initialPosition();
+	float dx = (cur_time * target_position.x) / (endTime() - startTime());
+	float dy = (cur_time * target_position.y) / (endTime() - startTime());
+	dx -= current_position.x;
+	dy -= current_position.y;
+	shape()->move(dx, dy);
 }
 
 void SoundMovingAreav2::draw(sf::RenderWindow* render_window)
