@@ -15,6 +15,7 @@ protected:
 	float width_, height_;
 	sf::Color color_;
 	bool removable_;
+	bool ready_;
 
 public:
 	AbstractArea() : removable_(false) { shape_ = NULL; }
@@ -22,7 +23,7 @@ public:
 		: x_(x), y_(y), width_(width), height_(height), removable_(false) {}
 	AbstractArea(float x, float y, float width, float height, sf::Color color) 
 		: x_(x), y_(y), width_(width), height_(height), color_(color), removable_(false) {}	
-	AbstractArea(sf::Shape* shape) : shape_(shape), removable_(false) {}
+	AbstractArea(sf::Shape* shape) : shape_(shape), removable_(false), ready_(true) {}
 	virtual ~AbstractArea();
 
 	float x() { return shape_->getPosition().x; }
@@ -34,6 +35,7 @@ public:
 	void setW(float w) { width_ = w; }
 	void setH(float h) { height_ = h; }
 	bool removable() { return removable_; }
+	bool ready() { return ready_; }
 	void setColor(sf::Color color) { color_ = color; }
 	virtual void update(unsigned int x, unsigned int y, sf::Clock);
 	virtual void draw(sf::RenderWindow* render_window);

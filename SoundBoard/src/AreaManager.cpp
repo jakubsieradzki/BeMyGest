@@ -15,7 +15,10 @@ void AreaManager::draw()
 	std::vector<AbstractArea*>::iterator it;
 	for (it = areas_.begin(); it != areas_.end(); ++it)
 	{				
-		(*it)->draw(render_window_);		
+		if ((*it)->ready())
+		{
+			(*it)->draw(render_window_);		
+		}
 	}
 }
 

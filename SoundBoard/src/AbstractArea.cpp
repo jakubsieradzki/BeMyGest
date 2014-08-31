@@ -10,6 +10,11 @@ AbstractArea::~AbstractArea()
 
 void AbstractArea::update(unsigned int x, unsigned int y, sf::Clock clock)
 {
+	if (!ready_)
+	{
+		return;
+	}
+
 	if (isWithinArea(x, y))
 	{
 		onHover(x, y);
