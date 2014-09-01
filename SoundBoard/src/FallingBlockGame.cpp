@@ -31,7 +31,7 @@ void FallingBlockGame::setup()
 	*/
 	text.setFont(ResourceManager::instance().getFont("sansation.ttf"));
 
-	blocks_provider_.setBlockParser(new SimpleMusicBlockParser("resource/musicFiles/move.txt"));
+	blocks_provider_.setBlockParser(new SimpleMusicBlockParser("resource/musicFiles/canon.txt"));
 	blocks_provider_.setBlocksFactory(new FallingMusicBlockFactory());
 	blocks_provider_.createBlocks();
 
@@ -39,8 +39,7 @@ void FallingBlockGame::setup()
 	std::vector<AbstractArea*> areas = blocks_provider_.getBlocks();
 	for (it = areas.begin(); it != areas.end(); it++)
 	{
-		area_mgr_->addArea((*it));
-		games_areas_.push_back(dynamic_cast<SoundMovingAreav2*>((*it)));
+		area_mgr_->addArea((*it));		
 	}
 }
 

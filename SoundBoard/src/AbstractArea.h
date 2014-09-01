@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "SoundMaker.h"
 #include <functional>
+#include "ShapeUtils.h"
 
 class AbstractArea
 {
@@ -23,7 +24,9 @@ public:
 		: x_(x), y_(y), width_(width), height_(height), removable_(false) {}
 	AbstractArea(float x, float y, float width, float height, sf::Color color) 
 		: x_(x), y_(y), width_(width), height_(height), color_(color), removable_(false) {}	
-	AbstractArea(sf::Shape* shape) : shape_(shape), removable_(false), ready_(true) {}
+	AbstractArea(sf::Shape* shape) : shape_(shape), removable_(false), ready_(true) {
+		ShapeUtils::moveOriginToCenter(shape_);
+	}
 	virtual ~AbstractArea();
 
 	float x() { return shape_->getPosition().x; }
@@ -184,6 +187,7 @@ private:
 	static const float PREPARE_TIME;
 	static const float INITIAL_SCALE;
 
+	bool readyToPlay(float current_time);
 	void updateBlock(sf::Clock clock);
 	void updateOutline(sf::Clock clock);
 };

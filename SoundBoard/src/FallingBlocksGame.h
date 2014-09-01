@@ -17,8 +17,7 @@ private:
   //sf::Clock game_clock_;
 	sf::RectangleShape boundry_line_;	
 	AbstractProvider blocks_provider_;
-	// --- refacor ---
-	std::vector<SoundMovingAreav2*> games_areas_;
+	// --- refacor ---	
 
 	sf::Font font;
 	sf::Text text;

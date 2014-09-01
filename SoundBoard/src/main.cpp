@@ -148,6 +148,7 @@ int main(int argc, char* argv[])
     raw_sprite.setScale(WINDOW_W/(float)imageX, WINDOW_H/(float)imageY);
     window.draw(raw_sprite);   
 
+		GameScreenMgr::instance().GetActive()->draw();
     // draw hand point
     if (hand_recognized) {
       // Draw point over tracked hand
@@ -156,7 +157,7 @@ int main(int argc, char* argv[])
       window.draw(hand_position);           
       GameScreenMgr::instance().GetActive()->update(projective_point.X, projective_point.Y);
     }    
-    GameScreenMgr::instance().GetActive()->draw();
+    
     window.display();
   }	
 

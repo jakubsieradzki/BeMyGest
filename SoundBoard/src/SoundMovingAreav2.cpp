@@ -1,7 +1,7 @@
 #include "AbstractArea.h"
 #include <math.h>
 
-const float SoundMovingAreav2::PREPARE_TIME = 2.0;
+const float SoundMovingAreav2::PREPARE_TIME = 1.5;
 const float SoundMovingAreav2::INITIAL_SCALE = 5.0;
 
 SoundMovingAreav2::SoundMovingAreav2(sf::Shape* shape, Instrmnt *instrument, StkFloat baseFreq, sf::Vector2f final_position, float start_t, float duration, sf::Vector2f velocity)
@@ -12,6 +12,7 @@ SoundMovingAreav2::SoundMovingAreav2(sf::Shape* shape, Instrmnt *instrument, Stk
 	end_t_ = start_t_ + duration;
 	sf::Vector2f diff = final_position - shape_->getPosition();
 	float length = sqrt(diff.x * diff.x + diff.y * diff.y);
+	float angle = atan2f(diff.y, diff.x);
 
 	// track shape
 	track_shape_ = new sf::RectangleShape(*((sf::RectangleShape*)shape));		
@@ -19,22 +20,17 @@ SoundMovingAreav2::SoundMovingAreav2(sf::Shape* shape, Instrmnt *instrument, Stk
 	sf::Color c = shape_->getFillColor();
 	track_shape_->setFillColor(sf::Color(c.r, c.g, c.b, 80));
 	float scale_factor = (length + track_shape_->getSize().x) / track_shape_->getSize().x;
-	track_shape_->scale(scale_factor, 1.0);	
+	track_shape_->scale(scale_factor, 0.2);
+	track_shape_->move(cos(angle)*length/2, sin(angle)*length/2);
 
 	// countdown outline
 	outline_shape_ = new sf::RectangleShape(*((sf::RectangleShape*)shape));
 	sf::Vector2f center(outline_shape_->getSize().x/2, outline_shape_->getSize().y/2);
-	//outline_shape_->setOrigin(center);
 	outline_shape_->setScale(INITIAL_SCALE, INITIAL_SCALE);	
-	//outline_shape_->setOrigin(sf::Vector2f(0,0));
-	//outline_shape_->setPosition(shape_->getPosition());
-	//sf::Vector2f outline_size(outline_shape_->getSize());	
-	//outline_shape_->move(0 ,-100);
 	outline_shape_->setOutlineColor(shape_->getFillColor());
 	outline_shape_->setFillColor(sf::Color::Transparent);
 
 	ready_ = false;
-
 }
 
 SoundMovingAreav2::~SoundMovingAreav2()
@@ -50,11 +46,15 @@ bool closeToZero(float value)
 
 void SoundMovingAreav2::update(unsigned int x, unsigned int y, sf::Clock clock)
 {
-	AbstractArea::update(x, y, clock);
+	float current_time = clock.getElapsedTime().asSeconds();
+	if (readyToPlay(current_time))
+	{
+		AbstractArea::update(x, y, clock);
+	}
 	updateOutline(clock);
 	updateBlock(clock);
 
-	if (clock.getElapsedTime().asSeconds() > (startTime() - PREPARE_TIME))
+	if (current_time > (startTime() - PREPARE_TIME))
 	{
 		ready_ = true;
 	}
@@ -83,7 +83,7 @@ void SoundMovingAreav2::updateOutline(sf::Clock clock)
 void SoundMovingAreav2::updateBlock(sf::Clock clock)
 {
 	float cur_time = clock.getElapsedTime().asSeconds();
-	if (cur_time < startTime())
+	if (!readyToPlay(cur_time))
 	{
 		return;
 	}
@@ -95,6 +95,11 @@ void SoundMovingAreav2::updateBlock(sf::Clock clock)
 	dx -= current_position.x;
 	dy -= current_position.y;
 	shape()->move(dx, dy);
+}
+
+bool SoundMovingAreav2::readyToPlay(float current_time)
+{
+	return current_time >= startTime();
 }
 
 void SoundMovingAreav2::draw(sf::RenderWindow* render_window)

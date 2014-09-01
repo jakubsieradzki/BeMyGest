@@ -315,7 +315,6 @@
     <ClInclude Include="src\GameScreenID.h" />
     <ClInclude Include="src\GameScreenMgr.h" />
     <ClInclude Include="src\MenuScreen.h" />
-    <ClInclude Include="src\MovingMusicBlock.h" />
     <ClInclude Include="src\MusicBlock.h" />
     <ClInclude Include="src\MusicBlockFactory.h" />
     <ClInclude Include="src\MusicBlockParser.h" />
@@ -327,6 +326,7 @@
     <ClInclude Include="src\rapidxml_print.hpp" />
     <ClInclude Include="src\rapidxml_utils.hpp" />
     <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\ShapeUtils.h" />
     <ClInclude Include="src\SimpleFileParser.h" />
     <ClInclude Include="src\FallingMusicBlockFactory.h" />
     <ClInclude Include="src\SimpleMusicBlockFactory.h" />
