@@ -24,7 +24,8 @@ void MenuScreen::setup()
 
 	Button *moving_game_btn = new Button(sf::Vector2f(button_pos_x + button_w + BTN_GAP, button_pos_y), sf::Vector2f(button_w, button_h), "MOVE");
   moving_game_btn->setAction([]{
-    GameScreenMgr::instance().SetActive(FALLING_GAME);
+    //GameScreenMgr::instance().SetActive(FALLING_GAME);
+    GameScreenMgr::instance().SetActive(FALLING_GAME_LEVELS);		
   });
   area_mgr_->addArea(moving_game_btn);
 	/*

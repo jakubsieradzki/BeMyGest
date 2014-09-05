@@ -5,7 +5,7 @@
 class SimpleMusicBlockParser : public MusicBlockParser
 {
 public:
-	SimpleMusicBlockParser(const char* file_name);
+	SimpleMusicBlockParser();	
 	~SimpleMusicBlockParser();
-	virtual std::vector<MusicBlock> parse();
+	virtual std::vector<MusicBlock> parse(std::string file_path);
 };

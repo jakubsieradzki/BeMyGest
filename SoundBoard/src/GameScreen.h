@@ -25,9 +25,11 @@ public:
   virtual void onActivation() {}
   virtual void onLeave() {}
 
+	void setLevelFile(std::string level_file) { level_file_ = level_file; }
 protected:
   sf::RenderWindow* render_window_;
   AreaManager* area_mgr_;
 	sf::Clock game_clock_;
+	std::string level_file_;
 private:
 };

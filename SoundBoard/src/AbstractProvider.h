@@ -13,7 +13,7 @@ public:
 	std::vector<AbstractArea*> getBlocks();
 	void setBlockParser(MusicBlockParser *block_parser) { block_parser_ = block_parser; }
 	void setBlocksFactory(MusicBlockFactory *block_factory) { block_factory_ = block_factory; }
-	void createBlocks();
+	void createBlocks(std::string level_file_);
 private:
 	MusicBlockParser *block_parser_;
 	MusicBlockFactory *block_factory_;

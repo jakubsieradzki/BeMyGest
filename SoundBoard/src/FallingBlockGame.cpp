@@ -10,31 +10,15 @@
 FallingBlockGame::FallingBlockGame(sf::RenderWindow* render_window)
 	: GameScreen(render_window)
 {
-	setup();
+	setupDependencies();
+	//setup();
 }
 
 void FallingBlockGame::setup()
 {
-	/*
-	boundry_line_.setPosition(10.0, 150.0);
-	boundry_line_.setSize(sf::Vector2f(700, 1));
-	boundry_line_.setOutlineThickness(0.1);	
+	blocks_provider_.createBlocks(level_file_);
 
-	setupDependencies();
-	blocks_provider_.initialize();
-
-	font.loadFromFile("resource/sansation.ttf");
-	text.setFont(font);
-	text.setCharacterSize(30);
-	text.setStyle(sf::Text::Bold);
-	text.setColor(sf::Color::Red);
-	*/
-	text.setFont(ResourceManager::instance().getFont("sansation.ttf"));
-
-	blocks_provider_.setBlockParser(new SimpleMusicBlockParser("resource/musicFiles/canon.txt"));
-	blocks_provider_.setBlocksFactory(new FallingMusicBlockFactory());
-	blocks_provider_.createBlocks();
-
+	area_mgr_->clearAreas();
 	std::vector<AbstractArea*>::iterator it;
 	std::vector<AbstractArea*> areas = blocks_provider_.getBlocks();
 	for (it = areas.begin(); it != areas.end(); it++)
@@ -45,24 +29,10 @@ void FallingBlockGame::setup()
 
 void FallingBlockGame::setupDependencies()
 {
-	// parser
-	/*SimpleFileParser *parser = new SimpleFileParser();
-	parser->setMusicFile("resource/musicFiles/got.bmg");
-	// FIX ME parse should not be here
-	parser->parse();
-	blocks_provider_.setParser(parser);
+	text.setFont(ResourceManager::instance().getFont("sansation.ttf"));
 
-	// blocks factory
-	FallingMusicBlockFactory *blocks_factory = new FallingMusicBlockFactory();
-	blocks_factory->setClock(&game_clock_);
-	blocks_factory->setBoundryLine(boundry_line_.getPosition().y);	
-	blocks_factory->setConfig(parser->getConfig());
-	blocks_provider_.setBlocksFactory(blocks_factory);
-
-	blocks_provider_.setClock(&game_clock_);
-	*/
-	// ----
-
+	blocks_provider_.setBlockParser(new SimpleMusicBlockParser());
+	blocks_provider_.setBlocksFactory(new FallingMusicBlockFactory());
 }
 
 void FallingBlockGame::customDrawing()

@@ -11,7 +11,7 @@ public:
   virtual void setup();
 	virtual void customDrawing();
 	virtual void customUpdate();
-	virtual void onActivation();
+	virtual void onActivation();	
 
 private:
   //sf::Clock game_clock_;
@@ -19,6 +19,7 @@ private:
 	AbstractProvider blocks_provider_;
 	// --- refacor ---	
 
+	// move to separate class (TextDisplay or smth)
 	sf::Font font;
 	sf::Text text;
 

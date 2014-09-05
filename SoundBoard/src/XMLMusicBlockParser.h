@@ -5,7 +5,7 @@
 class XMLMusicBlockParser : public MusicBlockParser
 {
 public:
-	XMLMusicBlockParser(const char* file_name);
+	XMLMusicBlockParser();
 	~XMLMusicBlockParser();
-	virtual std::vector<MusicBlock> parse();
+	virtual std::vector<MusicBlock> parse(std::string file_path);
 };

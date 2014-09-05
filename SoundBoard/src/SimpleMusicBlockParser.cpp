@@ -3,17 +3,16 @@
 #include <sstream>
 #include <iostream>
 
-SimpleMusicBlockParser::SimpleMusicBlockParser(const char* file_path)
-	: MusicBlockParser(file_path)
+SimpleMusicBlockParser::SimpleMusicBlockParser()
 {}
 
 SimpleMusicBlockParser::~SimpleMusicBlockParser()
 {
 }
 
-std::vector<MusicBlock> SimpleMusicBlockParser::parse()
+std::vector<MusicBlock> SimpleMusicBlockParser::parse(std::string file_path)
 {
-	std::ifstream file_stream(file_path_);
+	std::ifstream file_stream(file_path);
 	std::string line;
 	std::vector<MusicBlock> blocks;
 	while(std::getline(file_stream, line))
@@ -28,14 +27,14 @@ std::vector<MusicBlock> SimpleMusicBlockParser::parse()
 		float x, y, width, height, note;
 		if (!(iss >> x >> y >> width >> height >> note))
 		{
-			std::cout << "ERROR parsing file: " << file_path_ <<  std::endl;
+			std::cout << "ERROR parsing file: " << file_path <<  std::endl;
 			break;
 		}
 
 		float start_time, duration, final_x, final_y;
 		if (!(iss >> start_time >> duration >> final_x >> final_y))
 		{
-			std::cout << "INFO no data for moving blocks: " << file_path_ <<  std::endl;
+			std::cout << "INFO no data for moving blocks: " << file_path <<  std::endl;
 			break;
 		}
 		MusicBlock block;

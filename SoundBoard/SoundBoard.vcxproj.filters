@@ -408,6 +408,9 @@
     <ClCompile Include="src\SoundMovingAreaBuilder.cpp">
       <Filter>Source Files\music\factory</Filter>
     </ClCompile>
+    <ClCompile Include="src\LevelSelectScreen.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AbstractArea.h">
@@ -840,6 +843,9 @@
       <Filter>Header Files\music\factory</Filter>
     </ClInclude>
     <ClInclude Include="src\ShapeUtils.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LevelSelectScreen.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
   </ItemGroup>

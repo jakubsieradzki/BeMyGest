@@ -43,8 +43,8 @@
     <LibraryPath>$(SFML)\lib;$(OPENNI)\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SFML)\include;$(OPENNI)\include;D:\projects\BeMyGest\stk-4.5.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SFML)\lib;$(OPEN_NI_LIB);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SFML)\include;$(OPENNI)\include;D:\projects\BeMyGest\stk-4.5.0\include;D:\projects\master_libs\cpp\boost_1_56_0;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SFML)\lib;$(OPEN_NI_LIB);D:\projects\master_libs\cpp\boost_1_56_0\lib32-msvc-10.0;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -52,6 +52,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <PreprocessorDefinitions>__OS_WINDOWS__;__LITTLE_ENDIAN__;__WINDOWS_DS__;__WINDOWS_MM__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -169,6 +170,7 @@
     <ClCompile Include="src\FallingBlockGame.cpp" />
     <ClCompile Include="src\FileParser.cpp" />
     <ClCompile Include="src\FreePlayingGame.cpp" />
+    <ClCompile Include="src\LevelSelectScreen.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuScreen.cpp" />
     <ClCompile Include="src\MovingArea.cpp" />
@@ -314,6 +316,7 @@
     <ClInclude Include="src\GameScreen.h" />
     <ClInclude Include="src\GameScreenID.h" />
     <ClInclude Include="src\GameScreenMgr.h" />
+    <ClInclude Include="src\LevelSelectScreen.h" />
     <ClInclude Include="src\MenuScreen.h" />
     <ClInclude Include="src\MusicBlock.h" />
     <ClInclude Include="src\MusicBlockFactory.h" />

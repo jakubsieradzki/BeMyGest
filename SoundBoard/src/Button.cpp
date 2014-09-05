@@ -34,8 +34,11 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, std::string text)
 	btn_text_.setString(text);
 	btn_text_.setColor(sf::Color::White);
 	btn_text_.setCharacterSize(btn_sprite_.getTextureRect().height*y_scale / 2);
+	sf::Vector2f from(btn_text_.getLocalBounds().width, btn_text_.getLocalBounds().height);
+	sf::Vector2f to(size.x*0.6, size.y * 0.4);
+	btn_text_.setScale(ShapeUtils::scaleFromTo(from, to));
 	btn_text_.setPosition(position.x + (btn_sprite_.getTextureRect().width*x_scale - btn_text_.getGlobalBounds().width) / 2,
-		position.y + btn_text_.getLocalBounds().height/2);	
+		position.y + btn_text_.getLocalBounds().height/2);		
 
 }
 

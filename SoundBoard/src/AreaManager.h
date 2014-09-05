@@ -15,6 +15,7 @@ public:
 	AreaManager(sf::RenderWindow* render_window) : render_window_(render_window) {}
 	~AreaManager();
 	void addArea(AbstractArea * area) { areas_.push_back(area); }
+	void clearAreas() { areas_.clear(); }
 	void draw();
 	void update(unsigned int x, unsigned int y, sf::Clock clock);
 };

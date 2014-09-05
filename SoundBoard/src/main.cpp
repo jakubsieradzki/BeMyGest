@@ -9,10 +9,12 @@
 #include "AbstractArea.h"
 #include "FreePlayingGame.h"
 #include "FallingBlocksGame.h"
+#include "LevelSelectScreen.h"
 #include "MenuScreen.h"
 #include "GameScreen.h"
 #include "GameScreenMgr.h"
 #include <iostream>
+#include "ResourceManager.h"
 
 using namespace stk;
 
@@ -21,7 +23,8 @@ int soundMakerEx();
 
 const unsigned int WINDOW_W = 800;
 const unsigned int WINDOW_H = 600;
-const char* GESTURE = "Wave";
+//const char* GESTURE = "Wave";
+const char* GESTURE = "RaiseHand";
 bool hand_recognized = false;
 XnPoint3D projective_point;
 
@@ -106,8 +109,12 @@ int main(int argc, char* argv[])
 	xn::ImageMetaData image_metadata;
   GameScreenMgr::instance().Add(FREE_PLAYING, new FreePlayingGame(&window));
   GameScreenMgr::instance().Add(MAIN_MENU, new MenuScreen(&window)); 
-  GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window)); 
+  GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window));
+	LevelSelectScreen *level_select_screen = new LevelSelectScreen(&window, ResourceManager::LEVEL_PATH);
+	level_select_screen->setGame(new FallingBlockGame(&window));	
+	GameScreenMgr::instance().Add(FALLING_GAME_LEVELS, level_select_screen);
 
+	GameScreenMgr::instance().SetActive(FALLING_GAME_LEVELS);
   while (window.isOpen()) 
   {
     // handle events
