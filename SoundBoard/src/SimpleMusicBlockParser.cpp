@@ -34,8 +34,7 @@ std::vector<MusicBlock> SimpleMusicBlockParser::parse(std::string file_path)
 		float start_time, duration, final_x, final_y;
 		if (!(iss >> start_time >> duration >> final_x >> final_y))
 		{
-			std::cout << "INFO no data for moving blocks: " << file_path <<  std::endl;
-			break;
+			std::cout << "INFO no data for moving blocks: " << file_path <<  std::endl;			
 		}
 		MusicBlock block;
 		block.setX(x);

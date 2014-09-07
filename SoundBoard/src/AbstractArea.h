@@ -106,7 +106,7 @@ private:
 public:
 	// change to texture
 	Button(sf::Shape* shape);
-	Button(sf::Vector2f position, sf::Vector2f size, std::string text);
+	Button(sf::Vector2f position, sf::Vector2f size);
 	Button(float x, float y, float width, float height, sf::Color color)
 		: AbstractArea(x, y, width, height, color), inside_(false), enabled_(true), enterTime_(0L), progress_(0.0f), MAX_TIME(1.0f) {}
 	~Button() { delete progress_shape_; }
@@ -114,6 +114,15 @@ public:
 	virtual void onHover(unsigned int x, unsigned int y);
 	virtual void onLeave(unsigned int x, unsigned int y);
 	virtual void draw(sf::RenderWindow* render_window);
+
+	void setText(std::string text);
+	void setTextColor(sf::Color color);
+	void setCharacterSize(float size);
+	void setTextScale(sf::Vector2f scale);
+	void setTexture(sf::Texture &texture);
+	void setTextPosition(sf::Vector2f position);
+	sf::Vector2f getTextSize();
+	float getCharacterSize();
 };
 
 ///////////////////////////

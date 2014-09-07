@@ -29,7 +29,7 @@ sf::Texture& ResourceManager::getImage(std::string image_name)
 		std::string path(ResourceManager::IMAGE_PATH);
 		path.append(image_name);
 		texture.loadFromFile(path);
-		images_.insert(std::pair<std::string, sf::Texture>(image_name, texture));
+		images_.insert(std::make_pair(image_name, texture));
 	}
 	return images_.at(image_name);
 }

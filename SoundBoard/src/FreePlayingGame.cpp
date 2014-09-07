@@ -15,7 +15,7 @@ void FreePlayingGame::setup()
 {
 	blocks_provider_.setBlockParser(new SimpleMusicBlockParser());
 	blocks_provider_.setBlocksFactory(new SimpleMusicBlockFactory());
-	blocks_provider_.createBlocks("resource/musicFiles/test.txt");
+	blocks_provider_.createBlocks("resource/test.txt");
 
 	std::vector<AbstractArea*>::iterator it;
 	std::vector<AbstractArea*> areas = blocks_provider_.getBlocks();

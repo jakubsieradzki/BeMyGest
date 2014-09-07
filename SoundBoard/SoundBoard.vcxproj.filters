@@ -64,6 +64,9 @@
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{44e714f5-2a2c-403e-ae0e-158f1ba33ae3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{a4b71c64-881c-4581-b096-b40a4b8e6541}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AbstractArea.cpp">
@@ -399,9 +402,6 @@
     <ClCompile Include="src\XMLMusicBlockParser.cpp">
       <Filter>Source Files\music\parser</Filter>
     </ClCompile>
-    <ClCompile Include="src\ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\SoundMovingAreav2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -410,6 +410,12 @@
     </ClCompile>
     <ClCompile Include="src\LevelSelectScreen.cpp">
       <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceManager.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UiButtonFactory.cpp">
+      <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -847,6 +853,15 @@
     </ClInclude>
     <ClInclude Include="src\LevelSelectScreen.h">
       <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UiButtonFactory.h">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UiButtonId.h">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UiButtonProperties.h">
+      <Filter>Header Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #include "FallingMusicBlockFactory.h"
-#include "Flute.h"
+#include <Clarinet.h>
 #include "ColorMap.h"
 
 AbstractArea* FallingMusicBlockFactory::create(MusicNote music_note)
@@ -11,7 +11,7 @@ AbstractArea* FallingMusicBlockFactory::create(MusicNote music_note)
 	float current_time = music_note.start_time() - 5000.0;
 
 	SoundMovingArea* area = new SoundMovingArea(sf::Rect<float>(x_pos, 0, 60, music_note.duration()), current_time, music_note.start_time(), falling_boundry_line_);
-	area->setInsrument(new Flute(300.0));
+//	area->setInsrument(new Flute(300.0));
 	area->setFrequency(music_note.frequency());
 	area->setClock(clock_);
 	area->openStream();
@@ -29,7 +29,7 @@ AbstractArea* FallingMusicBlockFactory::create(MusicBlock music_block)
 
 	builder_
 		.withShape(rect)
-		.withInstrument(new Flute(300.0))
+		.withInstrument(new Clarinet())
 		.withFreq(music_block.note())
 		.withFinalPosition(music_block.finalPosition())
 		.withStartTime(music_block.startTime())

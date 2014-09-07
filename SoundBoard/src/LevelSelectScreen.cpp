@@ -1,6 +1,7 @@
 #include "LevelSelectScreen.h"
 #include "GameScreenMgr.h"
 #include <boost/filesystem.hpp>
+#include "UiButtonFactory.h"
 
 LevelSelectScreen::LevelSelectScreen(sf::RenderWindow* render_window, std::string level_path)
 	: GameScreen(render_window), level_count_(0), level_dir_path_(level_path)
@@ -36,7 +37,8 @@ void LevelSelectScreen::addNextLevel(std::string file_name)
 	ButtonConfig config = buttonConfig();
 	std::string name = file_name.substr(file_name.find_last_of("\\")+1);
 
-	Button *level_btn = new Button(config.position_, config.size_, name.substr(0, name.find_last_of(".")));
+	UiButtonProperties properties(config.position_, config.size_, name.substr(0, name.find_last_of(".")));
+	Button *level_btn = UiButtonFactory::instance().createButton(properties, LEVEL_SELECT_BUTTON);
 	level_btn->setAction([file_name](){    
 		auto game = GameScreenMgr::instance().Get(FALLING_GAME);
 		game->setLevelFile(file_name);
@@ -72,7 +74,8 @@ Button* LevelSelectScreen::createLevelButton(std::string level_file)
 	float button_pos_x = 50;
 	float button_pos_y = 50;
 
-  Button *level_btn = new Button(sf::Vector2f(button_pos_x, button_pos_y), sf::Vector2f(button_w, button_w), level_file);  
+	UiButtonProperties properties(sf::Vector2f(button_pos_x, button_pos_y), sf::Vector2f(button_w, button_w), level_file);
+  Button *level_btn = new Button(sf::Vector2f(button_pos_x, button_pos_y), sf::Vector2f(button_w, button_w));  
   level_btn->setAction([]{
     GameScreenMgr::instance().SetActive(FREE_PLAYING);
   });

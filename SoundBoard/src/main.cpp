@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
 	level_select_screen->setGame(new FallingBlockGame(&window));	
 	GameScreenMgr::instance().Add(FALLING_GAME_LEVELS, level_select_screen);
 
-	GameScreenMgr::instance().SetActive(FALLING_GAME_LEVELS);
+	//GameScreenMgr::instance().SetActive(FALLING_GAME_LEVELS);
   while (window.isOpen()) 
   {
     // handle events

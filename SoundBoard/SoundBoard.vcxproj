@@ -189,6 +189,7 @@
     <ClCompile Include="src\SoundMovingArea.cpp" />
     <ClCompile Include="src\SoundMovingAreaBuilder.cpp" />
     <ClCompile Include="src\SoundMovingAreav2.cpp" />
+    <ClCompile Include="src\UiButtonFactory.cpp" />
     <ClCompile Include="src\XMLMusicBlockParser.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -336,6 +337,9 @@
     <ClInclude Include="src\SimpleMusicBlockParser.h" />
     <ClInclude Include="src\SoundMaker.h" />
     <ClInclude Include="src\SoundMovingAreaBuilder.h" />
+    <ClInclude Include="src\UiButtonFactory.h" />
+    <ClInclude Include="src\UiButtonId.h" />
+    <ClInclude Include="src\UiButtonProperties.h" />
     <ClInclude Include="src\XMLMusicBlockParser.h" />
   </ItemGroup>
   <ItemGroup>
