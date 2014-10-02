@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <XnCppWrapper.h>
 #include <vector>
+#include <cmath>
+#include <iostream>
 
 namespace Util
 {
@@ -29,14 +31,26 @@ namespace Util
     }
   }
 
-  cv::Mat GetThresholdedImage(cv::Mat* image, int hue_min, int hue_max) 
+  cv::Mat GetThresholdedImage(cv::Mat* image, cv::Scalar min, cv::Scalar max) 
   {
     cv::Mat imageHSV;
     cv::Mat imageThreshed;
 
-    cv::cvtColor(*image, imageHSV, cv::COLOR_RGB2HSV);
-    cv::inRange(imageHSV, cv::Scalar(hue_min, 100, 100), cv::Scalar(hue_max, 255, 255), imageThreshed);
+    cv::cvtColor(*image, imageHSV, cv::COLOR_BGR2HSV);
+    cv::inRange(imageHSV, min, max, imageThreshed);
     return imageThreshed;
+  }
+
+  float CalculateDistance(sf::Vector2f start_point, sf::Vector2f end_point)
+  {
+    return std::sqrt(
+      std::pow(start_point.x-end_point.x, 2)
+        + std::pow(start_point.y-end_point.y, 2));
+  }
+
+  void Display(sf::Vector2f vector, std::string header = "")
+  {
+    std::cout << header << "(" << vector.x << ", " << vector.y << ")" << std::endl;
   }
 
 }

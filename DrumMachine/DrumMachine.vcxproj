@@ -64,15 +64,18 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opencv_core249.lib;opencv_highgui249.lib;opencv_imgproc249.lib;openNI.lib;sfml-window-s.lib;sfml-system-s.lib;sfml-graphics-s.lib;sfml-audio-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DrumMachine.cpp" />
     <ClCompile Include="src\DrummerTracker.cpp" />
     <ClCompile Include="src\HumanTracker.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MotionDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DrumMachine.h" />
     <ClInclude Include="src\DrummerTracker.h" />
     <ClInclude Include="src\HumanTracker.h" />
     <ClInclude Include="src\MotionDevice.h" />

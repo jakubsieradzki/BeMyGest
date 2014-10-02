@@ -6,16 +6,21 @@ using sf::Texture;
 MotionDevice::MotionDevice()
 {
   XnStatus status = motion_context_.Init();
-    PRINT_ON_ERROR(status, "Motion context failed");
+  PRINT_ON_ERROR(status, "Motion context failed");
   status = image_generator_.Create(motion_context_);
-    PRINT_ON_ERROR(status, "Image generator failed");
+  PRINT_ON_ERROR(status, "Image generator failed");
+  XnMapOutputMode outputMode;
+  outputMode.nXRes = XN_SVGA_X_RES;
+  outputMode.nYRes = XN_SVGA_Y_RES;
+  outputMode.nFPS = 30;
+  image_generator_.SetMapOutputMode(outputMode);
   status = depth_generator_.Create(motion_context_);
-    PRINT_ON_ERROR(status, "Depth generator failed");
+  PRINT_ON_ERROR(status, "Depth generator failed");
   status = user_generator_.Create(motion_context_);
-    PRINT_ON_ERROR(status, "User generator failed");
+  PRINT_ON_ERROR(status, "User generator failed");
 
   status = motion_context_.StartGeneratingAll();
-    PRINT_ON_ERROR(status, "Generating all failed");
+  PRINT_ON_ERROR(status, "Generating all failed");
 }
 
 Texture MotionDevice::CaptureImage()
@@ -47,5 +52,5 @@ Texture MotionDevice::CaptureImage()
 void MotionDevice::Update()
 {
   XnStatus status = motion_context_.WaitAndUpdateAll();
-    PRINT_ON_ERROR(status, "Update all failed");
+  PRINT_ON_ERROR(status, "Update all failed");
 }

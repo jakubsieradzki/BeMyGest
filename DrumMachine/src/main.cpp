@@ -1,22 +1,50 @@
 #include <iostream>
+#include <cmath>
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "MotionDevice.h"
 #include "HumanTracker.h"
+#include "DrumMachine.h"
 #include "Util.h"
 
-const int WINDOW_W = 800;
-const int WINDOW_H = 600;
+const int WINDOW_W = XN_SVGA_X_RES;
+const int WINDOW_H = XN_SVGA_Y_RES;
 const std::string WINDOW_NAME = "DrumMachine";
 
 int main()
 {
   sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), WINDOW_NAME);
   MotionDevice motion_device;
-  HumanTracker drummer(XN_SKEL_PROFILE_ALL, motion_device.user_generator());
+  HumanTracker drummer(XN_SKEL_PROFILE_LOWER, motion_device.user_generator());
   drummer.RegisterCallbacks();
+  DrumMachine drum_machine(4, 50.0f);
+  drum_machine.SetDrumSound(0, "resources\\Jazz Kit\\SD09X01.aif");
+  drum_machine.SetDrumSound(1, "resources\\Jazz Kit\\HH09X14.aif");
+  drum_machine.SetDrumSound(2, "resources\\Jazz Kit\\TTHI09X01.aif");
+  drum_machine.SetDrumSound(3, "resources\\Jazz Kit\\TTHI09X04.aif");
 
   cv::namedWindow("Video");
+  cv::namedWindow("Control");
+
+  int iLowH = 0;
+  int iHighH = 11;
+
+  int iLowS = 221; 
+  int iHighS = 255;
+
+  int iLowV = 74;
+  int iHighV = 160;
+
+  //Create trackbars in "Control" window
+  cvCreateTrackbar("LowH", "Control", &iLowH, 179); //Hue (0 - 179)
+  cvCreateTrackbar("HighH", "Control", &iHighH, 179);
+
+  cvCreateTrackbar("LowS", "Control", &iLowS, 255); //Saturation (0 - 255)
+  cvCreateTrackbar("HighS", "Control", &iHighS, 255);
+
+  cvCreateTrackbar("LowV", "Control", &iLowV, 255); //Value (0 - 255)
+  cvCreateTrackbar("HighV", "Control", &iHighV, 255);
 
   while (window.isOpen())
   {
@@ -25,7 +53,19 @@ int main()
     {
       if (event.type == sf::Event::Closed
             || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+      {
         window.close();
+      }
+      if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+      {
+        sf::Vector2i click_position = sf::Mouse::getPosition(window);
+        Util::Display(sf::Vector2f(click_position.x, click_position.y), "Click position: ");
+
+        if (drum_machine.InCalibration())
+        {
+          drum_machine.SetDrumSetPoint(sf::Vector2f(click_position.x, click_position.y));
+        }
+      }
     }
     window.clear();
     // <<<<
@@ -47,7 +87,7 @@ int main()
         captured_mat.at<cv::Vec3b>(y, x)[2] = captured_img.getPixel(x, y).r;
       }
     }
-    captured_mat = Util::GetThresholdedImage(&captured_mat, 110, 140);
+    captured_mat = Util::GetThresholdedImage(&captured_mat, cv::Scalar(iLowH, iLowS, iLowV), cv::Scalar(iHighH, iHighS, iHighV));
     cv::Moments moments = cv::moments(captured_mat);
 
     double moment10 = moments.m10;
@@ -79,8 +119,20 @@ int main()
       window.draw(skeleton_marker);
     }
     sf::CircleShape drumstick(5.0f);
-    drumstick.setPosition(posX * scale_ratio.x, posY * scale_ratio.y);
+    sf::Vector2f drumstick_position(posX * scale_ratio.x, posY * scale_ratio.y);
+    drumstick.setPosition(drumstick_position);
     window.draw(drumstick);
+
+    auto drum_set_points = drum_machine.drum_set_points();
+    for (unsigned i = 0; i < drum_set_points.size(); ++i)
+    {
+      sf::CircleShape drum_set_marker(10.0f);
+      drum_set_marker.setFillColor(sf::Color::Red);
+      drum_set_marker.setPosition(drum_set_points[i]);
+      window.draw(drum_set_marker);
+    }
+
+    drum_machine.Update(drumstick_position);
 
     // >>>>
     window.display();
