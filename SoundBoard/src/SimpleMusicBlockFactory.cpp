@@ -1,15 +1,8 @@
 #include "SimpleMusicBlockFactory.h"
 #include "Flute.h"
+#include <PercFlut.h>
+#include <Wurley.h>
 #include "ColorMap.h"
-
-AbstractArea* SimpleMusicBlockFactory::create(MusicNote music_note)
-{
-	sf::RectangleShape rect;
-	rect.setOutlineColor(sf::Color(0, 0, 0, 255));
-  rect.setOutlineThickness(1.0f);
-
-	return new SoundArea(&rect, new Flute(300.0f), 440.0);
-}
 
 AbstractArea* SimpleMusicBlockFactory::create(MusicBlock block)
 {	
@@ -19,5 +12,5 @@ AbstractArea* SimpleMusicBlockFactory::create(MusicBlock block)
 	rect->setFillColor(ColorMap::map().get(block.note()));
   rect->setOutlineThickness(3.0f);
 
-	return new SoundArea(rect, new Flute(300.0f), block.note());
+	return new SoundArea(rect, new PercFlut(), block.note());
 }

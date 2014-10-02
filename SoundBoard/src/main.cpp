@@ -107,12 +107,11 @@ int main(int argc, char* argv[])
 	context.SetGlobalMirror(false);
 
 	xn::ImageMetaData image_metadata;
-  GameScreenMgr::instance().Add(FREE_PLAYING, new FreePlayingGame(&window));
+  //GameScreenMgr::instance().Add(FREE_PLAYING, new FreePlayingGame(&window));
   GameScreenMgr::instance().Add(MAIN_MENU, new MenuScreen(&window)); 
-  GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window));
-	LevelSelectScreen *level_select_screen = new LevelSelectScreen(&window, ResourceManager::LEVEL_PATH);
-	level_select_screen->setGame(new FallingBlockGame(&window));	
-	GameScreenMgr::instance().Add(FALLING_GAME_LEVELS, level_select_screen);
+  //GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window));	
+	GameScreenMgr::instance().Add(FALLING_GAME_LEVELS, new LevelSelectScreen(&window, ResourceManager::FALLING_LEVEL_PATH, new FallingBlockGame(&window), FALLING_GAME));
+	GameScreenMgr::instance().Add(FREE_GAME_LEVELS, new LevelSelectScreen(&window, ResourceManager::FREE_LEVEL_PATH, new FreePlayingGame(&window), FREE_PLAYING));	
 
 	//GameScreenMgr::instance().SetActive(FALLING_GAME_LEVELS);
   while (window.isOpen()) 
@@ -126,7 +125,7 @@ int main(int argc, char* argv[])
         window.close();
     }
     // draw
-    window.clear();
+		window.clear();
     XnStatus status = context.WaitAndUpdateAll();
     bmg::OnError(status, []{
       std::cout << "Couldn't update and wait for new data!" << std::endl;
@@ -137,7 +136,7 @@ int main(int argc, char* argv[])
     unsigned imageY = image_metadata.YRes();
 
     sf::Image raw_image;
-    raw_image.create(imageX, imageY);
+    raw_image.create(imageX, imageY);		
 
     const XnRGB24Pixel* pixel;
     const XnRGB24Pixel* image_row = image_metadata.RGB24Data();
@@ -153,13 +152,14 @@ int main(int argc, char* argv[])
     raw_texture.loadFromImage(raw_image);
     sf::Sprite raw_sprite(raw_texture);
     raw_sprite.setScale(WINDOW_W/(float)imageX, WINDOW_H/(float)imageY);
-    window.draw(raw_sprite);   
+    window.draw(raw_sprite);	
 
 		GameScreenMgr::instance().GetActive()->draw();
     // draw hand point
     if (hand_recognized) {
       // Draw point over tracked hand
       sf::CircleShape hand_position(5.0f);
+			hand_position.setFillColor(sf::Color::Red);
       hand_position.setPosition(projective_point.X, projective_point.Y);
       window.draw(hand_position);           
       GameScreenMgr::instance().GetActive()->update(projective_point.X, projective_point.Y);

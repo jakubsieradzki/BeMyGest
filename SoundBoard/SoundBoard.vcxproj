@@ -168,7 +168,6 @@
     <ClCompile Include="src\AbstractProvider.cpp" />
     <ClCompile Include="src\AreaManager.cpp" />
     <ClCompile Include="src\FallingBlockGame.cpp" />
-    <ClCompile Include="src\FileParser.cpp" />
     <ClCompile Include="src\FreePlayingGame.cpp" />
     <ClCompile Include="src\LevelSelectScreen.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -176,11 +175,7 @@
     <ClCompile Include="src\MovingArea.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\SimpleMusicBlockParser.cpp" />
-    <ClCompile Include="src\MusicBlocksProvider.cpp" />
-    <ClCompile Include="src\MusicFileConfig.cpp" />
-    <ClCompile Include="src\MusicNote.cpp" />
     <ClCompile Include="src\SimpleArea.cpp" />
-    <ClCompile Include="src\SimpleFileParser.cpp" />
     <ClCompile Include="src\FallingMusicBlockFactory.cpp" />
     <ClCompile Include="src\SimpleMusicBlockFactory.cpp" />
     <ClCompile Include="src\SoundArea.cpp" />
@@ -312,7 +307,6 @@
     <ClInclude Include="src\AreaManager.h" />
     <ClInclude Include="src\ColorMap.h" />
     <ClInclude Include="src\FallingBlocksGame.h" />
-    <ClInclude Include="src\FileParser.h" />
     <ClInclude Include="src\FreePlayingGame.h" />
     <ClInclude Include="src\GameScreen.h" />
     <ClInclude Include="src\GameScreenID.h" />
@@ -322,16 +316,12 @@
     <ClInclude Include="src\MusicBlock.h" />
     <ClInclude Include="src\MusicBlockFactory.h" />
     <ClInclude Include="src\MusicBlockParser.h" />
-    <ClInclude Include="src\MusicBlocksProvider.h" />
-    <ClInclude Include="src\MusicFileConfig.h" />
-    <ClInclude Include="src\MusicNote.h" />
     <ClInclude Include="src\rapidxml.hpp" />
     <ClInclude Include="src\rapidxml_iterators.hpp" />
     <ClInclude Include="src\rapidxml_print.hpp" />
     <ClInclude Include="src\rapidxml_utils.hpp" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\ShapeUtils.h" />
-    <ClInclude Include="src\SimpleFileParser.h" />
     <ClInclude Include="src\FallingMusicBlockFactory.h" />
     <ClInclude Include="src\SimpleMusicBlockFactory.h" />
     <ClInclude Include="src\SimpleMusicBlockParser.h" />

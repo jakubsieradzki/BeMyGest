@@ -15,13 +15,16 @@ SoundMovingAreav2::SoundMovingAreav2(sf::Shape* shape, Instrmnt *instrument, Stk
 	float angle = atan2f(diff.y, diff.x);
 
 	// track shape
-	track_shape_ = new sf::RectangleShape(*((sf::RectangleShape*)shape));		
+	track_shape_ = new sf::RectangleShape(sf::Vector2f(length, 10));	
+	track_shape_->setPosition(shape_->getPosition());
+	track_shape_->setRotation(shape_->getRotation());
 	track_shape_->setOutlineThickness(0.0);
 	sf::Color c = shape_->getFillColor();
 	track_shape_->setFillColor(sf::Color(c.r, c.g, c.b, 80));
-	float scale_factor = (length + track_shape_->getSize().x) / track_shape_->getSize().x;
-	track_shape_->scale(scale_factor, 0.2);
-	track_shape_->move(cos(angle)*length/2, sin(angle)*length/2);
+	//float scale_factor = (length + track_shape_->getSize().x) / track_shape_->getSize().x;
+	//track_shape_->scale(scale_factor, 0.2);
+	sf::Vector2f generic_size = ShapeUtils::genericSize(shape_);	
+	track_shape_->move(cos(angle)*10/2, sin(angle)*10/2);
 
 	// countdown outline
 	outline_shape_ = new sf::RectangleShape(*((sf::RectangleShape*)shape));
@@ -39,9 +42,12 @@ SoundMovingAreav2::~SoundMovingAreav2()
 	delete outline_shape_;
 }
 
-bool closeToZero(float value)
+bool SoundMovingAreav2::atFinalPosition()
 {
-	return (abs(1 - abs(value)) < 3);
+	sf::Vector2f check = shape()->getPosition() - finalPosition();
+	sf::Vector2f sign = initialPosition() - finalPosition();
+	float sum = check.x * ShapeUtils::signum<>(sign.x) + check.y * ShapeUtils::signum<>(sign.y);
+	return sum <= -10;
 }
 
 void SoundMovingAreav2::update(unsigned int x, unsigned int y, sf::Clock clock)
@@ -49,7 +55,7 @@ void SoundMovingAreav2::update(unsigned int x, unsigned int y, sf::Clock clock)
 	float current_time = clock.getElapsedTime().asSeconds();
 	if (readyToPlay(current_time))
 	{
-		AbstractArea::update(x, y, clock);
+		SoundArea::update(x, y, clock);
 	}
 	updateOutline(clock);
 	updateBlock(clock);
@@ -58,9 +64,8 @@ void SoundMovingAreav2::update(unsigned int x, unsigned int y, sf::Clock clock)
 	{
 		ready_ = true;
 	}
-
-	sf::Vector2f check = shape()->getPosition() - finalPosition();
-	if (closeToZero(check.x) && closeToZero(check.y))
+	
+	if (atFinalPosition())
 	{
 		removable_ = true;
 	}

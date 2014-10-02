@@ -5,7 +5,8 @@
 class ResourceManager
 {
 public:
-	static const char* LEVEL_PATH;
+	static const char* FALLING_LEVEL_PATH;
+	static const char* FREE_LEVEL_PATH;
 
 	static ResourceManager& instance()
 	{

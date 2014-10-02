@@ -18,7 +18,7 @@ void SoundMovingArea::openStream()
 	soundMaker_.startStream();
 }
 
-void SoundMovingArea::onHover(unsigned int x, unsigned int y)
+void SoundMovingArea::onHover(unsigned int x, unsigned int y, sf::Clock clock)
 {
 	soundMaker_.playNote(baseFreq_, 0.5);
 	color_ = hover_color_;

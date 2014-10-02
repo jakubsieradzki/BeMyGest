@@ -4,7 +4,6 @@
 
 class	SimpleMusicBlockFactory : public MusicBlockFactory
 {
-public:
-	virtual AbstractArea* create(MusicNote music_note);
+public:	
 	virtual AbstractArea* create(MusicBlock music_block);
 };

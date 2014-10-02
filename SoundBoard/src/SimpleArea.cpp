@@ -1,6 +1,6 @@
 #include "AbstractArea.h"
 
-void SimpleArea::onHover(unsigned int x, unsigned y)
+void SimpleArea::onHover(unsigned int x, unsigned y, sf::Clock clock)
 {
 	color_ = changeColor_;
 }

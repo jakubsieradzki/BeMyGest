@@ -20,7 +20,7 @@ void MenuScreen::setup()
 
   Button *free_playing_btn = UiButtonFactory::instance().createButton(properties, MENU_BUTTON);
   free_playing_btn->setAction([]{
-    GameScreenMgr::instance().SetActive(FREE_PLAYING);
+    GameScreenMgr::instance().SetActive(FREE_GAME_LEVELS);
   });
   area_mgr_->addArea(free_playing_btn);
 

@@ -3,7 +3,8 @@
 
 const char* ResourceManager::IMAGE_PATH = "resource/images/";
 const char* ResourceManager::FONT_PATH = "resource/fonts/";
-const char* ResourceManager::LEVEL_PATH = "resource/musicFiles/";
+const char* ResourceManager::FALLING_LEVEL_PATH = "resource/moving/";
+const char* ResourceManager::FREE_LEVEL_PATH = "resource/free/";
 
 ResourceManager::ResourceManager()
 {

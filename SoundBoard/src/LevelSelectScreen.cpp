@@ -3,8 +3,8 @@
 #include <boost/filesystem.hpp>
 #include "UiButtonFactory.h"
 
-LevelSelectScreen::LevelSelectScreen(sf::RenderWindow* render_window, std::string level_path)
-	: GameScreen(render_window), level_count_(0), level_dir_path_(level_path)
+LevelSelectScreen::LevelSelectScreen(sf::RenderWindow* render_window, std::string level_path, GameScreen *game, GameScreenID game_id)
+	: GameScreen(render_window), level_count_(0), level_dir_path_(level_path), actual_game_(game), game_id_(game_id)
 {	
 	setup();
 }
@@ -15,7 +15,7 @@ LevelSelectScreen::~LevelSelectScreen()
 
 void LevelSelectScreen::setup()
 {
-	GameScreenMgr::instance().Add(FALLING_GAME, actual_game_);
+	GameScreenMgr::instance().Add(game_id_, actual_game_);
 
 	boost::filesystem::path levels_path(level_dir_path_);
 	boost::filesystem::directory_iterator end_itr;
@@ -26,8 +26,7 @@ void LevelSelectScreen::setup()
 		{						
 			std::string current_file = itr->path().string();
 			std::cout << current_file << std::endl;
-			addNextLevel(current_file);
-			//area_mgr_->addArea(createLevelButton(current_file));
+			addNextLevel(current_file);			
 		}
 	}
 }
@@ -39,11 +38,11 @@ void LevelSelectScreen::addNextLevel(std::string file_name)
 
 	UiButtonProperties properties(config.position_, config.size_, name.substr(0, name.find_last_of(".")));
 	Button *level_btn = UiButtonFactory::instance().createButton(properties, LEVEL_SELECT_BUTTON);
-	level_btn->setAction([file_name](){    
-		auto game = GameScreenMgr::instance().Get(FALLING_GAME);
+	level_btn->setAction([file_name, this](){    
+		auto game = GameScreenMgr::instance().Get(game_id_);
 		game->setLevelFile(file_name);
 		game->setup();
-    GameScreenMgr::instance().SetActive(FALLING_GAME);		
+    GameScreenMgr::instance().SetActive(game_id_);		
   });
 
 	level_count_++;
@@ -68,8 +67,6 @@ LevelSelectScreen::ButtonConfig LevelSelectScreen::buttonConfig()
 
 Button* LevelSelectScreen::createLevelButton(std::string level_file)
 {
-
-
 	float button_w = 0.2f * render_window_->getSize().x;	
 	float button_pos_x = 50;
 	float button_pos_y = 50;

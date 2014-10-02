@@ -1,12 +1,13 @@
 #pragma once
 
 #include "GameScreen.h"
+#include "GameScreenID.h"
 #include "AbstractArea.h"
 
 class LevelSelectScreen : public GameScreen
 {
 public:
-	LevelSelectScreen(sf::RenderWindow* render_window, std::string level_dir);
+	LevelSelectScreen(sf::RenderWindow* render_window, std::string level_dir, GameScreen *game, GameScreenID game_id);
 	~LevelSelectScreen();
 
 	virtual void setup();
@@ -14,7 +15,7 @@ public:
 	virtual void customUpdate();
 	virtual void onActivation();
 
-	void setGame(GameScreen *game) { actual_game_ = game; }	
+	void setGame(GameScreen *game, GameScreenID game_id) { actual_game_ = game; game_id_ = game_id;}	
 	int getLevelCount() { return level_count_; }
 private:
 	static const int COLUMNS = 4;
@@ -31,6 +32,7 @@ private:
 	};
 
 	GameScreen *actual_game_;
+	GameScreenID game_id_;
 	std::string level_dir_path_;
 	int level_count_;
 

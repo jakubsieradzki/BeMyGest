@@ -13,12 +13,8 @@ public:
 	virtual void customUpdate();
 	virtual void onActivation();	
 
-private:
-  //sf::Clock game_clock_;
-	sf::RectangleShape boundry_line_;	
-	AbstractProvider blocks_provider_;
-	// --- refacor ---	
-
+private:  	
+	AbstractProvider blocks_provider_;	
 	// move to separate class (TextDisplay or smth)
 	sf::Font font;
 	sf::Text text;

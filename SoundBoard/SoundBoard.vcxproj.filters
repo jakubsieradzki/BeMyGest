@@ -58,9 +58,6 @@
     <Filter Include="Source Files\music\factory">
       <UniqueIdentifier>{70d54e31-9f3c-49a2-9bcb-3e4574caca52}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\music\model">
-      <UniqueIdentifier>{353a3a28-c364-4f71-a5cd-7967c3034648}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{44e714f5-2a2c-403e-ae0e-158f1ba33ae3}</UniqueIdentifier>
     </Filter>
@@ -372,29 +369,14 @@
     <ClCompile Include="src\SoundMovingArea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MusicBlocksProvider.cpp">
-      <Filter>Source Files\music</Filter>
-    </ClCompile>
     <ClCompile Include="src\AbstractProvider.cpp">
       <Filter>Source Files\music</Filter>
-    </ClCompile>
-    <ClCompile Include="src\FileParser.cpp">
-      <Filter>Source Files\music\parser</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SimpleFileParser.cpp">
-      <Filter>Source Files\music\parser</Filter>
     </ClCompile>
     <ClCompile Include="src\SimpleMusicBlockFactory.cpp">
       <Filter>Source Files\music\factory</Filter>
     </ClCompile>
     <ClCompile Include="src\FallingMusicBlockFactory.cpp">
       <Filter>Source Files\music\factory</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MusicNote.cpp">
-      <Filter>Source Files\music\model</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MusicFileConfig.cpp">
-      <Filter>Source Files\music\model</Filter>
     </ClCompile>
     <ClCompile Include="src\SimpleMusicBlockParser.cpp">
       <Filter>Source Files\music\parser</Filter>
@@ -785,9 +767,6 @@
     <ClInclude Include="src\FallingBlocksGame.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="src\MusicBlocksProvider.h">
-      <Filter>Header Files\music</Filter>
-    </ClInclude>
     <ClInclude Include="src\rapidxml_utils.hpp">
       <Filter>Header Files\xml</Filter>
     </ClInclude>
@@ -806,9 +785,6 @@
     <ClInclude Include="src\AbstractProvider.h">
       <Filter>Header Files\music</Filter>
     </ClInclude>
-    <ClInclude Include="src\FileParser.h">
-      <Filter>Header Files\music\parser</Filter>
-    </ClInclude>
     <ClInclude Include="src\MusicBlockParser.h">
       <Filter>Header Files\music\parser</Filter>
     </ClInclude>
@@ -818,17 +794,8 @@
     <ClInclude Include="src\MusicBlockFactory.h">
       <Filter>Header Files\music\factory</Filter>
     </ClInclude>
-    <ClInclude Include="src\SimpleFileParser.h">
-      <Filter>Header Files\music\parser</Filter>
-    </ClInclude>
     <ClInclude Include="src\SimpleMusicBlockFactory.h">
       <Filter>Header Files\music\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MusicNote.h">
-      <Filter>Header Files\music\model</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MusicFileConfig.h">
-      <Filter>Header Files\music\model</Filter>
     </ClInclude>
     <ClInclude Include="src\MusicBlock.h">
       <Filter>Header Files\music\model</Filter>
