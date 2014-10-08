@@ -1,5 +1,5 @@
-#include "../../Common/src/GlueGL.h"
-#include "../../Common/src/OpenNiUtil.h"
+#include "GlueGL.h"
+#include "OpenNiUtil.h"
 
 #include <iostream>
 
@@ -9,51 +9,51 @@ xn::UserGenerator user_generator;
 
 // Define user tracking event callbacks
 void XN_CALLBACK_TYPE User_NewUser(
-  xn::UserGenerator& generator, 
-  XnUserID nId, 
-  void* pCookie) 
-{   
-  user_generator.GetPoseDetectionCap().StartPoseDetection(HUMAN_POSE, nId); 
+  xn::UserGenerator& generator,
+  XnUserID nId,
+  void* pCookie)
+{
+  user_generator.GetPoseDetectionCap().StartPoseDetection(HUMAN_POSE, nId);
 }
 
 void XN_CALLBACK_TYPE User_LostUser(
-  xn::UserGenerator& generator, 
-  XnUserID nId, 
-  void* pCookie) 
+  xn::UserGenerator& generator,
+  XnUserID nId,
+  void* pCookie)
 {}
 
 void XN_CALLBACK_TYPE Pose_Detected(
-  xn::PoseDetectionCapability& pose, 
-  const XnChar* strPose, 
-  XnUserID nId, 
-  void* pCookie) 
-{   
-  user_generator.GetPoseDetectionCap().StopPoseDetection(nId); 
-  user_generator.GetSkeletonCap().RequestCalibration(nId, TRUE); 
+  xn::PoseDetectionCapability& pose,
+  const XnChar* strPose,
+  XnUserID nId,
+  void* pCookie)
+{
+  user_generator.GetPoseDetectionCap().StopPoseDetection(nId);
+  user_generator.GetSkeletonCap().RequestCalibration(nId, TRUE);
 }
 
 void XN_CALLBACK_TYPE Calibration_Start(
-  xn::SkeletonCapability& capability, 
-  XnUserID nId, 
-  void* pCookie) 
+  xn::SkeletonCapability& capability,
+  XnUserID nId,
+  void* pCookie)
 {
 }
 
 void XN_CALLBACK_TYPE Calibration_End(
-  xn::SkeletonCapability& capability, 
-  XnUserID nId,XnBool bSuccess, 
-  void* pCookie) 
-{ 
-  if (bSuccess) {     
-    user_generator.GetSkeletonCap().StartTracking(nId); 
-  } else {    
-    user_generator.GetPoseDetectionCap().StartPoseDetection(HUMAN_POSE, nId); 
-  } 
+  xn::SkeletonCapability& capability,
+  XnUserID nId,XnBool bSuccess,
+  void* pCookie)
+{
+  if (bSuccess) {
+    user_generator.GetSkeletonCap().StartTracking(nId);
+  } else {
+    user_generator.GetPoseDetectionCap().StartPoseDetection(HUMAN_POSE, nId);
+  }
 }
 
-int main(int argc, char* argv[]) {  
-  auto& glue = bmg::GlueGL::getInstance();  
-  glue.Init(argc, argv, 640, 240, "TrackHuman");  
+int main(int argc, char* argv[]) {
+  auto& glue = bmg::GlueGL::getInstance();
+  glue.Init(argc, argv, 640, 240, "TrackHuman");
 
   xn::Context context;
   XnStatus status = context.Init();
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
     exit(1);
   });
 
-  xn::ImageGenerator image_generator;  
+  xn::ImageGenerator image_generator;
   status = image_generator.Create(context);
   bmg::OnError(status, []{
     std::cout << "Couldn't create image generator!" << std::endl;
@@ -73,9 +73,9 @@ int main(int argc, char* argv[]) {
   bmg::OnError(status, []{
     std::cout << "Couldn't create depth generator!" << std::endl;
   });
-  
+
   xn::ImageMetaData image_metadata;
-  xn::DepthMetaData depth_metadata;  
+  xn::DepthMetaData depth_metadata;
 
   // Create user generator
   status = user_generator.Create(context);
@@ -83,9 +83,9 @@ int main(int argc, char* argv[]) {
     std::cout << "Couldn't create user generator!" << std::endl;
   });
   // Register user tracking callbacks
-  XnCallbackHandle h1, h2, h3; 
-  user_generator.RegisterUserCallbacks(User_NewUser, User_LostUser, NULL, h1); 
-  user_generator.GetPoseDetectionCap().RegisterToPoseCallbacks( Pose_Detected, NULL, NULL, h2); 
+  XnCallbackHandle h1, h2, h3;
+  user_generator.RegisterUserCallbacks(User_NewUser, User_LostUser, NULL, h1);
+  user_generator.GetPoseDetectionCap().RegisterToPoseCallbacks( Pose_Detected, NULL, NULL, h2);
   user_generator.GetSkeletonCap().RegisterCalibrationCallbacks( Calibration_Start, Calibration_End, NULL, h3);
   // Set skeleton profile
   user_generator.GetSkeletonCap().SetSkeletonProfile(XN_SKEL_PROFILE_ALL);
@@ -97,7 +97,7 @@ int main(int argc, char* argv[]) {
 
   glue.BindDisplayFunc([&]{
     glue.BeginDraw();
-    
+
     XnStatus status = context.WaitAndUpdateAll();
     bmg::OnError(status, []{
       std::cout << "Couldn't update and wait for new data!" << std::endl;
@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
     unsigned imageY = image_metadata.YRes();
 
     glue.DrawOnTexture(
-      (void*)image_metadata.RGB24Data(), 
+      (void*)image_metadata.RGB24Data(),
       imageX, imageY,
       imageX, imageY,
       320, 0, 640, 240);
@@ -117,33 +117,33 @@ int main(int argc, char* argv[]) {
     unsigned depthX = depth_metadata.XRes();
     unsigned depthY = depth_metadata.YRes();
 
-    XnRGB24Pixel* transformed_depth_map = new XnRGB24Pixel[depthX * depthY];    
+    XnRGB24Pixel* transformed_depth_map = new XnRGB24Pixel[depthX * depthY];
     bmg::CalculateDepth(
       depth_generator.GetDepthMap(), depthX, depthY, MAX_DEPTH, transformed_depth_map);
-    
+
     glue.DrawOnTexture(
-      (void*)transformed_depth_map, 
-      depthX, depthY, 
-      depthX, depthY, 
-      0, 0, 
+      (void*)transformed_depth_map,
+      depthX, depthY,
+      depthX, depthY,
+      0, 0,
       320, 240);
     delete [] transformed_depth_map;
-    
+
     // Get through all tracked users
     XnUserID aUsers[15];
-    XnUInt16 nUsers = 15; 
-    user_generator.GetUsers(aUsers, nUsers); 
-    for (int i = 0; i < nUsers; ++i) { 
-      if (user_generator.GetSkeletonCap().IsTracking(aUsers[i])) { 
-        XnSkeletonJointPosition Head;         
-        user_generator.GetSkeletonCap().GetSkeletonJointPosition(aUsers[i], XN_SKEL_HEAD, Head);        
+    XnUInt16 nUsers = 15;
+    user_generator.GetUsers(aUsers, nUsers);
+    for (int i = 0; i < nUsers; ++i) {
+      if (user_generator.GetSkeletonCap().IsTracking(aUsers[i])) {
+        XnSkeletonJointPosition Head;
+        user_generator.GetSkeletonCap().GetSkeletonJointPosition(aUsers[i], XN_SKEL_HEAD, Head);
         XnPoint3D projective_point;
         depth_generator.ConvertRealWorldToProjective(1, &Head.position, &projective_point);
         // Display point over tracked human's head
         glue.DrawPointOverRegion(projective_point.X, projective_point.Y, 0, 0);
-        glue.DrawPointOverRegion(projective_point.X, projective_point.Y, 320, 0);        
-      } 
-    }    
+        glue.DrawPointOverRegion(projective_point.X, projective_point.Y, 320, 0);
+      }
+    }
     glue.EndDraw();
   });
 

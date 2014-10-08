@@ -1,22 +1,22 @@
-#include "../../Common/src/GlueGL.h"
-#include "../../Common/src/OpenNiUtil.h"
+#include "GlueGL.h"
+#include "OpenNiUtil.h"
 
 #include <iostream>
 
 const int MAX_DEPTH = 10000;
 
-int main(int argc, char* argv[]) {  
-  auto& glue = bmg::GlueGL::getInstance();  
-  glue.Init(argc, argv, 640, 240, "DisplayRawData");  
-  
+int main(int argc, char* argv[]) {
+  auto& glue = bmg::GlueGL::getInstance();
+  glue.Init(argc, argv, 640, 240, "DisplayRawData");
+
   xn::Context context;
   XnStatus status = context.Init();
   bmg::OnError(status, []{
     std::cout << "Couldn't init OpenNi!" << std::endl;
     exit(1);
   });
-  
-  xn::ImageGenerator image_generator;  
+
+  xn::ImageGenerator image_generator;
   status = image_generator.Create(context);
   bmg::OnError(status, []{
     std::cout << "Couldn't create image generator!" << std::endl;
@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Couldn't generate all data!" << std::endl;
   });
   xn::ImageMetaData image_metadata;
-  xn::DepthMetaData depth_metadata;  
+  xn::DepthMetaData depth_metadata;
 
   glue.BindDisplayFunc([&]{
     glue.BeginDraw();
@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
     unsigned imageY = image_metadata.YRes();
 
     glue.DrawOnTexture(
-      (void*)image_metadata.RGB24Data(), 
+      (void*)image_metadata.RGB24Data(),
       imageX, imageY,
       imageX, imageY,
       320, 0, 640, 240);
@@ -58,15 +58,15 @@ int main(int argc, char* argv[]) {
     unsigned depthX = depth_metadata.XRes();
     unsigned depthY = depth_metadata.YRes();
 
-    XnRGB24Pixel* transformed_depth_map = new XnRGB24Pixel[depthX * depthY];    
+    XnRGB24Pixel* transformed_depth_map = new XnRGB24Pixel[depthX * depthY];
     bmg::CalculateDepth(
       depth_generator.GetDepthMap(), depthX, depthY, MAX_DEPTH, transformed_depth_map);
 
     glue.DrawOnTexture(
-      (void*)transformed_depth_map, 
-      depthX, depthY, 
-      depthX, depthY, 
-      0, 0, 
+      (void*)transformed_depth_map,
+      depthX, depthY,
+      depthX, depthY,
+      0, 0,
       320, 240);
     delete [] transformed_depth_map;
 

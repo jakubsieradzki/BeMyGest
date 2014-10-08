@@ -1,5 +1,5 @@
-#include "../../Common/src/GlueGL.h"
-#include "../../Common/src/OpenNiUtil.h"
+#include "GlueGL.h"
+#include "OpenNiUtil.h"
 
 #include <iostream>
 
