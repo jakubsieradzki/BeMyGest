@@ -4,7 +4,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/math/constants/constants.hpp>
 #include "global.h"
 #include "GameMgr.h"
 #include "Entity.h"
@@ -16,8 +15,9 @@
 #include "Map.h"
 #include "Player.h"
 
-#include "Xtion/OpenNiUtil.h"
+#include "OpenNiUtil.h"
 
+const float PI = 3.14159265358f;
 const int MAX_DEPTH = 10000;
 const char* GESTURE = "Wave";
 bool hand_recognized = false;
@@ -86,7 +86,7 @@ int main()
   sf::Font font;// = sf::Font();
   bool stop = false;
 
-  Map map("resource/map/1.txt", 10, 15, 50); 
+  Map map("resource/map/1.txt", 10, 15, 50);
 
   GameMgr::getInstance().loadSounds();
   GameMgr::getInstance().setCellSize(map.grid_element_x, map.grid_element_y);
@@ -119,7 +119,7 @@ int main()
       break;
     case 'N': // muszla2
       entity = EntityFactory::
-          CreateDynamicSeashell(&muszla2, 5, (temp->col)*(map.grid_element_y), 0.3f); 
+          CreateDynamicSeashell(&muszla2, 5, (temp->col)*(map.grid_element_y), 0.3f);
       map.setEntity(entity, temp -> row, temp -> col);
       break;
     case 'B': // beczka
@@ -151,7 +151,7 @@ int main()
   }
 
   auto fish = EntityFactory::CreatePlayer(&fish1, SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f, 0.8);
-  
+
   sf::Texture waves = GFX::LoadTexture("resource/fale.png");
   sf::Sprite waves1 = sf::Sprite(waves);
   sf::Sprite waves2 = sf::Sprite(waves);
@@ -172,7 +172,7 @@ int main()
   float xLeftSide = 0.0f;
   // music
   bg_music -> setLoop(true);
-  //bg_music -> play();
+  bg_music -> play();
   level_clock.restart();
   int currentSecond = MAX_SECONDS_FOR_LEVEL;
   sf::Text* textScore, *textClock, *textScored;
@@ -227,7 +227,7 @@ int main()
   // <<<<<<<<<<<<<< OpenNI init
 
   while(window.isOpen())
-  {    
+  {
     // here goes code for app main loop
     XnStatus status = context.WaitAndUpdateAll();
     bmg::OnError(status, []{
@@ -236,16 +236,16 @@ int main()
 
     image_generator.GetMetaData(image_metadata);
     unsigned imageX = image_metadata.XRes();
-    unsigned imageY = image_metadata.YRes();   
+    unsigned imageY = image_metadata.YRes();
 
     depth_generator.GetMetaData(depth_metadata);
     unsigned depthX = depth_metadata.XRes();
     unsigned depthY = depth_metadata.YRes();
-    
+
     float x_on_screen;
     float y_on_screen;
 
-    if (hand_recognized) {     
+    if (hand_recognized) {
       float x = projective_point.X;
       float y = projective_point.Y;
 
@@ -264,7 +264,7 @@ int main()
       stop = false;
     } else {
       stop = true;
-    }    
+    }
 
     window.clear();
     sf::Event event;
@@ -278,8 +278,8 @@ int main()
     }
 
     int xMousePosition = x_on_screen;//sf::Mouse::getPosition(window).x;
-    int yMousePosition = y_on_screen;//sf::Mouse::getPosition(window).y; 
-    
+    int yMousePosition = y_on_screen;//sf::Mouse::getPosition(window).y;
+
     float vectorX = xMousePosition - SCREEN_WIDTH/2.0f;
     float vectorY = yMousePosition - SCREEN_HEIGHT/2.0f;
 
@@ -301,11 +301,11 @@ int main()
     magnitude = sqrt(vectorX*vectorX + vectorY*vectorY);
     // k¹t miêdzy osi¹ OX a wektorem kierunku wêgorza
     float angle = acos((axisX*vectorX+axisY*vectorY)/(magnituedAxis*magnitude));
-    angle = angle * 180.0f/boost::math::constants::pi<float>();
-  
+    angle = angle * 180.0f/PI;
+
     float xMouseOffset = SCREEN_WIDTH/2.0f - xMousePosition;
     float yMouseOffset = SCREEN_HEIGHT/2.0f - yMousePosition;
-  
+
     xMouseOffset = (xMouseOffset/(SCREEN_WIDTH/2.0f))*MOVE_X_SPEED;
     yMouseOffset = (yMouseOffset/(SCREEN_HEIGHT/2.0f))*MOVE_Y_SPEED;
 
@@ -350,7 +350,7 @@ int main()
       fish.sprite().setTexture(fish3);
       break;
     }
-  
+
     if(++frameNumber > 6){
       if(++fishNumber>3)
       fishNumber = 1;
@@ -358,7 +358,7 @@ int main()
     }
     if(!stop)
     {
-      fish.move(-xMouseOffset, -yMouseOffset);  
+      fish.move(-xMouseOffset, -yMouseOffset);
 
       if(fish.sprite().getPosition().x < left_boundry)
       fish.setPosition(left_boundry, fish.sprite().getPosition().y);
@@ -400,8 +400,8 @@ int main()
     window.draw(waves2);
 
     // linie ograniczaj¹ce ruch rybki
-    window.draw(*line1);
-    window.draw(*line2);  
+    //window.draw(*line1);
+    //window.draw(*line2);
 
     for(int i = 0; i < (map.counter); ++i)
     {
@@ -418,15 +418,15 @@ int main()
             fish.isCollides(map.assets[i]);
             // rysujemy
             window.draw(map.assets[i] -> sprite());
-            window.draw(map.assets[i] -> collisionAura());
+           // window.draw(map.assets[i] -> collisionAura());
           }
         }
       }
     }
-  
+
     // PLAYAER
     window.draw(fish.sprite());
-    window.draw(fish.collisionAura());
+   // window.draw(fish.collisionAura());
 
     // GUI
     if(!stop)
