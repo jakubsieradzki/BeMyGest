@@ -6,7 +6,7 @@ using sf::Vector2f;
 using std::string;
 using std::make_pair;
 
-DrumMachine::DrumMachine(int drum_set_size, float hit_distance)
+DrumMachine::DrumMachine(unsigned drum_set_size, float hit_distance)
   : in_calibration_mode_(true),
     drum_set_size_(drum_set_size),
     hit_distance_(hit_distance)
@@ -26,7 +26,7 @@ void DrumMachine::SetDrumSetPoint(Vector2f drum_set_point)
   }
 }
 
-void DrumMachine::SetDrumSound(int drum_set_point, string audio_file)
+void DrumMachine::SetDrumSound(unsigned drum_set_point, string audio_file)
 {
   if (drum_set_point >= 0 && drum_set_point < drum_set_size_)
   {
@@ -47,7 +47,7 @@ void DrumMachine::Update(sf::Vector2f drumstick_position)
     {
       if (drum_set_sounds_.size() > i) 
       {
-        if (drum_set_sounds_[i]->getStatus() != sf::Sound::Status::Playing) 
+        if (drum_set_sounds_[i]->getStatus() != sf::Sound::Playing) 
         {
           drum_set_sounds_[i]->setVolume(100);
           drum_set_sounds_[i]->play();

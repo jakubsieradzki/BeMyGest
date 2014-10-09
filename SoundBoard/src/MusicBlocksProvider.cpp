@@ -36,7 +36,7 @@ void MusicBlocksProvider::updateAreas(AreaManager *area_manager)
 		return;
 	}
 
-	float current_time = clock_->getElapsedTime().asMilliseconds();
+	float current_time = static_cast<float>(clock_->getElapsedTime().asMilliseconds());
 	if (current_time + update_time_ > waiting_areas_.begin()->first)
 	{						
 		//std::cout << "current time: " << current_time << std::endl;

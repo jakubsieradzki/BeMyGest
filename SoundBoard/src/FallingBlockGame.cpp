@@ -13,7 +13,7 @@ void FallingBlockGame::setup()
 {
 	boundry_line_.setPosition(10.0, 150.0);
 	boundry_line_.setSize(sf::Vector2f(700, 1));
-	boundry_line_.setOutlineThickness(0.1);	
+	boundry_line_.setOutlineThickness(0.1f);	
 
 	setupDependencies();
 	blocks_provider_.initialize();

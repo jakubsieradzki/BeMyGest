@@ -22,7 +22,7 @@ void FreePlayingGame::setup()
   {
     int m = i % 3;
     int n = i / 3;		
-    area_mgr_->addArea(new SoundArea(200 + (delta*m), 150 + (delta*n), 100, 100, sf::Color(0.0f, 0.0f, 255.0f, 125.0f), new Flute(300.0), notes[i]));
+    area_mgr_->addArea(new SoundArea(200.0f + (delta*m), 150.0f + (delta*n), 100.0f, 100.0f, sf::Color(0, 0, 255, 125), new Flute(300.0), notes[i]));
   }  
 }
 

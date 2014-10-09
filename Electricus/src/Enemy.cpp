@@ -51,7 +51,7 @@ void Enemy::animate(float offset)
         move_right = false;
 
       if(move_right)
-        Entity:move(PIRANIA_SPEED+offset, 0.0f);
+        Entity::move(PIRANIA_SPEED+offset, 0.0f);
       else
         Entity::move(-PIRANIA_SPEED+offset, 0.0f);
       break;

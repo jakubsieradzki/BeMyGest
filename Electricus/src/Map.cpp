@@ -65,7 +65,7 @@ pair<Tile**, unsigned> Map::LoadFromFile(string file_path)
     unsigned size = vec.size();
     auto tiles = new Tile*[size];
 
-    for(int i = 0; i < size; ++i)
+    for(unsigned i = 0; i < size; ++i)
     {
       tiles[i] = vec[i];
     }

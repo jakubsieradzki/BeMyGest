@@ -134,9 +134,9 @@ int main(int argc, char* argv[])
 
     const XnRGB24Pixel* pixel;
     const XnRGB24Pixel* image_row = image_metadata.RGB24Data();
-    for (int y = 0; y < imageY; ++y) {
+    for (unsigned y = 0; y < imageY; ++y) {
       pixel = image_row;
-      for (int x = 0; x < imageX; ++x, ++pixel) {
+      for (unsigned x = 0; x < imageX; ++x, ++pixel) {
         raw_image.setPixel(x, y,
           sf::Color(pixel->nRed, pixel->nGreen, pixel->nBlue));
       }
@@ -155,7 +155,7 @@ int main(int argc, char* argv[])
       hand_position.setPosition(projective_point.X, projective_point.Y);
       window.draw(hand_position);
       GameScreenMgr::instance().GetActive()
-        ->update(projective_point.X, projective_point.Y);
+        ->update(static_cast<unsigned>(projective_point.X), static_cast<unsigned>(projective_point.Y));
     }
     GameScreenMgr::instance().GetActive()->draw();
     window.display();

@@ -22,7 +22,7 @@ Seashell* EntityFactory::CreateDynamicSeashell(
   float scale)
 {
   auto seashell = new Seashell(texture);
-  seashell->setScore(points);
+  seashell->setScore(static_cast<float>(points));
   seashell->SetXPositionOnMap(position_on_map_x);
   seashell->setScale(scale, scale);
   return seashell;
@@ -50,7 +50,7 @@ Enemy* EntityFactory::CreateDynamicEnemy(
 {
   auto enemy = new Enemy(texture);
   //enemy->setType(type);
-  enemy->setScore(points);
+  enemy->setScore(static_cast<float>(points));
   enemy->SetXPositionOnMap(position_on_map_x);
   enemy->setScale(scale, scale);
   return enemy;

@@ -140,8 +140,8 @@ int main(int argc, char* argv[]) {
         XnPoint3D projective_point;
         depth_generator.ConvertRealWorldToProjective(1, &Head.position, &projective_point);
         // Display point over tracked human's head
-        glue.DrawPointOverRegion(projective_point.X, projective_point.Y, 0, 0);
-        glue.DrawPointOverRegion(projective_point.X, projective_point.Y, 320, 0);
+        glue.DrawPointOverRegion(static_cast<unsigned>(projective_point.X), static_cast<unsigned>(projective_point.Y), 0, 0);
+        glue.DrawPointOverRegion(static_cast<unsigned>(projective_point.X), static_cast<unsigned>(projective_point.Y), 320, 0);
       }
     }
     glue.EndDraw();

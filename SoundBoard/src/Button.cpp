@@ -38,6 +38,6 @@ void Button::draw(sf::RenderWindow *render_window)
 	float current_width = (progress_ * width_) / MAX_TIME;
   sf::RectangleShape rect(sf::Vector2f(current_width, height_));
   rect.setPosition(x_, y_);
-  rect.setFillColor(sf::Color(0.0f, 255.0f, 0.0f, 200.0f));    
+  rect.setFillColor(sf::Color(0, 255, 0, 200));    
   render_window->draw(rect);
 }

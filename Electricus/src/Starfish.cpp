@@ -9,7 +9,7 @@ void Starfish::setCollisionState(bool isCollides)
   if(isCollides)
   {
     GameMgr::getInstance().playRandomSound();
-    GameMgr::getInstance().addScore(score);
+    GameMgr::getInstance().addScore(static_cast<float>(score));
     Entity::setCollisionState(true);
     remove = true;
   }

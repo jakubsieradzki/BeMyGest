@@ -59,11 +59,11 @@ int main()
       if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
       {
         sf::Vector2i click_position = sf::Mouse::getPosition(window);
-        Util::Display(sf::Vector2f(click_position.x, click_position.y), "Click position: ");
+        Util::Display(sf::Vector2f(static_cast<float>(click_position.x), static_cast<float>(click_position.y)), "Click position: ");
 
         if (drum_machine.InCalibration())
         {
-          drum_machine.SetDrumSetPoint(sf::Vector2f(click_position.x, click_position.y));
+          drum_machine.SetDrumSetPoint(sf::Vector2f(static_cast<float>(click_position.x), static_cast<float>(click_position.y)));
         }
       }
     }
@@ -94,8 +94,8 @@ int main()
     double moment01 = moments.m01;
     double area = moments.m00;
 
-    float posX = (float)moment10/area;
-    float posY = (float)moment01/area;
+    float posX = static_cast<float>(moment10/area);
+    float posY = static_cast<float>(moment01/area);
     // >>>> OpenCV >>>>
 
     sf::Sprite captured_image(captured_texture);

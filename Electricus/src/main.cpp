@@ -150,7 +150,7 @@ int main()
     }
   }
 
-  auto fish = EntityFactory::CreatePlayer(&fish1, SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f, 0.8);
+  auto fish = EntityFactory::CreatePlayer(&fish1, SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f, 0.8f);
 
   sf::Texture waves = GFX::LoadTexture("resource/fale.png");
   sf::Sprite waves1 = sf::Sprite(waves);
@@ -242,8 +242,8 @@ int main()
     unsigned depthX = depth_metadata.XRes();
     unsigned depthY = depth_metadata.YRes();
 
-    float x_on_screen;
-    float y_on_screen;
+    int x_on_screen;
+    int y_on_screen;
 
     if (hand_recognized) {
       float x = projective_point.X;
@@ -257,8 +257,8 @@ int main()
       float x_ratio = (300.0f-x)/300.0f;
       float y_ratio = y/230.0f;
 
-      x_on_screen = x_ratio * SCREEN_WIDTH;
-      y_on_screen = y_ratio * SCREEN_HEIGHT;
+      x_on_screen = static_cast<int>(x_ratio * SCREEN_WIDTH);
+      y_on_screen = static_cast<int>(y_ratio * SCREEN_HEIGHT);
 
       //std::cout << "Point (" << x_on_screen << ", " << y_on_screen << ")" << std::endl;
       stop = false;
@@ -277,8 +277,8 @@ int main()
       }
     }
 
-    int xMousePosition = x_on_screen;//sf::Mouse::getPosition(window).x;
-    int yMousePosition = y_on_screen;//sf::Mouse::getPosition(window).y;
+    int xMousePosition = x_on_screen;
+    int yMousePosition = y_on_screen;
 
     float vectorX = xMousePosition - SCREEN_WIDTH/2.0f;
     float vectorY = yMousePosition - SCREEN_HEIGHT/2.0f;

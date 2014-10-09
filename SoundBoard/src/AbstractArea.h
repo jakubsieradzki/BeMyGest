@@ -119,7 +119,7 @@ public:
 	virtual ~MovingArea() {}
 	void setClock(sf::Clock *clock) { clock_ = clock; }
 	void setSpeed(float speed) { speed_ = speed; }
-	void setPostionTarget(float target) { position_delta_ = target; }
+	void setPostionTarget(float target) { position_delta_ = static_cast<int>(target); }
 	
 	virtual void draw(sf::RenderWindow* render_window);	
 };

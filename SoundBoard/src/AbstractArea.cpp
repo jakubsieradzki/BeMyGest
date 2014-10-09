@@ -21,9 +21,8 @@ void AbstractArea::draw(sf::RenderWindow* render_window)
 {  
   sf::RectangleShape rect(sf::Vector2f(width_, height_));
   rect.setPosition(x_, y_);
-  //rect.setFillColor(sf::Color(0.0f, 0.0f, 0.0f, 0.0f));
   rect.setFillColor(color_);
-	rect.setOutlineColor(sf::Color(0.0f, 0.0f, 0.0f, 255.0f));
+	rect.setOutlineColor(sf::Color(0, 0, 0, 255));
   rect.setOutlineThickness(1.0f);
   render_window->draw(rect);
 }
