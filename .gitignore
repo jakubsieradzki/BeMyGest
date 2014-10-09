@@ -16,6 +16,8 @@
 *.suo
 *.opensdf
 *.sdf
+*.vcxproj*
+*.sln
 ipch/
 Debug/
 Release/
@@ -23,3 +25,8 @@ Release/
 # Ignore SFML dlls
 Electricus/*.dll
 DrumMachine/*.dll
+
+# CMake
+*.cmake
+CMakeFiles/
+CMakeCache.txt
