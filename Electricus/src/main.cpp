@@ -242,8 +242,8 @@ int main()
     unsigned depthX = depth_metadata.XRes();
     unsigned depthY = depth_metadata.YRes();
 
-    int x_on_screen;
-    int y_on_screen;
+    int x_on_screen = 0;
+    int y_on_screen = 0;
 
     if (hand_recognized) {
       float x = projective_point.X;
