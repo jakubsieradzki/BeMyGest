@@ -20,11 +20,11 @@ public:
 
   void BeginDraw();
   void EndDraw();
-  void DrawOnTexture(    
-    void* pixels, 
-    unsigned tex_x, 
-    unsigned tex_y, 
-    unsigned data_x, 
+  void DrawOnTexture(
+    void* pixels,
+    unsigned tex_x,
+    unsigned tex_y,
+    unsigned data_x,
     unsigned data_y,
     unsigned left_up_x,
     unsigned left_up_y,
@@ -36,18 +36,31 @@ public:
     unsigned left_up_x,
     unsigned left_up_y,
     unsigned point_size = 8);
+  void DrawRectangle(
+    unsigned x,
+    unsigned y,
+    unsigned width,
+    unsigned height);
+  void DrawRectangleWithColor(
+    unsigned x,
+    unsigned y,
+    unsigned width,
+    unsigned height,
+    unsigned r,
+    unsigned g,
+    unsigned b);
 
   void Run();
 
   void BindKeyboardFunc(
     const std::function<void(unsigned char, int, int)>& func);
-  void BindDisplayFunc(const std::function<void()>& func);  
+  void BindDisplayFunc(const std::function<void()>& func);
 
   static GlueGL& getInstance() {
     static GlueGL instance;
     return instance;
   }
-  
+
   std::function<void()> display_func_;
   std::function<void(unsigned char, int, int)> keyboard_func_;
 private:

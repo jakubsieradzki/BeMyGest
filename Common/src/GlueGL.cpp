@@ -123,4 +123,40 @@ void GlueGL::DrawPointOverRegion(
   glFlush();
 }
 
+void GlueGL::DrawRectangle(
+	unsigned x,
+	unsigned y,
+	unsigned width,
+	unsigned height)
+{
+	glBegin(GL_LINE_LOOP);
+	glLineWidth(2.0);	
+	glVertex2f(x, y);
+	glVertex2f(x + width, y);
+	glVertex2f(x + width, y + height);
+	glVertex2f(x, y + height);	
+	glEnd();
+	glFlush();
+}
+
+void GlueGL::DrawRectangleWithColor(
+	unsigned x,
+	unsigned y,
+	unsigned width,
+	unsigned height,
+	unsigned r,
+	unsigned g,
+	unsigned b)
+{	
+	glBegin(GL_LINE_LOOP);
+	glLineWidth(2.0);	
+	glColor3f(r, g, b);	
+	glVertex2f(x, y);
+	glVertex2f(x + width, y);
+	glVertex2f(x + width, y + height);
+	glVertex2f(x, y + height);	
+	glEnd();
+	glFlush();
+}
+
 }
