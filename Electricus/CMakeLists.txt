@@ -8,13 +8,3 @@ include_directories (${BOOST_PATH})
 
 target_link_libraries (Electricus PUBLIC Common)
 target_link_libraries (Electricus PUBLIC ${SFML_PATH}/lib/*.lib)
-
-#set(BOOST_INCLUDEDIR ${BOOST_PATH})
-#set(BOOST_LIBRARYDIR "${BOOST_PATH}/lib32-msvc-10.0")
-#set(Boost_USE_STATIC_LIBS   ON)
-#set(Boost_USE_MULTITHREADED ON)
-
-#find_package(Boost 1.55.0 COMPONENTS system REQUIRED)
-#include_directories(${Boost_INCLUDE_DIRS})
-#target_link_libraries(Electricus ${Boost_LIBRARIES})
-
