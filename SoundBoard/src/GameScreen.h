@@ -18,15 +18,18 @@ public:
   }
   virtual void customDrawing() {}
   void update(unsigned x_track_hand, unsigned y_track_hand) {
-    area_mgr_->update(x_track_hand, y_track_hand);
+    area_mgr_->update(x_track_hand, y_track_hand, game_clock_);
     customUpdate();
   };
   virtual void customUpdate() {}
   virtual void onActivation() {}
   virtual void onLeave() {}
 
+	void setLevelFile(std::string level_file) { level_file_ = level_file; }
 protected:
   sf::RenderWindow* render_window_;
   AreaManager* area_mgr_;
+	sf::Clock game_clock_;
+	std::string level_file_;
 private:
 };

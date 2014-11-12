@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameScreen.h"
-#include "MusicBlocksProvider.h"
+#include "AbstractProvider.h"
 
 class FallingBlockGame : public GameScreen
 {
@@ -11,13 +11,11 @@ public:
   virtual void setup();
 	virtual void customDrawing();
 	virtual void customUpdate();
-	virtual void onActivation();
+	virtual void onActivation();	
 
-private:
-  sf::Clock game_clock_;
-	sf::RectangleShape boundry_line_;	
-	MusicBlocksProvider blocks_provider_;
-
+private:  	
+	AbstractProvider blocks_provider_;	
+	// move to separate class (TextDisplay or smth)
 	sf::Font font;
 	sf::Text text;
 

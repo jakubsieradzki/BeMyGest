@@ -1,18 +1,25 @@
 #include "FallingMusicBlockFactory.h"
-#include "Flute.h"
+#include <Clarinet.h>
+#include <Bowed.h>
+#include <PercFlut.h>
+#include "ColorMap.h"
 
-AbstractArea* FallingMusicBlockFactory::create(MusicNote music_note)
+AbstractArea* FallingMusicBlockFactory::create(MusicBlock music_block)
 {
-	float x_pos = (music_note.frequency() - config_.minFrq()) / (config_.maxFrq() - config_.minFrq()) * (150.0f - 60.0f);
-	x_pos += 200.0f;
-	//FIX update time is needed
-	float current_time = music_note.start_time() - 5000.0f;
+	sf::CircleShape * rect = new sf::CircleShape(music_block.width());
+	//sf::RectangleShape* rect = new sf::RectangleShape(sf::Vector2f(music_block.width(), music_block.height()));
+	rect->setPosition(sf::Vector2f(music_block.x(), music_block.y()));	
+	rect->setFillColor(ColorMap::map().get(music_block.note()));
+	rect->setOutlineColor(sf::Color::Black);
+  rect->setOutlineThickness(1.0f);
 
-	SoundMovingArea* area = new SoundMovingArea(sf::Rect<float>(x_pos, 0, 60, music_note.duration()), current_time, music_note.start_time(), static_cast<int>(falling_boundry_line_));
-	area->setInsrument(new Flute(300.0));
-	area->setFrequency(music_note.frequency());
-	area->setClock(clock_);
-	area->openStream();
+	builder_
+		.withShape(rect)
+		.withInstrument(new PercFlut())
+		.withFreq(music_block.note())
+		.withFinalPosition(music_block.finalPosition())
+		.withStartTime(music_block.startTime())
+		.withDuration(music_block.duration());
 
-	return area;
+	return builder_.build();
 }

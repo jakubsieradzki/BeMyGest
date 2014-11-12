@@ -9,10 +9,12 @@
 #include "AbstractArea.h"
 #include "FreePlayingGame.h"
 #include "FallingBlocksGame.h"
+#include "LevelSelectScreen.h"
 #include "MenuScreen.h"
 #include "GameScreen.h"
 #include "GameScreenMgr.h"
 #include <iostream>
+#include "ResourceManager.h"
 
 using namespace stk;
 
@@ -21,7 +23,8 @@ int soundMakerEx();
 
 const unsigned int WINDOW_W = 800;
 const unsigned int WINDOW_H = 600;
-const char* GESTURE = "Wave";
+//const char* GESTURE = "Wave";
+const char* GESTURE = "RaiseHand";
 bool hand_recognized = false;
 XnPoint3D projective_point;
 
@@ -75,7 +78,7 @@ void XN_CALLBACK_TYPE Hand_Update(
   depth_generator.GetMetaData(metaData);
   projective_point.X *= WINDOW_W;
   projective_point.X /= metaData.XRes();
-
+  
   projective_point.Y *= WINDOW_H;
   projective_point.Y /= metaData.YRes();
 }
@@ -92,9 +95,9 @@ void XN_CALLBACK_TYPE Hand_Destroy(
 
 int main(int argc, char* argv[])
 {
-  sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "SoundBoard");
+  sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "SoundBoard");	  
 	xn::Context context;
-
+	
 	// Stk initialization
 	Stk::setSampleRate( 44100.0 );
 	Stk::setRawwavePath( "resource/rawwaves/" );
@@ -104,22 +107,25 @@ int main(int argc, char* argv[])
 	context.SetGlobalMirror(false);
 
 	xn::ImageMetaData image_metadata;
-  GameScreenMgr::instance().Add(FREE_PLAYING, new FreePlayingGame(&window));
-  GameScreenMgr::instance().Add(MAIN_MENU, new MenuScreen(&window));
-  GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window));
+  //GameScreenMgr::instance().Add(FREE_PLAYING, new FreePlayingGame(&window));
+  GameScreenMgr::instance().Add(MAIN_MENU, new MenuScreen(&window)); 
+  //GameScreenMgr::instance().Add(FALLING_GAME, new FallingBlockGame(&window));	
+	GameScreenMgr::instance().Add(FALLING_GAME_LEVELS, new LevelSelectScreen(&window, ResourceManager::FALLING_LEVEL_PATH, new FallingBlockGame(&window), FALLING_GAME));
+	GameScreenMgr::instance().Add(FREE_GAME_LEVELS, new LevelSelectScreen(&window, ResourceManager::FREE_LEVEL_PATH, new FreePlayingGame(&window), FREE_PLAYING));	
 
-  while (window.isOpen())
+	//GameScreenMgr::instance().SetActive(FALLING_GAME_LEVELS);
+  while (window.isOpen()) 
   {
     // handle events
     sf::Event event;
-    while (window.pollEvent(event))
+    while (window.pollEvent(event)) 
     {
-      if (event.type == sf::Event::Closed
+      if (event.type == sf::Event::Closed 
             || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         window.close();
     }
     // draw
-    window.clear();
+		window.clear();
     XnStatus status = context.WaitAndUpdateAll();
     bmg::OnError(status, []{
       std::cout << "Couldn't update and wait for new data!" << std::endl;
@@ -130,14 +136,14 @@ int main(int argc, char* argv[])
     unsigned imageY = image_metadata.YRes();
 
     sf::Image raw_image;
-    raw_image.create(imageX, imageY);
+    raw_image.create(imageX, imageY);		
 
     const XnRGB24Pixel* pixel;
     const XnRGB24Pixel* image_row = image_metadata.RGB24Data();
-    for (unsigned y = 0; y < imageY; ++y) {
+    for (int y = 0; y < imageY; ++y) {
       pixel = image_row;
-      for (unsigned x = 0; x < imageX; ++x, ++pixel) {
-        raw_image.setPixel(x, y,
+      for (int x = 0; x < imageX; ++x, ++pixel) {
+        raw_image.setPixel(x, y, 
           sf::Color(pixel->nRed, pixel->nGreen, pixel->nBlue));
       }
       image_row += imageX;
@@ -146,24 +152,25 @@ int main(int argc, char* argv[])
     raw_texture.loadFromImage(raw_image);
     sf::Sprite raw_sprite(raw_texture);
     raw_sprite.setScale(WINDOW_W/(float)imageX, WINDOW_H/(float)imageY);
-    window.draw(raw_sprite);
+    window.draw(raw_sprite);	
 
+		GameScreenMgr::instance().GetActive()->draw();
     // draw hand point
     if (hand_recognized) {
       // Draw point over tracked hand
       sf::CircleShape hand_position(5.0f);
+			hand_position.setFillColor(sf::Color::Red);
       hand_position.setPosition(projective_point.X, projective_point.Y);
-      window.draw(hand_position);
-      GameScreenMgr::instance().GetActive()
-        ->update(static_cast<unsigned>(projective_point.X), static_cast<unsigned>(projective_point.Y));
-    }
-    GameScreenMgr::instance().GetActive()->draw();
+      window.draw(hand_position);           
+      GameScreenMgr::instance().GetActive()->update(projective_point.X, projective_point.Y);
+    }    
+    
     window.display();
-  }
+  }	
 
 	// clean up
-	context.Release();
-	return 0;
+	context.Release();	
+	return 0;	
 }
 
 void initContext(xn::Context *context)
@@ -173,7 +180,7 @@ void initContext(xn::Context *context)
 		std::cout << "Couldn't init OpenNi!" << std::endl;
 		exit(1);
 	});
-
+  	
 	// image & depth
 	status = image_generator.Create(*context);
 	bmg::OnError(status, []{
@@ -217,9 +224,9 @@ int soundMakerEx()
 {
 	Stk::setSampleRate( 44100.0 );
 	Stk::setRawwavePath( "resource/rawwaves/" );
-
+	
 	SoundMaker soundMaker;
-	try
+	try 
 	{
 		soundMaker.setInstrument(new BeeThree());
 	}
@@ -228,7 +235,7 @@ int soundMakerEx()
 		e.printMessage();
 		return 1;
 	}
-
+	
 	soundMaker.playNote(50.0, 0.5);
 	soundMaker.startStream();
 

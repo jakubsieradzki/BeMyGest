@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameScreen.h"
+#include "AbstractProvider.h"
 
 class FreePlayingGame : public GameScreen
 {
@@ -13,4 +14,7 @@ public:
 
 private:
   sf::Clock game_clock_;
+	AbstractProvider blocks_provider_;
+
+	void setupDependencies();
 };

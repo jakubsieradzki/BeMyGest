@@ -9,4 +9,5 @@ public:
 
   virtual void setup();
 private:
+	static const int BTN_GAP = 40;
 };

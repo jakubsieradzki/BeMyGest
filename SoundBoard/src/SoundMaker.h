@@ -4,6 +4,7 @@
 // #include "BeeThree.h"
 #include "RtAudio.h"
 #include "Instrmnt.h"
+#include "Messager.h"
 
 using namespace stk;
 
@@ -12,10 +13,13 @@ struct TickData
 	Instrmnt *instrument;
 	StkFloat freq;
 	StkFloat scaler;
-	long counter;
+	Messager messager;
+	Skini::Message message;
+	int counter;
+	bool haveMessage;
 	bool done;
 
-	TickData() : instrument(0), scaler(1.0), counter(0), done(false) {}
+	TickData() : instrument(0), scaler(1.0), counter(0), done(false), haveMessage(false) {}
 };
 
 class SoundMaker

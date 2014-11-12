@@ -2,35 +2,37 @@
 
 AbstractArea::~AbstractArea()
 {
-
+	if (shape_ != NULL)
+	{
+		delete shape_;
+	}
 }
 
-void AbstractArea::update(unsigned int x, unsigned int y)
+void AbstractArea::update(unsigned int x, unsigned int y, sf::Clock clock)
 {
+	if (!ready_)
+	{
+		return;
+	}
+
 	if (isWithinArea(x, y))
 	{
-		onHover(x, y);
+		onHover(x, y, clock);
+		inside_ = true;
 	}
-	else
-	{
+	else if(inside_)
+	{		
 		onLeave(x, y);
+		inside_ = false;
 	}
 }
 
 void AbstractArea::draw(sf::RenderWindow* render_window)
 {  
-  sf::RectangleShape rect(sf::Vector2f(width_, height_));
-  rect.setPosition(x_, y_);
-  rect.setFillColor(color_);
-	rect.setOutlineColor(sf::Color(0, 0, 0, 255));
-  rect.setOutlineThickness(1.0f);
-  render_window->draw(rect);
+  render_window->draw(*shape_);
 }
 
 bool AbstractArea::isWithinArea(unsigned x, unsigned y)
 {
-	return 
-		x > x_ && x < x_ + width_
-		&&
-		y > y_ && y < y_ + height_;
+	return shape_->getGlobalBounds().contains(x, y);
 }
